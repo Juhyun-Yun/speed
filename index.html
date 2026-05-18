@@ -1,0 +1,2399 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<title>속력의 숲 - 6학년 과학</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Do+Hyeon&family=Jua&display=swap" rel="stylesheet">
+<script>
+// 서버 프리로드 (Apps Script 배포 시에만 처리됨)
+(function() {
+  var raw = '<?!= preloadedJson ?>';
+  try {
+    var parsed = JSON.parse(raw);
+    if (parsed) window.__PRELOADED_STUDENTS = parsed;
+  } catch (e) { /* 로컬 실행 시: 처리되지 않은 템플릿 문자열이라 파싱 실패 → 무시 */ }
+})();
+</script>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html, body {
+  width: 100%; height: 100%;
+  overflow: hidden;
+  background: #2a1d12;
+  font-family: 'Jua', 'Gowun Dodum', sans-serif;
+  user-select: none;
+  color: #5a4020;
+}
+#stage-wrap {
+  position: fixed; inset: 0;
+  display: flex; align-items: center; justify-content: center;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(140, 80, 40, 0.4) 0%, transparent 50%),
+    linear-gradient(135deg, #2a1d12 0%, #3d2818 100%);
+  overflow: hidden;
+}
+#stage {
+  width: 1280px; height: 720px;
+  flex-shrink: 0;
+  position: relative;
+  background: linear-gradient(180deg, #fff5e1 0%, #ffead0 70%, #ffe0b3 100%);
+  overflow: hidden;
+  border-radius: 28px;
+  box-shadow:
+    0 0 0 9px #3d2818,
+    0 0 0 11px #5a4020,
+    0 30px 70px rgba(0,0,0,0.5);
+  transform-origin: center center;
+}
+.screen {
+  position: absolute; inset: 0;
+  display: none;
+}
+.screen.active { display: block; animation: fadeIn .35s ease; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+/* ===== 공통 버튼 ===== */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 12px 28px;
+  border: none; border-radius: 999px;
+  background: #ff8a3d; color: white;
+  font-family: 'Jua', sans-serif;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 #d96a1f, 0 6px 12px rgba(0,0,0,.15);
+  transition: transform .1s ease, box-shadow .1s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: translateY(2px); box-shadow: 0 2px 0 #d96a1f, 0 3px 5px rgba(0,0,0,.15); }
+.btn.blue { background: #4a9cff; box-shadow: 0 4px 0 #2d7bd9, 0 6px 12px rgba(0,0,0,.15); }
+.btn.blue:active { box-shadow: 0 2px 0 #2d7bd9, 0 3px 5px rgba(0,0,0,.15); }
+.btn.green { background: #5fc46b; box-shadow: 0 4px 0 #3ea34a, 0 6px 12px rgba(0,0,0,.15); }
+.btn.green:active { box-shadow: 0 2px 0 #3ea34a, 0 3px 5px rgba(0,0,0,.15); }
+.btn.purple { background: #a26df7; box-shadow: 0 4px 0 #7e4ed3, 0 6px 12px rgba(0,0,0,.15); }
+.btn.purple:active { box-shadow: 0 2px 0 #7e4ed3, 0 3px 5px rgba(0,0,0,.15); }
+.btn.ghost { background: rgba(255,255,255,.7); color: #8a6030; box-shadow: 0 4px 0 rgba(0,0,0,.1), 0 6px 12px rgba(0,0,0,.08); }
+.btn.ghost:active { box-shadow: 0 2px 0 rgba(0,0,0,.1), 0 3px 5px rgba(0,0,0,.08); }
+.btn.small { font-size: 18px; padding: 10px 22px; }
+.btn.big { font-size: 30px; padding: 18px 50px; }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* ===== 공통 상단바 ===== */
+.topbar {
+  position: absolute;
+  top: 16px; left: 36px; right: 36px;
+  height: 64px;
+  background: rgba(255, 248, 230, 0.85);
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-shadow: 0 3px 12px rgba(74, 40, 20, 0.08);
+  z-index: 10;
+  overflow: visible;
+}
+.tb-home {
+  width: 44px; height: 44px;
+  background: rgba(255, 186, 89, 0.18);
+  border: none; border-radius: 12px;
+  font-size: 22px;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.tb-home:hover { background: rgba(255, 186, 89, 0.35); }
+.tb-title {
+  flex: 1;
+  text-align: center;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 30px;
+  color: #5a4020;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.tb-toc {
+  background: rgba(255, 186, 89, 0.22);
+  color: #d35a17;
+  border: none; border-radius: 12px;
+  padding: 10px 22px;
+  font-family: 'Jua', sans-serif;
+  font-size: 20px;
+  cursor: pointer;
+  min-width: 84px;
+  flex-shrink: 0;
+}
+.tb-toc:hover { background: rgba(255, 186, 89, 0.35); }
+
+/* ===== 학습 페이지 본문 ===== */
+.lesson-content {
+  position: absolute;
+  top: 96px; left: 36px; right: 36px; bottom: 86px;
+  background: white;
+  border-radius: 20px;
+  padding: 26px 36px;
+  box-shadow: 0 6px 18px rgba(74, 40, 20, .08);
+}
+.lesson-bottom {
+  position: absolute;
+  bottom: 16px; left: 36px; right: 36px;
+  height: 56px;
+  display: flex; align-items: center; justify-content: space-between;
+  z-index: 10;
+}
+/* 문제 상황 페이지만: 그림(scene)이 더 크게 보이도록 본문 확장 + 버튼을 카드 위 레이어로 */
+#screen-problem .lesson-content {
+  top: 88px; bottom: 16px;
+  padding: 22px 36px 26px 36px;
+}
+#screen-problem .lesson-bottom {
+  bottom: 30px; left: 56px; right: 56px;
+  height: auto;
+  z-index: 20;
+}
+#screen-problem .problem-info { padding-bottom: 64px; }
+
+/* 운동이란? 페이지: 그림 영역 확장 + 결과 글씨 확대 + 버튼 오버레이 */
+#screen-motion .lesson-content {
+  top: 88px; bottom: 16px;
+  padding: 22px 36px 70px 36px;
+}
+#screen-motion .lesson-bottom {
+  bottom: 30px; left: 56px; right: 56px;
+  height: auto;
+  z-index: 20;
+}
+#screen-motion .motion-instruction {
+  padding: 6px 16px;
+  margin-bottom: 6px;
+}
+#screen-motion .motion-scene { height: 200px; }
+#screen-motion .motion-controls { margin: 6px 0; }
+#screen-motion .motion-quiz { padding: 6px 16px; }
+#screen-motion .motion-result {
+  font-size: 22px;
+  padding: 12px 22px;
+  line-height: 1.45;
+  margin-top: 6px;
+}
+
+/* ===== 타이틀 ===== */
+#screen-title {
+  background: radial-gradient(ellipse at top, #ffd986, #ffba59 40%, #ff8a3d 100%);
+}
+.title-center {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+}
+.title-tag {
+  background: rgba(255,255,255,.85);
+  color: #5a4020;
+  padding: 8px 24px;
+  border-radius: 999px;
+  font-size: 20px;
+  margin-bottom: 18px;
+  font-family: 'Jua', sans-serif;
+}
+.title-h1 {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 130px;
+  color: white;
+  text-shadow: 6px 6px 0 #b34a13, 10px 10px 28px rgba(0,0,0,.3);
+  letter-spacing: 8px;
+  margin-bottom: 10px;
+  animation: bounce 1.6s ease infinite;
+}
+.title-h2 {
+  font-size: 30px;
+  color: white;
+  background: rgba(0,0,0,.18);
+  padding: 8px 28px;
+  border-radius: 999px;
+  margin-bottom: 26px;
+  font-family: 'Jua', sans-serif;
+}
+.title-name-selector {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 18px;
+  padding: 16px 28px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-family: 'Jua', sans-serif;
+  font-size: 28px;
+  color: #1a3b73;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+.title-name-selector .ts-label { white-space: nowrap; }
+.title-name-selector select {
+  font-family: 'Jua', sans-serif;
+  font-size: 24px;
+  padding: 10px 22px;
+  border: 3px solid #ffba59;
+  border-radius: 12px;
+  background: white;
+  color: #5a4020;
+  cursor: pointer;
+  min-width: 280px;
+}
+.title-name-selector select:focus { outline: none; border-color: #ff8a3d; }
+.title-greeting {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 26px;
+  color: white;
+  text-shadow: 2px 2px 0 #b34a13, 4px 4px 12px rgba(0,0,0,.25);
+  margin-bottom: 20px;
+  min-height: 32px;
+  text-align: center;
+}
+.float { position: absolute; font-size: 80px; pointer-events: none; }
+.float.f1 { top: 80px; left: 100px; animation: floatA 3s ease infinite; }
+.float.f2 { top: 120px; right: 120px; animation: floatA-flip 2.5s ease infinite reverse; }
+.float.f3 { bottom: 90px; left: 130px; animation: floatA-flip 2s ease infinite; }
+.float.f4 { bottom: 100px; right: 110px; animation: floatA 2.8s ease infinite reverse; }
+@keyframes bounce { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+@keyframes floatA { 0%,100% { transform: translateY(0) rotate(0); } 50% { transform: translateY(-15px) rotate(8deg); } }
+@keyframes floatA-flip {
+  0%, 100% { transform: scaleX(-1) translateY(0) rotate(0); }
+  50% { transform: scaleX(-1) translateY(-15px) rotate(-8deg); }
+}
+
+/* ===== 메뉴 ===== */
+.menu-layout {
+  position: absolute;
+  top: 96px; left: 36px; right: 36px; bottom: 16px;
+  display: flex; flex-direction: column;
+  gap: 12px;
+}
+.goal-banner {
+  display: flex; align-items: center;
+  gap: 14px;
+  background: rgba(255, 248, 230, 0.7);
+  border: 2px solid rgba(255, 186, 89, 0.4);
+  border-radius: 14px;
+  padding: 9px 18px;
+  height: 54px;
+}
+.goal-tag {
+  background: linear-gradient(135deg, #ffd986, #ffba59);
+  color: #5a4020;
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 20px;
+  white-space: nowrap;
+  display: flex; align-items: center; gap: 6px;
+}
+.goal-content {
+  flex: 1;
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Jua', sans-serif;
+  font-size: 20px;
+  color: #5a4020;
+  background: rgba(232, 250, 230, 0.7);
+  border: 2px solid rgba(95, 196, 107, 0.35);
+  padding: 8px 18px;
+  border-radius: 12px;
+}
+.goal-content .target { font-size: 22px; }
+.goal-content b { color: #2e8636; }
+.lesson-list {
+  flex: 1;
+  display: flex; flex-direction: column;
+  gap: 8px;
+}
+.lesson-row {
+  display: flex; align-items: center; gap: 14px;
+  background: white;
+  border-radius: 12px;
+  padding: 5px 20px;
+  cursor: pointer;
+  border: 3px solid transparent;
+  box-shadow: 0 3px 8px rgba(74, 40, 20, .06);
+  transition: transform .15s ease, border-color .15s ease;
+  min-height: 48px;
+}
+.lesson-row:hover { transform: translateY(-2px); border-color: #ff8a3d; }
+.lesson-row.recommended { border-color: #ff8a3d; background: linear-gradient(90deg, #fff5e1, white 30%); }
+.lesson-row .num {
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 19px;
+  color: white;
+  flex-shrink: 0;
+}
+.lesson-row .num.orange { background: #ff8a3d; }
+.lesson-row .num.yellow { background: #ffd986; color: #b35a17; }
+.lesson-row .num.green { background: #5fc46b; }
+.lesson-row .num.purple { background: #a26df7; }
+.lesson-row .ico { font-size: 26px; flex-shrink: 0; width: 32px; text-align: center; }
+.lesson-row .row-title {
+  flex: 1;
+  font-family: 'Jua', sans-serif;
+  font-size: 22px;
+  color: #5a4020;
+}
+.recommend-badge {
+  background: linear-gradient(135deg, #ffba59, #ff8a3d);
+  color: white;
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-family: 'Jua', sans-serif;
+  font-size: 16px;
+  display: flex; align-items: center; gap: 4px;
+  box-shadow: 0 2px 6px rgba(255, 138, 61, 0.3);
+}
+.status-pill {
+  background: #f0eae0;
+  color: #8a7050;
+  padding: 5px 16px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-family: 'Jua', sans-serif;
+}
+.status-pill.done { background: #d4f5d8; color: #2e8636; }
+.row-arrow {
+  font-size: 22px; color: #b89060;
+  width: 28px; text-align: center;
+}
+.menu-tip {
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+  font-size: 16px;
+  color: #b35a17;
+  padding: 2px;
+}
+.menu-tip b { color: #5a4020; }
+
+/* ===== 문제 상황 ===== */
+.problem-layout {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 26px;
+  height: 100%;
+}
+.problem-scene {
+  background: linear-gradient(180deg, #b3e5fc 0%, #c8e6c9 65%, #81c784 100%);
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  border: 4px solid #ffba59;
+}
+.ps-title {
+  position: absolute; top: 14px; left: 50%; transform: translateX(-50%);
+  background: rgba(255,255,255,.92);
+  padding: 6px 22px;
+  border-radius: 999px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 22px;
+  color: #5a4020;
+  white-space: nowrap;
+  z-index: 5;
+}
+.ps-sun { position: absolute; top: 16px; right: 24px; font-size: 50px; }
+.ps-cloud { position: absolute; font-size: 50px; }
+.ps-track {
+  position: absolute;
+  left: 30px; right: 30px; bottom: 80px;
+  height: 8px;
+  background: repeating-linear-gradient(90deg, #ff8a3d 0 18px, #ffba59 18px 36px);
+  border-radius: 4px;
+}
+.ps-flag {
+  position: absolute;
+  right: 22px; bottom: 92px;
+  font-size: 50px;
+}
+.ps-runner {
+  position: absolute;
+  font-size: 60px;
+  transform: scaleX(-1);
+  animation: runBounce 0.5s ease-in-out infinite;
+}
+@keyframes runBounce {
+  0%, 100% { transform: scaleX(-1) translateY(0); }
+  50% { transform: scaleX(-1) translateY(-6px); }
+}
+.ps-runner-label {
+  position: absolute;
+  background: white;
+  border: 3px solid #5a4020;
+  border-radius: 999px;
+  padding: 2px 12px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 18px;
+  color: #5a4020;
+  white-space: nowrap;
+}
+.problem-info {
+  display: flex; flex-direction: column;
+  gap: 14px;
+}
+.problem-narration {
+  background: #fff8d1;
+  border-left: 8px solid #ffba59;
+  border-radius: 12px;
+  padding: 16px 20px;
+  font-size: 22px;
+  color: #5a4020;
+  line-height: 1.55;
+}
+.problem-narration b { color: #d35a17; }
+.problem-results {
+  background: #f6fbff;
+  border: 4px solid #cdeaff;
+  border-radius: 16px;
+  padding: 14px 20px;
+}
+.problem-results h3 {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 24px;
+  color: #1a3b73;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.problem-results .row {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 7px 12px;
+  background: white;
+  border-radius: 10px;
+  margin-bottom: 6px;
+  font-size: 20px;
+  color: #1a3b73;
+}
+.problem-results .row:last-child { margin-bottom: 0; }
+.problem-results .row .who {
+  font-family: 'Jua', sans-serif;
+  font-size: 20px;
+}
+.problem-results .row .data {
+  font-family: 'Do Hyeon', sans-serif;
+  color: #d35a17;
+  font-size: 22px;
+}
+.problem-question {
+  background: linear-gradient(135deg, #fff5e1, #ffe0b3);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+  border: 4px solid #ff8a3d;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 28px;
+  color: #5a4020;
+}
+
+/* ===== 운동이란? ===== */
+.motion-instruction {
+  background: #fff8d1;
+  border-left: 6px solid #ffba59;
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 19px;
+  color: #5a4020;
+  margin-bottom: 8px;
+  line-height: 1.35;
+}
+.motion-instruction b { color: #d35a17; }
+.motion-scene {
+  position: relative;
+  background: linear-gradient(180deg, #87ceeb 0%, #b3e5fc 60%, #c8e6c9 60%, #81c784 100%);
+  border-radius: 14px;
+  height: 170px;
+  overflow: hidden;
+  border: 3px solid #ffba59;
+}
+.m-sun { position: absolute; top: 10px; right: 30px; font-size: 40px; }
+.m-cloud { position: absolute; top: 14px; font-size: 36px; }
+.m-tree { position: absolute; bottom: 18px; font-size: 50px; }
+.m-house { position: absolute; bottom: 22px; font-size: 46px; }
+.m-car {
+  position: absolute; bottom: 12px; font-size: 48px;
+  transform: scaleX(-1);
+  transition: left 3s linear;
+  z-index: 2;
+}
+.m-bird {
+  position: absolute; font-size: 34px;
+  transform: scaleX(-1);
+  transition: left 3s linear, top 3s ease-in-out;
+  z-index: 2;
+}
+.m-road {
+  position: absolute; bottom: 0; left: 0; right: 0; height: 26px;
+  background: #555;
+  border-top: 3px dashed #fff;
+}
+.motion-controls {
+  display: flex; gap: 12px; align-items: center; justify-content: center;
+  margin: 8px 0;
+}
+.motion-quiz {
+  background: #f6fbff;
+  border-radius: 12px;
+  padding: 8px 18px;
+  border: 3px solid #cdeaff;
+}
+.motion-quiz .mq-q {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 20px;
+  color: #1a3b73;
+  margin-bottom: 6px;
+  text-align: center;
+}
+.motion-options {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+}
+.m-opt {
+  background: white;
+  border: 3px solid #cdeaff;
+  border-radius: 12px;
+  padding: 6px 4px;
+  cursor: pointer;
+  text-align: center;
+  font-size: 18px;
+  color: #1a3b73;
+  font-family: 'Jua', sans-serif;
+  transition: all .15s ease;
+}
+.m-opt .m-opt-ico { font-size: 32px; display: block; margin-bottom: 2px; }
+.m-opt:hover { transform: translateY(-2px); }
+.m-opt.correct { background: #e8fdec; border-color: #5fc46b; }
+.m-opt.wrong { background: #ffe8e8; border-color: #ff5252; }
+.motion-result {
+  margin-top: 8px;
+  background: #e3f2fd;
+  border-radius: 12px;
+  padding: 10px 18px;
+  font-size: 18px;
+  color: #1a3b73;
+  display: none;
+  text-align: center;
+  line-height: 1.4;
+}
+.motion-result.show { display: block; animation: fadeIn .4s; }
+.motion-result b { color: #d35a17; }
+
+/* ===== 빠르기 비교 (트랙) ===== */
+.race-instr {
+  background: #fff8d1;
+  border-left: 8px solid #ffba59;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-size: 22px;
+  color: #5a4020;
+  margin-bottom: 14px;
+  line-height: 1.4;
+}
+.race-instr b { color: #d35a17; }
+.race-track {
+  background: #fff5e1;
+  border-radius: 12px;
+  margin-bottom: 12px;
+  position: relative;
+  height: 76px;
+  border: 3px solid #ffd986;
+}
+.track-label {
+  position: absolute;
+  left: 16px; top: 50%; transform: translateY(-50%);
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 22px;
+  color: #5a4020;
+  width: 100px;
+}
+.track-line {
+  position: absolute;
+  left: 130px; right: 70px;
+  top: 50%; height: 6px;
+  background: repeating-linear-gradient(90deg, #ffba59 0 28px, #ffd986 28px 56px);
+  border-radius: 3px;
+  transform: translateY(-50%);
+}
+.track-flag {
+  position: absolute;
+  right: 18px; top: 50%; transform: translateY(-50%);
+  font-size: 36px;
+}
+.track-runner {
+  position: absolute;
+  top: 50%;
+  font-size: 48px;
+  z-index: 2;
+  transform: translateY(-50%) scaleX(-1);
+}
+.track-runner.go { transition: left linear; }
+.race-controls {
+  display: flex; gap: 14px; align-items: center; justify-content: center;
+  margin-top: 16px;
+}
+.race-result {
+  margin-top: 12px;
+  background: #e8fdec;
+  border-radius: 12px;
+  padding: 12px 22px;
+  color: #1a3b73;
+  font-size: 20px;
+  display: none;
+  text-align: center;
+  line-height: 1.5;
+}
+.race-result.show { display: block; animation: fadeIn .3s; }
+.race-result b { color: #2e8636; }
+.race-distmark {
+  position: absolute;
+  top: -2px; transform: translateX(-50%);
+  background: #5a4020; color: white;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 16px;
+  padding: 2px 10px; border-radius: 8px;
+  opacity: 0;
+  transition: opacity .3s;
+  white-space: nowrap;
+}
+.race-distmark.show { opacity: 1; }
+.race-timemark {
+  position: absolute;
+  top: -2px; right: 8px;
+  background: #4a9cff; color: white;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 16px;
+  padding: 2px 10px; border-radius: 8px;
+  opacity: 0;
+  transition: opacity .3s;
+}
+.race-timemark.show { opacity: 1; }
+.time-display {
+  background: #5a4020;
+  color: #fff8d1;
+  font-family: 'Do Hyeon', sans-serif;
+  padding: 6px 18px;
+  border-radius: 10px;
+  font-size: 24px;
+  display: inline-block;
+}
+
+/* ===== 속력의 비밀 ===== */
+.speed-step {
+  display: none;
+  height: 100%;
+}
+.speed-step.active { display: flex; flex-direction: column; animation: fadeIn .4s; }
+.speed-progress {
+  display: flex; gap: 10px; justify-content: center;
+  margin-bottom: 10px;
+}
+.speed-progress .dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: #ffd986;
+  border: 2px solid #ffba59;
+}
+.speed-progress .dot.active { background: #ff8a3d; border-color: #d96a1f; }
+.speed-h2 {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 30px;
+  color: #5a4020;
+  text-align: center;
+  margin-bottom: 18px;
+}
+.speed-h2 b { color: #d35a17; }
+.speed-data-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 14px;
+}
+.speed-friend-card {
+  background: #f6fbff;
+  border: 4px solid #cdeaff;
+  border-radius: 18px;
+  padding: 18px 14px;
+  text-align: center;
+}
+.speed-friend-card .sf-ico {
+  font-size: 60px;
+  display: inline-block;
+  transform: scaleX(-1);
+}
+.speed-friend-card .sf-name {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 26px;
+  color: #1a3b73;
+  margin: 6px 0 10px;
+}
+.speed-friend-card .sf-data {
+  font-size: 22px;
+  color: #1a3b73;
+  line-height: 1.5;
+}
+.speed-friend-card .sf-data b { color: #d35a17; }
+.speed-friend-card .sf-calc {
+  margin-top: 10px;
+  background: #fff5e1;
+  border-radius: 12px;
+  padding: 10px 8px;
+  font-size: 20px;
+  color: #1a3b73;
+  font-family: 'Jua', sans-serif;
+}
+.speed-friend-card .sf-calc b {
+  color: #d35a17;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 26px;
+}
+.speed-friend-card.winner {
+  background: #fff5e1;
+  border-color: #ff8a3d;
+  box-shadow: 0 6px 14px rgba(255,138,61,.25);
+}
+.speed-helper {
+  text-align: center;
+  font-size: 22px;
+  color: #5a4020;
+  margin-top: 6px;
+  line-height: 1.5;
+}
+.speed-helper b { color: #d35a17; }
+.speed-think-options {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  max-width: 920px;
+  margin: 0 auto;
+}
+.speed-think-opt {
+  background: #f6fbff;
+  border: 4px solid #cdeaff;
+  border-radius: 18px;
+  padding: 22px 16px;
+  font-size: 22px;
+  text-align: center;
+  cursor: pointer;
+  color: #1a3b73;
+  font-family: 'Jua', sans-serif;
+  line-height: 1.4;
+  transition: all .15s ease;
+}
+.speed-think-opt:hover { transform: translateY(-2px); }
+.speed-think-opt .sti-ico { font-size: 50px; display: block; margin-bottom: 6px; }
+.speed-think-opt.wrong { background: #ffe8e8; border-color: #ff5252; }
+.speed-think-opt.right { background: #e8fdec; border-color: #5fc46b; }
+.speed-think-feedback {
+  margin-top: 16px; min-height: 44px;
+  font-family: 'Jua', sans-serif;
+  font-size: 22px;
+  text-align: center;
+  color: #1a3b73;
+}
+.speed-feedback-bad { color: #d63838; }
+.speed-feedback-good { color: #2e8636; }
+.speed-conclusion {
+  background: linear-gradient(135deg, #fff5e1, #ffe0b3);
+  border: 5px solid #ff8a3d;
+  border-radius: 22px;
+  padding: 24px 30px;
+  text-align: center;
+  margin: auto 0;
+}
+.speed-conclusion .sc-trophy { font-size: 64px; }
+.speed-conclusion .sc-line1 {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 34px;
+  color: #5a4020;
+  margin: 6px 0 12px;
+  line-height: 1.4;
+}
+.speed-conclusion .sc-line1 b { color: #d35a17; }
+.speed-conclusion .sc-line2 {
+  font-size: 22px;
+  color: #5a4020;
+  margin-bottom: 16px;
+  font-family: 'Jua', sans-serif;
+}
+.speed-formula-big {
+  background: white;
+  border: 5px solid #ff8a3d;
+  border-radius: 18px;
+  padding: 16px 30px;
+  display: inline-block;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 36px;
+  color: #5a4020;
+}
+.speed-formula-big .frac {
+  display: inline-flex; flex-direction: column; align-items: center;
+  margin: 0 12px; vertical-align: middle;
+}
+.speed-formula-big .frac .top { padding: 0 12px; }
+.speed-formula-big .frac .bottom {
+  padding: 0 12px; border-top: 4px solid #5a4020; margin-top: 2px;
+}
+.speed-step-nav {
+  margin-top: auto; padding-top: 14px;
+  display: flex; justify-content: center; gap: 14px;
+}
+
+/* ===== 속력 계산기 ===== */
+.calc-grid {
+  display: grid; grid-template-columns: 1.15fr 1fr;
+  gap: 24px;
+  margin-bottom: 16px;
+}
+.calc-input-group {
+  background: #f6fbff;
+  border-radius: 16px;
+  padding: 20px 26px;
+  border: 3px solid #cdeaff;
+}
+.calc-input-group h3 {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 24px;
+  color: #1a3b73; margin-bottom: 14px;
+  text-align: center;
+}
+.calc-input-row {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 12px;
+}
+.calc-input-row label {
+  font-size: 22px;
+  color: #1a3b73; width: 120px;
+  font-family: 'Jua', sans-serif;
+}
+.calc-input-row input {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 26px;
+  border: 3px solid #cdeaff;
+  border-radius: 12px;
+  font-family: 'Jua', sans-serif;
+  text-align: center;
+  background: white;
+}
+.calc-input-row input:focus { outline: none; border-color: #ff8a3d; }
+.calc-input-row .unit {
+  font-size: 22px; color: #1a3b73; width: 50px;
+  font-family: 'Jua', sans-serif;
+}
+.calc-formula-hint {
+  text-align: center;
+  font-size: 19px;
+  color: #888;
+  font-family: 'Jua', sans-serif;
+  margin-top: 6px;
+}
+.calc-result-card {
+  background: linear-gradient(135deg, #fff5e1, #ffe0b3);
+  border-radius: 16px;
+  padding: 18px;
+  text-align: center;
+  border: 5px solid #ff8a3d;
+  display: flex; flex-direction: column;
+  justify-content: center;
+}
+.calc-result-card .label {
+  font-size: 22px; color: #5a4020;
+  font-family: 'Jua', sans-serif;
+}
+.calc-result-card .speed-num {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 70px;
+  color: #d35a17;
+  line-height: 1.05;
+  margin: 4px 0;
+}
+.calc-result-card .unit {
+  font-size: 22px;
+  color: #5a4020;
+  font-family: 'Jua', sans-serif;
+}
+.examples-h3 {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 22px;
+  color: #5a4020;
+  margin-bottom: 8px;
+}
+.examples-list {
+  display: grid; grid-template-columns: repeat(6, 1fr);
+  gap: 10px;
+}
+.example-item {
+  background: #e3f2fd;
+  border-radius: 14px;
+  padding: 10px 6px;
+  text-align: center;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: all .15s ease;
+}
+.example-item:hover { transform: translateY(-2px); border-color: #4a9cff; }
+.example-item .ex-ico { font-size: 34px; }
+.example-item .ex-name {
+  font-size: 15px; color: #1a3b73; font-family: 'Jua', sans-serif;
+}
+.example-item .ex-speed {
+  color: #d35a17;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 18px;
+}
+.example-item .ex-kmh {
+  font-size: 12px; color: #888;
+  font-family: 'Jua', sans-serif;
+}
+.calc-tip {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 18px;
+  color: #5a4020;
+  font-family: 'Jua', sans-serif;
+}
+
+/* ===== 속력 비교 연습 ===== */
+.compare-instruction {
+  background: #fff8d1;
+  border-left: 6px solid #ffba59;
+  padding: 8px 18px;
+  border-radius: 10px;
+  font-size: 19px;
+  color: #5a4020;
+  line-height: 1.4;
+  text-align: center;
+}
+.compare-instruction b { color: #d35a17; }
+.compare-instruction .small { font-size: 16px; color: #888; display: block; margin-top: 2px; }
+.compare-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+  margin: 10px 0;
+}
+.compare-card {
+  background: #f6fbff;
+  border: 3px solid #cdeaff;
+  border-radius: 14px;
+  padding: 10px 10px;
+  text-align: center;
+  display: flex; flex-direction: column;
+  gap: 5px;
+}
+.compare-card.correct {
+  background: #e8fdec;
+  border-color: #5fc46b;
+}
+.compare-card .cc-ico {
+  font-size: 40px;
+  display: inline-block;
+  transform: scaleX(-1);
+  line-height: 1;
+}
+.compare-card .cc-name {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 22px;
+  color: #1a3b73;
+}
+.compare-card .cc-data {
+  font-size: 17px;
+  color: #5a4020;
+  line-height: 1.35;
+  background: white;
+  border-radius: 8px;
+  padding: 4px;
+}
+.compare-card .cc-data b { color: #d35a17; font-family: 'Do Hyeon', sans-serif; font-size: 20px; }
+.cc-input-row {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 17px;
+  color: #5a4020;
+  font-family: 'Jua', sans-serif;
+}
+.cc-input-row input {
+  width: 64px;
+  padding: 5px 8px;
+  font-size: 20px;
+  border: 3px solid #cdeaff;
+  border-radius: 8px;
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+  background: white;
+}
+.cc-input-row input:focus { outline: none; border-color: #ff8a3d; }
+.compare-card .btn { padding: 6px 16px; font-size: 16px; box-shadow: 0 3px 0 #3ea34a, 0 4px 8px rgba(0,0,0,.12); }
+.compare-card .btn:active { box-shadow: 0 1px 0 #3ea34a, 0 2px 4px rgba(0,0,0,.12); }
+.cc-feedback {
+  font-size: 15px;
+  color: #5a4020;
+  min-height: 20px;
+  font-family: 'Jua', sans-serif;
+  line-height: 1.3;
+}
+.cc-feedback b { color: #2e8636; font-family: 'Do Hyeon', sans-serif; font-size: 17px; }
+.compare-rank-area {
+  text-align: center;
+  margin-top: 4px;
+}
+.compare-rank-area .btn { padding: 10px 28px; font-size: 20px; }
+.compare-result {
+  margin-top: 8px;
+  background: #fff5e1;
+  border: 3px solid #ffba59;
+  border-radius: 12px;
+  padding: 8px 18px;
+  display: none;
+  text-align: left;
+  max-width: 600px;
+  margin-left: auto; margin-right: auto;
+}
+.compare-result.show { display: block; animation: fadeIn .3s; }
+.compare-result .rank-title {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 20px;
+  color: #5a4020;
+  text-align: center;
+  margin-bottom: 4px;
+}
+.compare-result .rank-row {
+  font-size: 17px;
+  color: #5a4020;
+  margin-bottom: 2px;
+  font-family: 'Jua', sans-serif;
+}
+.compare-result .rank-row b { color: #d35a17; font-family: 'Do Hyeon', sans-serif; }
+
+/* ===== 안전 ===== */
+.safety-intro {
+  text-align: center;
+  font-size: 22px;
+  color: #5a4020;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+.safety-intro b { color: #d35a17; }
+.safety-tabs { display: flex; gap: 14px; margin-bottom: 16px; }
+.safety-tab {
+  flex: 1; padding: 12px;
+  background: #f6fbff;
+  border: 4px solid #cdeaff;
+  border-radius: 14px;
+  text-align: center;
+  cursor: pointer;
+  font-size: 24px;
+  color: #1a3b73;
+  font-family: 'Jua', sans-serif;
+}
+.safety-tab.active {
+  background: #ffba59; border-color: #ff8a3d; color: white;
+}
+.safety-panel { display: none; }
+.safety-panel.active { display: block; animation: fadeIn .3s; }
+.safety-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+.safety-item {
+  background: #fff8d1;
+  border: 3px solid #ffba59;
+  border-radius: 16px;
+  padding: 14px 20px;
+  display: flex; align-items: center; gap: 18px;
+}
+.safety-item .s-ico {
+  font-size: 54px;
+  flex-shrink: 0;
+  width: 64px;
+  text-align: center;
+}
+.safety-item .s-ico svg { display: block; margin: 0 auto; width: 56px; height: 56px; }
+.safety-item .s-text {
+  font-size: 22px; color: #5a4020; line-height: 1.4;
+  font-family: 'Jua', sans-serif;
+}
+.safety-item .s-text b { color: #d35a17; }
+
+/* ===== 퀴즈 ===== */
+.quiz-progress {
+  background: #f6fbff;
+  border-radius: 999px;
+  height: 14px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+.quiz-progress > div {
+  background: linear-gradient(90deg, #ffba59, #ff8a3d);
+  height: 100%; transition: width .3s ease;
+}
+.quiz-q {
+  font-size: 28px; color: #5a4020;
+  margin-bottom: 22px;
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+  line-height: 1.5;
+}
+.quiz-options {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.quiz-opt {
+  padding: 20px;
+  background: #f6fbff;
+  border: 4px solid #cdeaff;
+  border-radius: 14px;
+  font-size: 22px;
+  color: #1a3b73;
+  cursor: pointer;
+  text-align: center;
+  font-family: 'Jua', sans-serif;
+  transition: all .15s ease;
+}
+.quiz-opt:hover { border-color: #4a9cff; background: #e3f2fd; }
+.quiz-opt.correct { border-color: #5fc46b; background: #e8fdec; }
+.quiz-opt.wrong { border-color: #ff5252; background: #ffe8e8; }
+.quiz-feedback {
+  margin-top: 14px; text-align: center;
+  font-size: 22px; color: #5a4020;
+  min-height: 36px;
+  font-family: 'Jua', sans-serif;
+}
+.quiz-end {
+  display: none; text-align: center; padding-top: 20px;
+}
+.quiz-end .qe-trophy { font-size: 80px; }
+.quiz-end .qe-msg {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 42px; color: #5a4020;
+}
+.quiz-end .qe-score {
+  font-size: 24px; color: #5a4020;
+  margin: 10px 0 24px;
+}
+.quiz-end .qe-score b {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 38px; color: #d35a17;
+}
+
+/* ===== 회전 안내 ===== */
+#rotate-hint {
+  display: none;
+  position: fixed; inset: 0;
+  background: #2a1d12; color: white;
+  z-index: 9999;
+  align-items: center; justify-content: center;
+  flex-direction: column; text-align: center; padding: 40px;
+}
+#rotate-hint .ico { font-size: 100px; margin-bottom: 20px; animation: rot 1.6s infinite; }
+#rotate-hint .txt { font-size: 24px; line-height: 1.5; }
+@keyframes rot {
+  0% { transform: rotate(0); }
+  50% { transform: rotate(-90deg); }
+  100% { transform: rotate(-90deg); }
+}
+@media (orientation: portrait) and (max-width: 900px) {
+  #rotate-hint { display: flex; }
+}
+</style>
+</head>
+<body>
+
+<div id="rotate-hint">
+  <div class="ico">📱</div>
+  <div class="txt">기기를 가로로 돌려 주세요!<br>가로 모드에서 사용할 수 있어요.</div>
+</div>
+
+<div id="stage-wrap">
+  <div id="stage">
+
+    <!-- ============ 타이틀 ============ -->
+    <section id="screen-title" class="screen active">
+      <span class="float f1">🚗</span>
+      <span class="float f2">🚴</span>
+      <span class="float f3">🏃</span>
+      <span class="float f4">🚀</span>
+      <div class="title-center">
+        <div class="title-tag">6학년 1학기 · 2단원 물체의 운동</div>
+        <h1 class="title-h1">속력의 숲</h1>
+        <p class="title-h2">누가 가장 빠를까?</p>
+        <div class="title-name-selector" id="title-name-selector">
+          <span class="ts-label">🙋 내 이름은?</span>
+          <select id="student-name-select">
+            <option value="">불러오는 중...</option>
+          </select>
+        </div>
+        <div class="title-greeting" id="title-greeting"></div>
+        <button class="btn green big" onclick="goto('menu')">▶ 시작하기</button>
+      </div>
+    </section>
+
+    <!-- ============ 메뉴 ============ -->
+    <section id="screen-menu" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('title')">🏠</button>
+        <div class="tb-title">⚡ 속력의 숲</div>
+        <button class="tb-toc">목차</button>
+      </div>
+      <div class="menu-layout">
+        <div class="goal-banner">
+          <div class="goal-tag">⚡ 2단원 · 물체의 운동</div>
+          <div class="goal-content">
+            <span class="target">🎯</span>
+            <b>오늘의 학습 목표</b>
+            <span>빠르기를 속력으로 나타내고 비교해 봐요</span>
+          </div>
+        </div>
+        <div class="lesson-list">
+          <div class="lesson-row recommended" data-lesson="problem" onclick="goto('problem')">
+            <div class="num orange">1</div>
+            <div class="ico">📖</div>
+            <div class="row-title">문제 상황</div>
+            <div class="recommend-badge">✨ 추천</div>
+            <div class="status-pill" data-status="problem">시작 전</div>
+            <div class="row-arrow">→</div>
+          </div>
+          <div class="lesson-row" data-lesson="motion" onclick="goto('motion')">
+            <div class="num yellow">2</div>
+            <div class="ico">🏃</div>
+            <div class="row-title">운동이란?</div>
+            <div class="status-pill" data-status="motion">시작 전</div>
+            <div class="row-arrow">→</div>
+          </div>
+          <div class="lesson-row" data-lesson="sametime" onclick="goto('sametime')">
+            <div class="num yellow">3</div>
+            <div class="ico">⏱️</div>
+            <div class="row-title">같은 시간 동안 비교하기</div>
+            <div class="status-pill" data-status="sametime">시작 전</div>
+            <div class="row-arrow">→</div>
+          </div>
+          <div class="lesson-row" data-lesson="samedist" onclick="goto('samedist')">
+            <div class="num yellow">4</div>
+            <div class="ico">📏</div>
+            <div class="row-title">같은 거리에서 비교하기</div>
+            <div class="status-pill" data-status="samedist">시작 전</div>
+            <div class="row-arrow">→</div>
+          </div>
+          <div class="lesson-row" data-lesson="speed" onclick="goto('speed')">
+            <div class="num orange">5</div>
+            <div class="ico">⚡</div>
+            <div class="row-title">속력의 비밀</div>
+            <div class="status-pill" data-status="speed">시작 전</div>
+            <div class="row-arrow">→</div>
+          </div>
+          <div class="lesson-row" data-lesson="calc" onclick="goto('calc')">
+            <div class="num green">6</div>
+            <div class="ico">🧮</div>
+            <div class="row-title">속력 계산하기</div>
+            <div class="status-pill" data-status="calc">시작 전</div>
+            <div class="row-arrow">→</div>
+          </div>
+          <div class="lesson-row" data-lesson="compare" onclick="goto('compare')">
+            <div class="num orange">7</div>
+            <div class="ico">🎯</div>
+            <div class="row-title">속력 비교 연습</div>
+            <div class="status-pill" data-status="compare">시작 전</div>
+            <div class="row-arrow">→</div>
+          </div>
+          <div class="lesson-row" data-lesson="safety" onclick="goto('safety')">
+            <div class="num green">8</div>
+            <div class="ico">🚦</div>
+            <div class="row-title">속력과 안전</div>
+            <div class="status-pill" data-status="safety">시작 전</div>
+            <div class="row-arrow">→</div>
+          </div>
+          <div class="lesson-row" data-lesson="quiz" onclick="goto('quiz')">
+            <div class="num purple">9</div>
+            <div class="ico">🏆</div>
+            <div class="row-title">마무리 퀴즈</div>
+            <div class="status-pill" data-status="quiz">시작 전</div>
+            <div class="row-arrow">→</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 문제 상황 ============ -->
+    <section id="screen-problem" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('menu')">🏠</button>
+        <div class="tb-title">📖 문제 상황</div>
+        <button class="tb-toc" onclick="goto('menu')">목차</button>
+      </div>
+      <div class="lesson-content">
+        <div class="problem-layout">
+          <div class="problem-scene">
+            <div class="ps-title">🏫 햇살초등학교 운동회</div>
+            <div class="ps-sun">☀️</div>
+            <div class="ps-cloud" style="top: 40px; left: 100px;">☁️</div>
+            <div class="ps-cloud" style="top: 60px; right: 130px;">☁️</div>
+            <div class="ps-track"></div>
+            <div class="ps-flag">🏁</div>
+            <div class="ps-runner-label" style="bottom: 198px; left: 36px;">민준</div>
+            <div class="ps-runner" style="bottom: 110px; left: 30px;">🏃</div>
+            <div class="ps-runner-label" style="bottom: 198px; left: 156px;">서연</div>
+            <div class="ps-runner" style="bottom: 110px; left: 150px;">🏃</div>
+            <div class="ps-runner-label" style="bottom: 198px; left: 276px;">도윤</div>
+            <div class="ps-runner" style="bottom: 110px; left: 270px;">🏃</div>
+          </div>
+          <div class="problem-info">
+            <div class="problem-narration">
+              운동회 날, 친구들이 달리기 연습을 했어요.<br>
+              그런데 친구마다 <b>달린 거리</b>도, <b>걸린 시간</b>도 모두 달라요!
+            </div>
+            <div class="problem-results">
+              <h3>📋 측정 결과</h3>
+              <div class="row">
+                <span class="who">🏃 민준</span>
+                <span class="data">80m · 20초</span>
+              </div>
+              <div class="row">
+                <span class="who">🏃 서연</span>
+                <span class="data">50m · 10초</span>
+              </div>
+              <div class="row">
+                <span class="who">🏃 도윤</span>
+                <span class="data">90m · 30초</span>
+              </div>
+            </div>
+            <div class="problem-question">
+              🤔 누가 가장 빠를까요?
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lesson-bottom">
+        <button class="btn small ghost" onclick="goto('menu')">◀ 목차</button>
+        <button class="btn small green" onclick="goto('motion')">운동이란? ▶</button>
+      </div>
+    </section>
+
+    <!-- ============ 운동이란? ============ -->
+    <section id="screen-motion" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('menu')">🏠</button>
+        <div class="tb-title">🏃 운동이란?</div>
+        <button class="tb-toc" onclick="goto('menu')">목차</button>
+      </div>
+      <div class="lesson-content">
+        <div class="motion-instruction">
+          ▶ <b>시간 흐르기</b> 버튼을 눌러서 어떤 물체가 움직이는지 살펴봐요.
+        </div>
+        <div id="motion-scene" class="motion-scene">
+          <div class="m-sun">☀️</div>
+          <div class="m-cloud" id="m-cloud" style="left: 220px;">☁️</div>
+          <div class="m-tree" style="left: 70px;">🌳</div>
+          <div class="m-house" style="left: 480px;">🏠</div>
+          <div class="m-tree" style="left: 1020px;">🌳</div>
+          <div class="m-bird" id="m-bird" style="left: 100px; top: 60px;">🐦</div>
+          <div class="m-road"></div>
+          <div class="m-car" id="m-car" style="left: 30px;">🚗</div>
+        </div>
+        <div class="motion-controls">
+          <button class="btn small green" id="motion-go-btn" onclick="playMotion()">▶ 시간 흐르기</button>
+          <button class="btn small ghost" onclick="resetMotion()">↻ 다시</button>
+        </div>
+        <div class="motion-quiz">
+          <div class="mq-q">🤔 시간이 흐르는 동안 <b style="color:#d35a17">위치가 변한</b> 물체를 골라봐요</div>
+          <div class="motion-options" id="motion-options">
+            <button class="m-opt" data-correct="1" onclick="motionAnswer(this)">
+              <span class="m-opt-ico">🚗</span>자동차
+            </button>
+            <button class="m-opt" data-correct="1" onclick="motionAnswer(this)">
+              <span class="m-opt-ico">🐦</span>새
+            </button>
+            <button class="m-opt" data-correct="0" onclick="motionAnswer(this)">
+              <span class="m-opt-ico">🌳</span>나무
+            </button>
+            <button class="m-opt" data-correct="0" onclick="motionAnswer(this)">
+              <span class="m-opt-ico">🏠</span>집
+            </button>
+          </div>
+        </div>
+        <div class="motion-result" id="motion-result">
+          ✨ <b>운동이란?</b> 시간이 지남에 따라 물체의 <b>위치가 변하는 것</b>이에요.<br>
+          자동차와 새는 위치가 변했지만, 나무와 집은 그대로 있었어요!
+        </div>
+      </div>
+      <div class="lesson-bottom">
+        <button class="btn small ghost" onclick="goto('problem')">◀ 이전</button>
+        <button class="btn small green" onclick="goto('sametime')">다음 ▶</button>
+      </div>
+    </section>
+
+    <!-- ============ 같은 시간 비교 ============ -->
+    <section id="screen-sametime" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('menu')">🏠</button>
+        <div class="tb-title">⏱️ 같은 시간 동안 누가 더 멀리?</div>
+        <button class="tb-toc" onclick="goto('menu')">목차</button>
+      </div>
+      <div class="lesson-content">
+        <div class="race-instr">
+          <b>같은 5초 동안</b> 학생들이 출발했어요. <b>더 멀리 간 학생</b>이 더 빨라요!
+        </div>
+        <div class="race-track" id="t1-track">
+          <div class="track-label">민준</div>
+          <div class="track-line"></div>
+          <div class="track-flag">🏁</div>
+          <div class="track-runner" id="t1-r1" style="left: 130px;">🏃</div>
+          <div class="race-distmark" id="t1-mark1">15m</div>
+        </div>
+        <div class="race-track">
+          <div class="track-label">서연</div>
+          <div class="track-line"></div>
+          <div class="track-flag">🏁</div>
+          <div class="track-runner" id="t1-r2" style="left: 130px;">🏃</div>
+          <div class="race-distmark" id="t1-mark2">20m</div>
+        </div>
+        <div class="race-track">
+          <div class="track-label">도윤</div>
+          <div class="track-line"></div>
+          <div class="track-flag">🏁</div>
+          <div class="track-runner" id="t1-r3" style="left: 130px;">🏃</div>
+          <div class="race-distmark" id="t1-mark3">25m</div>
+        </div>
+        <div class="race-controls">
+          <button class="btn small green" id="t1-start-btn" onclick="startSametime()">▶ 동시 출발 (5초)</button>
+          <span class="time-display" id="t1-timer">0.0초</span>
+          <button class="btn small ghost" onclick="resetSametime()">↻ 다시</button>
+        </div>
+        <div class="race-result" id="t1-result"></div>
+      </div>
+      <div class="lesson-bottom">
+        <button class="btn small ghost" onclick="goto('motion')">◀ 이전</button>
+        <button class="btn small green" onclick="goto('samedist')">다음 ▶</button>
+      </div>
+    </section>
+
+    <!-- ============ 같은 거리 비교 ============ -->
+    <section id="screen-samedist" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('menu')">🏠</button>
+        <div class="tb-title">📏 같은 거리를 누가 더 빨리?</div>
+        <button class="tb-toc" onclick="goto('menu')">목차</button>
+      </div>
+      <div class="lesson-content">
+        <div class="race-instr">
+          모두 <b>50m</b>를 달려요. <b>적은 시간</b>이 걸린 학생이 더 빨라요!
+        </div>
+        <div class="race-track" id="d1-track">
+          <div class="track-label">민준</div>
+          <div class="track-line"></div>
+          <div class="track-flag">🏁</div>
+          <div class="track-runner" id="d1-r1" style="left: 130px;">🏃</div>
+          <div class="race-timemark" id="d1-mark1">14초</div>
+        </div>
+        <div class="race-track">
+          <div class="track-label">서연</div>
+          <div class="track-line"></div>
+          <div class="track-flag">🏁</div>
+          <div class="track-runner" id="d1-r2" style="left: 130px;">🏃</div>
+          <div class="race-timemark" id="d1-mark2">12초</div>
+        </div>
+        <div class="race-track">
+          <div class="track-label">도윤</div>
+          <div class="track-line"></div>
+          <div class="track-flag">🏁</div>
+          <div class="track-runner" id="d1-r3" style="left: 130px;">🏃</div>
+          <div class="race-timemark" id="d1-mark3">10초</div>
+        </div>
+        <div class="race-controls">
+          <button class="btn small green" id="d1-start-btn" onclick="startSamedist()">▶ 동시 출발 (50m)</button>
+          <span class="time-display" id="d1-timer">0.0초</span>
+          <button class="btn small ghost" onclick="resetSamedist()">↻ 다시</button>
+        </div>
+        <div class="race-result" id="d1-result"></div>
+      </div>
+      <div class="lesson-bottom">
+        <button class="btn small ghost" onclick="goto('sametime')">◀ 이전</button>
+        <button class="btn small green" onclick="goto('speed')">다음 ▶</button>
+      </div>
+    </section>
+
+    <!-- ============ 속력의 비밀 ============ -->
+    <section id="screen-speed" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('menu')">🏠</button>
+        <div class="tb-title">⚡ 속력의 비밀</div>
+        <button class="tb-toc" onclick="goto('menu')">목차</button>
+      </div>
+      <div class="lesson-content" id="speed-body">
+
+        <!-- 단계 1 -->
+        <div class="speed-step active" data-step="0">
+          <div class="speed-progress">
+            <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+          <div class="speed-h2">🤔 거리도 시간도 다 다른데, 누가 가장 빠를까?</div>
+          <div class="speed-data-grid">
+            <div class="speed-friend-card">
+              <div class="sf-ico">🏃</div>
+              <div class="sf-name">민준</div>
+              <div class="sf-data"><b>80m</b>를<br><b>20초</b>에</div>
+            </div>
+            <div class="speed-friend-card">
+              <div class="sf-ico">🏃</div>
+              <div class="sf-name">서연</div>
+              <div class="sf-data"><b>50m</b>를<br><b>10초</b>에</div>
+            </div>
+            <div class="speed-friend-card">
+              <div class="sf-ico">🏃</div>
+              <div class="sf-name">도윤</div>
+              <div class="sf-data"><b>90m</b>를<br><b>30초</b>에</div>
+            </div>
+          </div>
+          <div class="speed-helper">
+            친구마다 <b>거리</b>도 <b>시간</b>도 모두 달라요.<br>
+            어떻게 빠르기를 비교할 수 있을까요?
+          </div>
+          <div class="speed-step-nav">
+            <button class="btn green" onclick="speedNextStep()">생각해 보기 ▶</button>
+          </div>
+        </div>
+
+        <!-- 단계 2 -->
+        <div class="speed-step" data-step="1">
+          <div class="speed-progress">
+            <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
+          </div>
+          <div class="speed-h2">어떻게 비교하면 좋을까요?</div>
+          <div class="speed-think-options" id="speed-think-options">
+            <div class="speed-think-opt" onclick="speedThink(this, 0)">
+              <span class="sti-ico">📏</span>
+              거리만 비교하기
+            </div>
+            <div class="speed-think-opt" onclick="speedThink(this, 1)">
+              <span class="sti-ico">⏱️</span>
+              시간만 비교하기
+            </div>
+            <div class="speed-think-opt" onclick="speedThink(this, 2)">
+              <span class="sti-ico">💡</span>
+              <b>1초 동안</b> 간 거리<br>비교하기
+            </div>
+          </div>
+          <div class="speed-think-feedback" id="speed-think-feedback"></div>
+          <div class="speed-step-nav" id="speed-step1-nav" style="visibility:hidden;">
+            <button class="btn green" onclick="speedNextStep()">계산해 보기 ▶</button>
+          </div>
+        </div>
+
+        <!-- 단계 3 -->
+        <div class="speed-step" data-step="2">
+          <div class="speed-progress">
+            <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
+          </div>
+          <div class="speed-h2">💡 <b>1초 동안</b> 얼마나 갔는지 계산해 봐요!</div>
+          <div class="speed-data-grid">
+            <div class="speed-friend-card">
+              <div class="sf-ico">🏃</div>
+              <div class="sf-name">민준</div>
+              <div class="sf-data">80m ÷ 20초</div>
+              <div class="sf-calc">1초당 <b>4m</b></div>
+            </div>
+            <div class="speed-friend-card winner">
+              <div class="sf-ico">🏃</div>
+              <div class="sf-name">서연 🏆</div>
+              <div class="sf-data">50m ÷ 10초</div>
+              <div class="sf-calc">1초당 <b>5m</b></div>
+            </div>
+            <div class="speed-friend-card">
+              <div class="sf-ico">🏃</div>
+              <div class="sf-name">도윤</div>
+              <div class="sf-data">90m ÷ 30초</div>
+              <div class="sf-calc">1초당 <b>3m</b></div>
+            </div>
+          </div>
+          <div class="speed-helper">
+            이제 <b>하나의 숫자</b>로 비교할 수 있어요!<br>
+            🏆 <b>서연 &gt; 민준 &gt; 도윤</b> 순서로 빨라요.
+          </div>
+          <div class="speed-step-nav">
+            <button class="btn green" onclick="speedNextStep()">속력이란? ▶</button>
+          </div>
+        </div>
+
+        <!-- 단계 4 -->
+        <div class="speed-step" data-step="3">
+          <div class="speed-progress">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="dot active"></span>
+          </div>
+          <div class="speed-conclusion">
+            <div class="sc-trophy">🏆</div>
+            <div class="sc-line1"><b>1초 동안 이동한 거리</b>를<br><b>속력</b>이라고 해요!</div>
+            <div class="sc-line2">속력이 클수록 더 빠른 물체예요.</div>
+            <div class="speed-formula-big">
+              속력 =
+              <span class="frac">
+                <span class="top">이동 거리</span>
+                <span class="bottom">걸린 시간</span>
+              </span>
+            </div>
+          </div>
+          <div class="speed-step-nav">
+            <button class="btn small ghost" onclick="speedPrevStep()">◀ 다시 보기</button>
+            <button class="btn green" onclick="goto('calc')">속력 계산하기 ▶</button>
+          </div>
+        </div>
+
+      </div>
+      <div class="lesson-bottom">
+        <button class="btn small ghost" onclick="goto('samedist')">◀ 이전</button>
+        <button class="btn small green" onclick="goto('calc')">다음 ▶</button>
+      </div>
+    </section>
+
+    <!-- ============ 속력 계산 ============ -->
+    <section id="screen-calc" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('menu')">🏠</button>
+        <div class="tb-title">🧮 속력 계산하기</div>
+        <button class="tb-toc" onclick="goto('menu')">목차</button>
+      </div>
+      <div class="lesson-content">
+        <div class="calc-grid">
+          <div class="calc-input-group">
+            <h3>거리와 시간을 입력해요</h3>
+            <div class="calc-input-row">
+              <label>이동 거리</label>
+              <input type="number" id="calc-dist" value="50" min="0" />
+              <span class="unit">m</span>
+            </div>
+            <div class="calc-input-row">
+              <label>걸린 시간</label>
+              <input type="number" id="calc-time" value="10" min="1" />
+              <span class="unit">초</span>
+            </div>
+            <div class="calc-formula-hint">속력 = 이동 거리 ÷ 걸린 시간</div>
+          </div>
+          <div class="calc-result-card">
+            <span class="label">속력</span>
+            <span class="speed-num" id="calc-out">5</span>
+            <span class="unit">m/초</span>
+          </div>
+        </div>
+        <div class="examples-h3">🌍 우리 주변의 빠르기 (실제 속력)</div>
+        <div class="examples-list">
+          <div class="example-item" onclick="setCalc(14, 10)">
+            <div class="ex-ico">🚶</div>
+            <div class="ex-name">사람 걷기</div>
+            <div class="ex-speed">1.4m/초</div>
+            <div class="ex-kmh">시속 5km</div>
+          </div>
+          <div class="example-item" onclick="setCalc(50, 10)">
+            <div class="ex-ico">🏃</div>
+            <div class="ex-name">학생 달리기</div>
+            <div class="ex-speed">5m/초</div>
+            <div class="ex-kmh">시속 18km</div>
+          </div>
+          <div class="example-item" onclick="setCalc(40, 10)">
+            <div class="ex-ico">🚲</div>
+            <div class="ex-name">자전거</div>
+            <div class="ex-speed">4m/초</div>
+            <div class="ex-kmh">시속 15km</div>
+          </div>
+          <div class="example-item" onclick="setCalc(170, 10)">
+            <div class="ex-ico">🚗</div>
+            <div class="ex-name">자동차(시내)</div>
+            <div class="ex-speed">17m/초</div>
+            <div class="ex-kmh">시속 60km</div>
+          </div>
+          <div class="example-item" onclick="setCalc(833, 10)">
+            <div class="ex-ico">🚄</div>
+            <div class="ex-name">KTX</div>
+            <div class="ex-speed">83m/초</div>
+            <div class="ex-kmh">시속 300km</div>
+          </div>
+          <div class="example-item" onclick="setCalc(2500, 10)">
+            <div class="ex-ico">✈️</div>
+            <div class="ex-name">여객기</div>
+            <div class="ex-speed">250m/초</div>
+            <div class="ex-kmh">시속 900km</div>
+          </div>
+        </div>
+        <div class="calc-tip">💡 카드를 누르면 그 빠르기로 입력돼요. 직접 숫자를 바꿔서 계산해 보세요!</div>
+      </div>
+      <div class="lesson-bottom">
+        <button class="btn small ghost" onclick="goto('speed')">◀ 이전</button>
+        <button class="btn small green" onclick="goto('compare')">다음 ▶</button>
+      </div>
+    </section>
+
+    <!-- ============ 속력 비교 연습 ============ -->
+    <section id="screen-compare" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('menu')">🏠</button>
+        <div class="tb-title">🎯 속력 비교 연습</div>
+        <button class="tb-toc" onclick="goto('menu')">목차</button>
+      </div>
+      <div class="lesson-content">
+        <div class="compare-instruction">
+          세 가지 빠르기를 직접 계산해서 <b>누가 가장 빠른지</b> 알아봐요!
+          <span class="small">속력 = 이동 거리 ÷ 걸린 시간</span>
+        </div>
+        <div class="compare-grid">
+          <div class="compare-card">
+            <div class="cc-ico">🚶</div>
+            <div class="cc-name">걷기</div>
+            <div class="cc-data">
+              거리 <b>4m</b><br>
+              시간 <b>4초</b>
+            </div>
+            <div class="cc-input-row">
+              속력 = <input type="number" id="cc-walk-input" placeholder="?" step="0.1" min="0"> m/초
+            </div>
+            <button class="btn small green" onclick="checkCompare('walk')">확인</button>
+            <div class="cc-feedback" id="cc-walk-fb"></div>
+          </div>
+          <div class="compare-card">
+            <div class="cc-ico">🚲</div>
+            <div class="cc-name">자전거</div>
+            <div class="cc-data">
+              거리 <b>30m</b><br>
+              시간 <b>6초</b>
+            </div>
+            <div class="cc-input-row">
+              속력 = <input type="number" id="cc-bike-input" placeholder="?" step="0.1" min="0"> m/초
+            </div>
+            <button class="btn small green" onclick="checkCompare('bike')">확인</button>
+            <div class="cc-feedback" id="cc-bike-fb"></div>
+          </div>
+          <div class="compare-card">
+            <div class="cc-ico">🚗</div>
+            <div class="cc-name">자동차</div>
+            <div class="cc-data">
+              거리 <b>100m</b><br>
+              시간 <b>5초</b>
+            </div>
+            <div class="cc-input-row">
+              속력 = <input type="number" id="cc-car-input" placeholder="?" step="0.1" min="0"> m/초
+            </div>
+            <button class="btn small green" onclick="checkCompare('car')">확인</button>
+            <div class="cc-feedback" id="cc-car-fb"></div>
+          </div>
+        </div>
+        <div class="compare-rank-area">
+          <button class="btn purple" id="compare-rank-btn" onclick="showCompareRank()" disabled>🏆 순위 비교하기</button>
+          <div class="compare-result" id="compare-result"></div>
+        </div>
+      </div>
+      <div class="lesson-bottom">
+        <button class="btn small ghost" onclick="goto('calc')">◀ 이전</button>
+        <button class="btn small green" onclick="goto('safety')">다음 ▶</button>
+      </div>
+    </section>
+
+    <!-- ============ 안전 ============ -->
+    <section id="screen-safety" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('menu')">🏠</button>
+        <div class="tb-title">🚦 속력과 안전</div>
+        <button class="tb-toc" onclick="goto('menu')">목차</button>
+      </div>
+      <div class="lesson-content">
+        <div class="safety-intro">
+          빠른 속력으로 달리는 차는 갑자기 <b>멈추기 어려워요</b>.<br>
+          그래서 <b>안전 수칙</b>을 지키고 <b>안전장치</b>를 사용해요.
+        </div>
+        <div class="safety-tabs">
+          <div class="safety-tab active" data-tab="rules" onclick="setSafetyTab('rules')">📋 안전 수칙</div>
+          <div class="safety-tab" data-tab="devices" onclick="setSafetyTab('devices')">🛡️ 안전장치</div>
+        </div>
+        <div class="safety-panel active" data-panel="rules">
+          <div class="safety-grid">
+            <div class="safety-item"><div class="s-ico">🚸</div><div class="s-text"><b>횡단보도</b>에서는 일단 멈춰 좌우를 살피고<br>손을 들고 건너요.</div></div>
+            <div class="safety-item"><div class="s-ico">🚦</div><div class="s-text"><b>녹색 신호</b>가 켜져도 차가 멈췄는지 확인해요.</div></div>
+            <div class="safety-item"><div class="s-ico">📱</div><div class="s-text">길을 건널 때는 <b>스마트폰을 보지 않아요</b>.</div></div>
+            <div class="safety-item"><div class="s-ico">🛑</div><div class="s-text"><b>차도 가까이</b>에서 뛰거나 장난치지 않아요.</div></div>
+            <div class="safety-item"><div class="s-ico">🚗</div><div class="s-text">차 안에서는 <b>안전벨트</b>를 꼭 매요.</div></div>
+            <div class="safety-item"><div class="s-ico">🚴</div><div class="s-text">자전거·킥보드 탈 때는 <b>헬멧</b>을 써요.</div></div>
+          </div>
+        </div>
+        <div class="safety-panel" data-panel="devices">
+          <div class="safety-grid">
+            <div class="safety-item">
+              <div class="s-ico">
+                <svg width="46" height="46" viewBox="0 0 64 64">
+                  <rect y="44" width="64" height="20" fill="#666"/>
+                  <path d="M 14 44 Q 32 22 50 44 Z" fill="#a8a8a8" stroke="#222" stroke-width="2.5"/>
+                  <line x1="2" y1="54" x2="10" y2="54" stroke="#fff" stroke-width="2"/>
+                  <line x1="54" y1="54" x2="62" y2="54" stroke="#fff" stroke-width="2"/>
+                </svg>
+              </div>
+              <div class="s-text"><b>과속 방지턱</b> — 차가 천천히 달리도록 해요.</div>
+            </div>
+            <div class="safety-item">
+              <div class="s-ico">
+                <svg width="46" height="46" viewBox="0 0 64 64">
+                  <rect x="20" y="14" width="14" height="14" fill="#444"/>
+                  <rect x="14" y="26" width="36" height="22" rx="3" fill="#666"/>
+                  <circle cx="32" cy="37" r="7" fill="#222"/>
+                  <circle cx="32" cy="37" r="4" fill="#88e0ff"/>
+                  <rect x="18" y="48" width="28" height="8" fill="#888"/>
+                </svg>
+              </div>
+              <div class="s-text"><b>과속 단속 카메라</b> — 빠른 차를 찾아내요.</div>
+            </div>
+            <div class="safety-item">
+              <div class="s-ico">
+                <svg width="46" height="46" viewBox="0 0 64 64">
+                  <rect x="6" y="42" width="52" height="14" rx="3" fill="#5a4a32"/>
+                  <ellipse cx="32" cy="32" rx="20" ry="14" fill="#fff" stroke="#888" stroke-width="2"/>
+                  <text x="32" y="36" text-anchor="middle" font-family="Jua, sans-serif" font-size="11" fill="#888" font-weight="bold">AIR</text>
+                  <path d="M 12 40 Q 32 18 52 40" fill="none" stroke="#bbb" stroke-width="1" stroke-dasharray="2 2"/>
+                </svg>
+              </div>
+              <div class="s-text"><b>에어백</b> — 충돌할 때 풍선처럼 부풀어 보호해요.</div>
+            </div>
+            <div class="safety-item">
+              <div class="s-ico">
+                <svg width="46" height="46" viewBox="0 0 64 64">
+                  <rect x="14" y="6" width="36" height="52" rx="6" fill="#ffe0a8" stroke="#888" stroke-width="2"/>
+                  <path d="M 16 12 L 50 50" stroke="#444" stroke-width="7" stroke-linecap="round"/>
+                  <rect x="28" y="44" width="10" height="10" fill="#666" stroke="#222" stroke-width="1.5" rx="1"/>
+                  <circle cx="33" cy="49" r="1.5" fill="#fff"/>
+                </svg>
+              </div>
+              <div class="s-text"><b>안전벨트</b> — 갑자기 멈췄을 때 몸을 잡아줘요.</div>
+            </div>
+            <div class="safety-item">
+              <div class="s-ico">
+                <svg width="46" height="46" viewBox="0 0 64 64">
+                  <rect y="44" width="64" height="20" fill="#5a8c44"/>
+                  <rect x="6" y="36" width="3" height="14" fill="#888"/>
+                  <rect x="20" y="36" width="3" height="14" fill="#888"/>
+                  <rect x="34" y="36" width="3" height="14" fill="#888"/>
+                  <rect x="48" y="36" width="3" height="14" fill="#888"/>
+                  <rect x="2" y="32" width="60" height="6" rx="2" fill="#bbb" stroke="#666" stroke-width="1.5"/>
+                </svg>
+              </div>
+              <div class="s-text"><b>가드레일</b> — 차가 도로 밖으로 나가지 않게 해요.</div>
+            </div>
+            <div class="safety-item">
+              <div class="s-ico">
+                <svg width="46" height="46" viewBox="0 0 64 64">
+                  <circle cx="32" cy="32" r="28" fill="white" stroke="#ff3030" stroke-width="6"/>
+                  <text x="32" y="42" text-anchor="middle" font-family="Do Hyeon, Arial Black, sans-serif" font-size="24" font-weight="900" fill="#1a1a1a">30</text>
+                </svg>
+              </div>
+              <div class="s-text"><b>어린이 보호구역</b> — 학교 근처는 시속 <b>30km</b> 이하로!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="lesson-bottom">
+        <button class="btn small ghost" onclick="goto('compare')">◀ 이전</button>
+        <button class="btn small purple" onclick="goto('quiz')">🏆 마무리 퀴즈 ▶</button>
+      </div>
+    </section>
+
+    <!-- ============ 마무리 퀴즈 ============ -->
+    <section id="screen-quiz" class="screen">
+      <div class="topbar">
+        <button class="tb-home" onclick="goto('menu')">🏠</button>
+        <div class="tb-title">🏆 마무리 퀴즈</div>
+        <button class="tb-toc" onclick="goto('menu')">목차</button>
+      </div>
+      <div class="lesson-content">
+        <div id="quiz-area">
+          <div class="quiz-progress"><div id="quiz-bar" style="width:0%"></div></div>
+          <div class="quiz-q" id="quiz-q"></div>
+          <div class="quiz-options" id="quiz-opts"></div>
+          <div class="quiz-feedback" id="quiz-fb"></div>
+        </div>
+        <div class="quiz-end" id="quiz-end">
+          <div class="qe-trophy">🏆</div>
+          <div class="qe-msg">참 잘했어요!</div>
+          <div class="qe-score">점수: <b id="quiz-score">0</b> / 5</div>
+          <div style="display:flex; gap:14px; justify-content:center;">
+            <button class="btn green" onclick="startQuiz()">↻ 다시 풀기</button>
+            <button class="btn blue" onclick="goto('menu')">목차로 가기</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<script>
+// =============== 스케일 ===============
+const stage = document.getElementById('stage');
+function fitStage() {
+  const w = window.innerWidth;
+  const h = window.innerHeight;
+  const scale = Math.min(w / 1280, h / 720) * 0.92;
+  stage.style.transform = `scale(${scale})`;
+}
+window.addEventListener('resize', fitStage);
+window.addEventListener('orientationchange', fitStage);
+window.addEventListener('load', fitStage);
+fitStage();
+
+// =============== 진행 상태 ===============
+const visited = new Set();
+function markVisited(name) {
+  if (!visited.has(name)) {
+    visited.add(name);
+    const pill = document.querySelector(`.status-pill[data-status="${name}"]`);
+    if (pill) {
+      pill.textContent = '완료';
+      pill.classList.add('done');
+    }
+  }
+}
+
+// =============== 화면 전환 ===============
+function goto(name) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  const el = document.getElementById('screen-' + name);
+  if (el) el.classList.add('active');
+  if (['problem','motion','sametime','samedist','speed','calc','compare','safety','quiz'].includes(name)) {
+    markVisited(name);
+  }
+  if (name === 'motion') resetMotion();
+  if (name === 'sametime') resetSametime();
+  if (name === 'samedist') resetSamedist();
+  if (name === 'speed') resetSpeed();
+  if (name === 'calc') calcSpeed();
+  if (name === 'compare') resetCompare();
+  if (name === 'safety') setSafetyTab('rules');
+  if (name === 'quiz') startQuiz();
+}
+
+// =============== 운동이란? ===============
+let motionPlayed = false;
+function playMotion() {
+  if (motionPlayed) return;
+  motionPlayed = true;
+  document.getElementById('motion-go-btn').disabled = true;
+  const car = document.getElementById('m-car');
+  const bird = document.getElementById('m-bird');
+  const cloud = document.getElementById('m-cloud');
+  car.style.left = '1100px';
+  bird.style.left = '900px';
+  bird.style.top = '30px';
+  cloud.style.transition = 'left 3s linear';
+  cloud.style.left = '340px';
+}
+function resetMotion() {
+  motionPlayed = false;
+  document.getElementById('motion-go-btn').disabled = false;
+  const car = document.getElementById('m-car');
+  const bird = document.getElementById('m-bird');
+  const cloud = document.getElementById('m-cloud');
+  car.style.transition = 'none';
+  bird.style.transition = 'none';
+  cloud.style.transition = 'none';
+  car.style.left = '30px';
+  bird.style.left = '100px';
+  bird.style.top = '60px';
+  cloud.style.left = '220px';
+  void car.offsetWidth;
+  car.style.transition = 'left 3s linear';
+  bird.style.transition = 'left 3s linear, top 3s ease-in-out';
+  document.querySelectorAll('#motion-options .m-opt').forEach(b => {
+    b.classList.remove('correct', 'wrong');
+  });
+  document.getElementById('motion-result').classList.remove('show');
+}
+function motionAnswer(btn) {
+  const correct = btn.dataset.correct === '1';
+  if (btn.classList.contains('correct') || btn.classList.contains('wrong')) return;
+  btn.classList.add(correct ? 'correct' : 'wrong');
+  const correctPicked = document.querySelectorAll('#motion-options .m-opt[data-correct="1"].correct').length;
+  if (correctPicked >= 2) {
+    document.getElementById('motion-result').classList.add('show');
+  }
+}
+
+// =============== 같은 시간 비교 ===============
+let t1Active = false;
+const TRACK_RUNNER_LEFT = 130;
+function getTrackInnerWidth(trackEl) {
+  return trackEl.offsetWidth - TRACK_RUNNER_LEFT - 70;
+}
+function startSametime() {
+  if (t1Active) return;
+  t1Active = true;
+  document.getElementById('t1-start-btn').disabled = true;
+  document.getElementById('t1-result').classList.remove('show');
+  // 5초 동안: 학생1 15m, 학생2 20m, 학생3 25m (3, 4, 5 m/s)
+  const trackEl = document.getElementById('t1-track');
+  const trackW = getTrackInnerWidth(trackEl);
+  const racers = [
+    { id: 't1-r1', dist: 0.60, name: '민준', meter: 15, mark: 't1-mark1' },
+    { id: 't1-r2', dist: 0.80, name: '서연', meter: 20, mark: 't1-mark2' },
+    { id: 't1-r3', dist: 1.00, name: '도윤', meter: 25, mark: 't1-mark3' },
+  ];
+  racers.forEach(r => {
+    const el = document.getElementById(r.id);
+    void el.offsetWidth;
+    el.style.transition = 'left 5s linear';
+    el.style.left = (TRACK_RUNNER_LEFT + trackW * r.dist - 24) + 'px';
+    document.getElementById(r.mark).style.left = (TRACK_RUNNER_LEFT + trackW * r.dist) + 'px';
+  });
+  let t = 0;
+  const timerEl = document.getElementById('t1-timer');
+  const intv = setInterval(() => {
+    t += 0.1;
+    timerEl.textContent = t.toFixed(1) + '초';
+    if (t >= 5.0) {
+      clearInterval(intv);
+      timerEl.textContent = '5.0초';
+      racers.forEach(r => document.getElementById(r.mark).classList.add('show'));
+      const sorted = [...racers].sort((a, b) => b.meter - a.meter);
+      document.getElementById('t1-result').innerHTML =
+        `🏆 <b>${sorted[0].name}</b>이(가) 5초 동안 <b>${sorted[0].meter}m</b>로 가장 멀리 갔어요!<br>` +
+        `같은 시간 동안 <b>더 멀리 간 학생</b>이 더 빨라요.`;
+      document.getElementById('t1-result').classList.add('show');
+      t1Active = false;
+    }
+  }, 100);
+}
+function resetSametime() {
+  t1Active = false;
+  document.getElementById('t1-start-btn').disabled = false;
+  ['t1-r1', 't1-r2', 't1-r3'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.transition = 'none';
+    el.style.left = TRACK_RUNNER_LEFT + 'px';
+  });
+  ['t1-mark1', 't1-mark2', 't1-mark3'].forEach(id => {
+    document.getElementById(id).classList.remove('show');
+  });
+  document.getElementById('t1-timer').textContent = '0.0초';
+  document.getElementById('t1-result').classList.remove('show');
+}
+
+// =============== 같은 거리 비교 ===============
+let d1Active = false;
+function startSamedist() {
+  if (d1Active) return;
+  d1Active = true;
+  document.getElementById('d1-start-btn').disabled = true;
+  document.getElementById('d1-result').classList.remove('show');
+  const trackEl = document.getElementById('d1-track');
+  const trackW = getTrackInnerWidth(trackEl);
+  // 50m: 학생1 14초, 학생2 12초, 학생3 10초
+  // 애니메이션 시간 압축: 1/2 배속 → 7s, 6s, 5s 표시는 실제 시간
+  const racers = [
+    { id: 'd1-r1', time: 14.0, animTime: 7.0, name: '민준', mark: 'd1-mark1' },
+    { id: 'd1-r2', time: 12.0, animTime: 6.0, name: '서연', mark: 'd1-mark2' },
+    { id: 'd1-r3', time: 10.0, animTime: 5.0, name: '도윤', mark: 'd1-mark3' },
+  ];
+  racers.forEach(r => {
+    const el = document.getElementById(r.id);
+    void el.offsetWidth;
+    el.style.transition = `left ${r.animTime}s linear`;
+    el.style.left = (TRACK_RUNNER_LEFT + trackW - 24) + 'px';
+  });
+  // 표시 시간은 2배속으로 흐르되 라벨은 실제 시간
+  let t = 0; // 가상 시간(실제 50m 달리기 시간)
+  const timerEl = document.getElementById('d1-timer');
+  const arrived = new Set();
+  const intv = setInterval(() => {
+    t += 0.2; // 0.2초씩 (실제는 0.1초마다 호출되지만 가상 시간은 2배)
+    timerEl.textContent = t.toFixed(1) + '초';
+    racers.forEach(r => {
+      if (!arrived.has(r.id) && t >= r.time - 0.1) {
+        arrived.add(r.id);
+        document.getElementById(r.mark).classList.add('show');
+      }
+    });
+    if (t >= 14.0) {
+      clearInterval(intv);
+      timerEl.textContent = '14.0초';
+      const sorted = [...racers].sort((a, b) => a.time - b.time);
+      document.getElementById('d1-result').innerHTML =
+        `🏆 <b>${sorted[0].name}</b>이(가) <b>${sorted[0].time}초</b>로 가장 빨리 도착했어요!<br>` +
+        `같은 거리를 <b>적은 시간</b>에 가는 학생이 더 빨라요.`;
+      document.getElementById('d1-result').classList.add('show');
+      d1Active = false;
+    }
+  }, 100);
+}
+function resetSamedist() {
+  d1Active = false;
+  document.getElementById('d1-start-btn').disabled = false;
+  ['d1-r1', 'd1-r2', 'd1-r3'].forEach(id => {
+    const el = document.getElementById(id);
+    el.style.transition = 'none';
+    el.style.left = TRACK_RUNNER_LEFT + 'px';
+  });
+  ['d1-mark1', 'd1-mark2', 'd1-mark3'].forEach(id => {
+    document.getElementById(id).classList.remove('show');
+  });
+  document.getElementById('d1-timer').textContent = '0.0초';
+  document.getElementById('d1-result').classList.remove('show');
+}
+
+// =============== 속력의 비밀 ===============
+let speedStep = 0;
+function resetSpeed() {
+  speedStep = 0;
+  updateSpeedStep();
+  document.querySelectorAll('#speed-think-options .speed-think-opt').forEach(o => {
+    o.classList.remove('wrong', 'right');
+  });
+  document.getElementById('speed-think-feedback').textContent = '';
+  document.getElementById('speed-step1-nav').style.visibility = 'hidden';
+}
+function updateSpeedStep() {
+  document.querySelectorAll('.speed-step').forEach((s, i) => {
+    s.classList.toggle('active', i === speedStep);
+  });
+}
+function speedNextStep() { if (speedStep < 3) { speedStep++; updateSpeedStep(); } }
+function speedPrevStep() { if (speedStep > 0) { speedStep--; updateSpeedStep(); } }
+function speedThink(el, idx) {
+  if (el.classList.contains('right')) return;
+  const fb = document.getElementById('speed-think-feedback');
+  if (idx === 0) {
+    el.classList.add('wrong');
+    fb.innerHTML = '<span class="speed-feedback-bad">❌ 시간이 다 다른데 거리만 비교할 수는 없어요.</span>';
+  } else if (idx === 1) {
+    el.classList.add('wrong');
+    fb.innerHTML = '<span class="speed-feedback-bad">❌ 거리가 다 다른데 시간만 비교할 수는 없어요.</span>';
+  } else {
+    document.querySelectorAll('#speed-think-options .speed-think-opt').forEach(o => o.classList.remove('wrong'));
+    el.classList.add('right');
+    fb.innerHTML = '<span class="speed-feedback-good">✨ 좋아요! 1초 동안 간 거리로 비교하면 한눈에 알 수 있어요.</span>';
+    document.getElementById('speed-step1-nav').style.visibility = 'visible';
+  }
+}
+
+// =============== 속력 계산기 ===============
+function calcSpeed() {
+  const d = parseFloat(document.getElementById('calc-dist').value) || 0;
+  const t = parseFloat(document.getElementById('calc-time').value) || 1;
+  const v = d / t;
+  document.getElementById('calc-out').textContent = (Math.round(v * 100) / 100);
+}
+function setCalc(d, t) {
+  document.getElementById('calc-dist').value = d;
+  document.getElementById('calc-time').value = t;
+  calcSpeed();
+}
+document.getElementById('calc-dist').addEventListener('input', calcSpeed);
+document.getElementById('calc-time').addEventListener('input', calcSpeed);
+
+// =============== 속력 비교 연습 ===============
+const compareData = {
+  walk: { dist: 4, time: 4, speed: 1, name: '걷기', icon: '🚶' },
+  bike: { dist: 30, time: 6, speed: 5, name: '자전거', icon: '🚲' },
+  car:  { dist: 100, time: 5, speed: 20, name: '자동차', icon: '🚗' }
+};
+let compareCorrect = { walk: false, bike: false, car: false };
+
+function resetCompare() {
+  compareCorrect = { walk: false, bike: false, car: false };
+  ['walk', 'bike', 'car'].forEach(id => {
+    const inp = document.getElementById('cc-' + id + '-input');
+    if (inp) {
+      inp.value = '';
+      inp.closest('.compare-card').classList.remove('correct');
+    }
+    const fb = document.getElementById('cc-' + id + '-fb');
+    if (fb) fb.innerHTML = '';
+  });
+  const rb = document.getElementById('compare-rank-btn');
+  if (rb) rb.disabled = true;
+  const res = document.getElementById('compare-result');
+  if (res) {
+    res.classList.remove('show');
+    res.innerHTML = '';
+  }
+}
+
+function checkCompare(id) {
+  const input = document.getElementById('cc-' + id + '-input');
+  const val = parseFloat(input.value);
+  const data = compareData[id];
+  const fb = document.getElementById('cc-' + id + '-fb');
+  const card = input.closest('.compare-card');
+  if (isNaN(val)) {
+    fb.innerHTML = '<span style="color:#888">속력을 입력해 주세요!</span>';
+    return;
+  }
+  if (Math.abs(val - data.speed) < 0.01) {
+    compareCorrect[id] = true;
+    card.classList.add('correct');
+    fb.innerHTML = '✅ 정답! <b>' + data.speed + ' m/초</b>';
+    if (compareCorrect.walk && compareCorrect.bike && compareCorrect.car) {
+      document.getElementById('compare-rank-btn').disabled = false;
+    }
+  } else {
+    fb.innerHTML = '<span style="color:#d63838">❌ 다시! ' + data.dist + ' ÷ ' + data.time + ' 은?</span>';
+  }
+}
+
+function showCompareRank() {
+  const sorted = Object.entries(compareData).sort((a, b) => b[1].speed - a[1].speed);
+  let html = '<div class="rank-title">🏆 빠른 순서</div>';
+  sorted.forEach(([id, d], idx) => {
+    html += `<div class="rank-row">${idx + 1}위. ${d.icon} ${d.name} — <b>${d.speed} m/초</b></div>`;
+  });
+  document.getElementById('compare-result').innerHTML = html;
+  document.getElementById('compare-result').classList.add('show');
+}
+
+// =============== 안전 탭 ===============
+function setSafetyTab(tab) {
+  document.querySelectorAll('.safety-tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
+  document.querySelectorAll('.safety-panel').forEach(p => p.classList.toggle('active', p.dataset.panel === tab));
+}
+
+// =============== 마무리 퀴즈 ===============
+const quizData = [
+  {
+    q: '운동하는 물체의 공통점은 무엇일까요?',
+    opts: ['크기가 변한다', '시간이 지나면 위치가 변한다', '색깔이 변한다', '소리가 커진다'],
+    ans: 1
+  },
+  {
+    q: '같은 시간 동안 달렸을 때 가장 빠른 학생은?',
+    opts: ['더 적게 간 학생', '더 멀리 간 학생', '더 천천히 간 학생', '제자리에 있는 학생'],
+    ans: 1
+  },
+  {
+    q: '같은 거리를 갈 때 가장 빠른 학생은?',
+    opts: ['시간이 가장 오래 걸린 학생', '시간이 가장 적게 걸린 학생', '키가 큰 학생', '나이 많은 학생'],
+    ans: 1
+  },
+  {
+    q: '거리도 시간도 다른 두 학생의 빠르기는 어떻게 비교할까요?',
+    opts: ['거리만 비교한다', '시간만 비교한다', '1초 동안 간 거리(속력)로 비교한다', '비교할 수 없다'],
+    ans: 2
+  },
+  {
+    q: '속력과 관련된 안전장치가 아닌 것은?',
+    opts: ['안전벨트', '에어백', '과속 방지턱', '냉장고'],
+    ans: 3
+  },
+];
+let qIdx = 0, qScore = 0;
+function startQuiz() {
+  qIdx = 0; qScore = 0;
+  document.getElementById('quiz-area').style.display = 'block';
+  document.getElementById('quiz-end').style.display = 'none';
+  showQuestion();
+}
+function showQuestion() {
+  const q = quizData[qIdx];
+  document.getElementById('quiz-q').textContent = `${qIdx + 1}. ${q.q}`;
+  const opts = document.getElementById('quiz-opts');
+  opts.innerHTML = '';
+  q.opts.forEach((text, i) => {
+    const div = document.createElement('div');
+    div.className = 'quiz-opt';
+    div.textContent = text;
+    div.onclick = () => answerQuiz(i, div);
+    opts.appendChild(div);
+  });
+  document.getElementById('quiz-fb').textContent = '';
+  document.getElementById('quiz-bar').style.width = (qIdx / quizData.length * 100) + '%';
+}
+function answerQuiz(i, el) {
+  const q = quizData[qIdx];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach((o, idx) => {
+    o.onclick = null;
+    if (idx === q.ans) o.classList.add('correct');
+    if (idx === i && i !== q.ans) o.classList.add('wrong');
+  });
+  if (i === q.ans) {
+    qScore++;
+    document.getElementById('quiz-fb').innerHTML = '✅ <b style="color:#5fc46b">정답이에요!</b>';
+  } else {
+    document.getElementById('quiz-fb').innerHTML = '❌ <b style="color:#ff5252">아쉬워요!</b> 정답을 확인해 보세요.';
+  }
+  setTimeout(() => {
+    qIdx++;
+    if (qIdx >= quizData.length) {
+      document.getElementById('quiz-bar').style.width = '100%';
+      document.getElementById('quiz-area').style.display = 'none';
+      document.getElementById('quiz-end').style.display = 'block';
+      document.getElementById('quiz-score').textContent = qScore;
+    } else {
+      showQuestion();
+    }
+  }, 1500);
+}
+
+// =============== Google Sheets 연동 (Apps Script) ===============
+// 시트의 학생 명단을 받아 타이틀 화면의 입장 드롭다운에 채웁니다.
+// 학생이 자기 이름을 선택하면 환영 인사가 나타납니다.
+// (학습 내용에 등장하는 인물 이름은 별도로 고정되어 있어요.)
+const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycby1475N2ksv-Ef5-iJHRICCm357KNYvyekGZdYDDb-YoJrybSwh3G74qsqce6jl1Q4g/exec?api=students';
+
+let myName = '';
+
+function setSelectorState(text) {
+  const sel = document.getElementById('student-name-select');
+  if (sel) sel.innerHTML = `<option value="">${text}</option>`;
+}
+
+async function loadStudentList() {
+  // ① 서버에서 미리 주입된 데이터가 있으면 즉시 사용 (Apps Script 배포 환경)
+  const pre = window.__PRELOADED_STUDENTS;
+  if (pre && pre.ok && Array.isArray(pre.students) && pre.students.length > 0) {
+    populateNameDropdown(pre.students);
+    return;
+  }
+  // ② 프리로드가 없으면 기존 방식대로 fetch (로컬 테스트 등)
+  if (!SHEETS_API_URL) {
+    setSelectorState('URL이 설정되지 않았어요');
+    return;
+  }
+  try {
+    const res = await fetch(SHEETS_API_URL);
+    const text = await res.text();
+    let data;
+    try {
+      data = JSON.parse(text);
+    } catch (e) {
+      console.warn('JSON 파싱 실패. 응답:', text.slice(0, 200));
+      setSelectorState('응답이 JSON이 아닙니다');
+      return;
+    }
+    if (data && data.ok && Array.isArray(data.students) && data.students.length > 0) {
+      populateNameDropdown(data.students);
+    } else {
+      console.warn('스프레드시트 응답 형식 오류:', data);
+      setSelectorState('명단이 비어있어요');
+    }
+  } catch (err) {
+    console.warn('학생 명단 로드 실패:', err);
+    setSelectorState('명단을 가져올 수 없어요');
+  }
+}
+
+function populateNameDropdown(list) {
+  const sel = document.getElementById('student-name-select');
+  const greeting = document.getElementById('title-greeting');
+  if (!sel) return;
+
+  sel.innerHTML = '<option value="">이름을 선택해 주세요</option>';
+  list.forEach(s => {
+    const opt = document.createElement('option');
+    const num = s.number ? String(s.number).trim() : '';
+    const name = s.name ? String(s.name).trim() : '';
+    // 표시: "번호. 이름" (둘 중 하나만 있으면 그것만)
+    const display = (num && name) ? `${num}. ${name}` : (name || num);
+    opt.value = name || display;   // 환영 인사용 값 (이름만, 없으면 표시 그대로)
+    opt.textContent = display;
+    sel.appendChild(opt);
+  });
+
+  sel.onchange = () => {
+    myName = sel.value;
+    if (greeting) {
+      greeting.textContent = myName ? `${myName}님, 환영해요! 👋` : '';
+    }
+  };
+}
+
+// 페이지 로드 시 학생 명단 가져오기
+loadStudentList();
+</script>
+</body>
+</html>
