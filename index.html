@@ -267,64 +267,67 @@ html, body {
   position: absolute;
   top: 96px; left: 36px; right: 36px; bottom: 16px;
   display: flex; flex-direction: column;
-  gap: 12px;
+  gap: 14px;
 }
 .goal-banner {
   display: flex; align-items: center;
-  gap: 14px;
+  gap: 16px;
   background: rgba(255, 248, 230, 0.7);
   border: 2px solid rgba(255, 186, 89, 0.4);
-  border-radius: 14px;
-  padding: 9px 18px;
-  height: 54px;
+  border-radius: 16px;
+  padding: 12px 22px;
+  min-height: 76px;
+  flex-shrink: 0;
 }
 .goal-tag {
   background: linear-gradient(135deg, #ffd986, #ffba59);
   color: #5a4020;
-  padding: 8px 18px;
+  padding: 10px 22px;
   border-radius: 999px;
   font-family: 'Do Hyeon', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   white-space: nowrap;
   display: flex; align-items: center; gap: 6px;
 }
 .goal-content {
   flex: 1;
-  display: flex; align-items: center; gap: 8px;
+  display: flex; align-items: center; gap: 10px;
   font-family: 'Jua', sans-serif;
-  font-size: 20px;
+  font-size: 22px;
   color: #5a4020;
   background: rgba(232, 250, 230, 0.7);
   border: 2px solid rgba(95, 196, 107, 0.35);
-  padding: 8px 18px;
-  border-radius: 12px;
+  padding: 10px 22px;
+  border-radius: 14px;
 }
-.goal-content .target { font-size: 22px; }
+.goal-content .target { font-size: 24px; }
 .goal-content b { color: #2e8636; }
 .lesson-list {
   flex: 1;
   display: flex; flex-direction: column;
-  gap: 8px;
+  gap: 12px;
+  min-height: 0;
 }
 .lesson-row {
-  display: flex; align-items: center; gap: 14px;
+  flex: 1;
+  display: flex; align-items: center; gap: 18px;
   background: white;
-  border-radius: 12px;
-  padding: 5px 20px;
+  border-radius: 16px;
+  padding: 10px 28px;
   cursor: pointer;
   border: 3px solid transparent;
-  box-shadow: 0 3px 8px rgba(74, 40, 20, .06);
+  box-shadow: 0 4px 10px rgba(74, 40, 20, .08);
   transition: transform .15s ease, border-color .15s ease;
-  min-height: 48px;
+  min-height: 0;
 }
 .lesson-row:hover { transform: translateY(-2px); border-color: #ff8a3d; }
 .lesson-row.recommended { border-color: #ff8a3d; background: linear-gradient(90deg, #fff5e1, white 30%); }
 .lesson-row .num {
-  width: 32px; height: 32px;
+  width: 40px; height: 40px;
   border-radius: 50%;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Do Hyeon', sans-serif;
-  font-size: 19px;
+  font-size: 24px;
   color: white;
   flex-shrink: 0;
 }
@@ -332,11 +335,11 @@ html, body {
 .lesson-row .num.yellow { background: #ffd986; color: #b35a17; }
 .lesson-row .num.green { background: #5fc46b; }
 .lesson-row .num.purple { background: #a26df7; }
-.lesson-row .ico { font-size: 26px; flex-shrink: 0; width: 32px; text-align: center; }
+.lesson-row .ico { font-size: 34px; flex-shrink: 0; width: 40px; text-align: center; }
 .lesson-row .row-title {
   flex: 1;
   font-family: 'Jua', sans-serif;
-  font-size: 22px;
+  font-size: 28px;
   color: #5a4020;
 }
 .recommend-badge {
@@ -345,22 +348,22 @@ html, body {
   padding: 6px 14px;
   border-radius: 999px;
   font-family: 'Jua', sans-serif;
-  font-size: 16px;
+  font-size: 18px;
   display: flex; align-items: center; gap: 4px;
   box-shadow: 0 2px 6px rgba(255, 138, 61, 0.3);
 }
 .status-pill {
   background: #f0eae0;
   color: #8a7050;
-  padding: 5px 16px;
+  padding: 6px 18px;
   border-radius: 999px;
-  font-size: 15px;
+  font-size: 18px;
   font-family: 'Jua', sans-serif;
 }
 .status-pill.done { background: #d4f5d8; color: #2e8636; }
 .row-arrow {
-  font-size: 22px; color: #b89060;
-  width: 28px; text-align: center;
+  font-size: 28px; color: #b89060;
+  width: 32px; text-align: center;
 }
 .menu-tip {
   text-align: center;
@@ -566,117 +569,551 @@ html, body {
 .m-opt:hover { transform: translateY(-2px); }
 .m-opt.correct { background: #e8fdec; border-color: #5fc46b; }
 .m-opt.wrong { background: #ffe8e8; border-color: #ff5252; }
-.motion-result {
-  margin-top: 8px;
-  background: #e3f2fd;
-  border-radius: 12px;
-  padding: 10px 18px;
-  font-size: 18px;
-  color: #1a3b73;
+.motion-popup {
   display: none;
-  text-align: center;
-  line-height: 1.4;
-}
-.motion-result.show { display: block; animation: fadeIn .4s; }
-.motion-result b { color: #d35a17; }
-
-/* ===== 빠르기 비교 (트랙) ===== */
-.race-instr {
-  background: #fff8d1;
-  border-left: 8px solid #ffba59;
-  padding: 14px 22px;
-  border-radius: 12px;
-  font-size: 22px;
-  color: #5a4020;
-  margin-bottom: 14px;
-  line-height: 1.4;
-}
-.race-instr b { color: #d35a17; }
-.race-track {
-  background: #fff5e1;
-  border-radius: 12px;
-  margin-bottom: 12px;
-  position: relative;
-  height: 76px;
-  border: 3px solid #ffd986;
-}
-.track-label {
   position: absolute;
-  left: 16px; top: 50%; transform: translateY(-50%);
+  inset: 0;
+  background: rgba(40, 25, 15, 0.6);
+  z-index: 50;
+  align-items: center; justify-content: center;
+  animation: fadeIn .25s ease;
+}
+.motion-popup.show { display: flex; }
+.motion-popup-inner {
+  background: linear-gradient(180deg, #fff8d1, #ffe8b3);
+  border: 5px solid #ff8a3d;
+  border-radius: 22px;
+  padding: 32px 50px;
+  max-width: 820px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 18px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  animation: popupPop .35s ease;
+}
+@keyframes popupPop {
+  0% { transform: scale(.6); opacity: 0; }
+  60% { transform: scale(1.06); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.motion-popup-ico {
+  font-size: 72px;
+  animation: bounce 1.2s ease infinite;
+}
+.motion-popup-title {
   font-family: 'Do Hyeon', sans-serif;
-  font-size: 22px;
-  color: #5a4020;
-  width: 100px;
-}
-.track-line {
-  position: absolute;
-  left: 130px; right: 70px;
-  top: 50%; height: 6px;
-  background: repeating-linear-gradient(90deg, #ffba59 0 28px, #ffd986 28px 56px);
-  border-radius: 3px;
-  transform: translateY(-50%);
-}
-.track-flag {
-  position: absolute;
-  right: 18px; top: 50%; transform: translateY(-50%);
-  font-size: 36px;
-}
-.track-runner {
-  position: absolute;
-  top: 50%;
   font-size: 48px;
-  z-index: 2;
-  transform: translateY(-50%) scaleX(-1);
+  color: #d35a17;
 }
-.track-runner.go { transition: left linear; }
-.race-controls {
-  display: flex; gap: 14px; align-items: center; justify-content: center;
-  margin-top: 16px;
-}
-.race-result {
-  margin-top: 12px;
-  background: #e8fdec;
-  border-radius: 12px;
-  padding: 12px 22px;
-  color: #1a3b73;
-  font-size: 20px;
-  display: none;
-  text-align: center;
+.motion-popup-text {
+  font-family: 'Jua', sans-serif;
+  font-size: 26px;
+  color: #5a4020;
   line-height: 1.5;
 }
-.race-result.show { display: block; animation: fadeIn .3s; }
-.race-result b { color: #2e8636; }
-.race-distmark {
+.motion-popup-text b { color: #d35a17; }
+
+/* ===== 달리기 게임 ===== */
+.game-screen { padding: 0; overflow: hidden; }
+.game-state {
+  display: none;
   position: absolute;
-  top: -2px; transform: translateX(-50%);
-  background: #5a4020; color: white;
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 16px;
-  padding: 2px 10px; border-radius: 8px;
-  opacity: 0;
-  transition: opacity .3s;
-  white-space: nowrap;
+  inset: 0;
+  padding: 26px 36px;
+  flex-direction: column;
 }
-.race-distmark.show { opacity: 1; }
-.race-timemark {
+.game-state.active { display: flex; animation: fadeIn .3s ease; }
+
+/* intro */
+.game-intro {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 16px;
+  text-align: center;
+}
+.gi-title {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 34px;
+  color: #5a4020;
+  background: linear-gradient(135deg, #fff5e1, #ffead0);
+  padding: 12px 32px;
+  border-radius: 16px;
+  border: 3px solid #ffba59;
+}
+.gi-rules {
+  display: flex; flex-direction: column; gap: 10px;
+  font-size: 22px;
+  color: #5a4020;
+}
+.gi-rule { padding: 4px 18px; }
+.gi-rule b { color: #d35a17; }
+.gi-parts {
+  background: rgba(255, 248, 230, 0.7);
+  border: 2px solid rgba(255, 186, 89, 0.4);
+  border-radius: 14px;
+  padding: 12px 22px;
+  min-width: 520px;
+}
+.gi-parts-title {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 20px;
+  color: #b35a17;
+  margin-bottom: 8px;
+}
+.gi-parts-list {
+  display: flex; flex-wrap: wrap;
+  justify-content: center; gap: 10px;
+}
+.gi-part {
+  background: white;
+  border: 2px solid #ffba59;
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-family: 'Jua', sans-serif;
+  font-size: 20px;
+  color: #5a4020;
+  display: flex; align-items: center; gap: 6px;
+}
+.gi-part.me { background: linear-gradient(135deg, #ffd986, #ffba59); border-color: #ff8a3d; }
+.gi-part.cpu { background: #e8f0ff; border-color: #4a9cff; color: #1a3b73; }
+.gi-part.stale { opacity: 0.45; }
+.gi-part .gi-part-ico { font-size: 22px; }
+.gi-parts-hint {
+  margin-top: 10px;
+  font-family: 'Jua', sans-serif;
+  font-size: 17px;
+  color: #8a6030;
+}
+.gi-parts-hint b { color: #d35a17; }
+
+/* prep / countdown */
+.game-prep {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 12px;
+}
+.gp-emoji {
+  font-size: 96px;
+  animation: bounce 0.6s ease infinite;
+}
+.gp-player {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 44px;
+  color: #5a4020;
+}
+.gp-player .gp-player-tag { color: #d35a17; }
+.gp-instr {
+  font-size: 24px;
+  color: #5a4020;
+  background: #fff8d1;
+  padding: 10px 24px;
+  border-radius: 12px;
+}
+.gp-count {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 160px;
+  color: #ff8a3d;
+  line-height: 1;
+  text-shadow: 6px 6px 0 #ffd986;
+  animation: countPulse .9s ease;
+}
+.gp-count.go {
+  color: #2e8636;
+  text-shadow: 6px 6px 0 #c8f0c8;
+  font-size: 120px;
+}
+@keyframes countPulse {
+  0% { transform: scale(.3); opacity: 0; }
+  50% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* play */
+.game-play {
+  flex: 1;
+  display: flex; flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.gph {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 18px;
+  background: #fff8d1;
+  border-radius: 14px;
+  padding: 10px 22px;
+  flex-shrink: 0;
+}
+.gph-title {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 24px;
+  color: #5a4020;
+  flex: 1;
+}
+.gph-time {
+  font-family: 'Jua', sans-serif;
+  font-size: 22px;
+  color: #5a4020;
+  display: flex; align-items: center; gap: 8px;
+}
+.gph-time b {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 30px;
+  color: #d35a17;
+  min-width: 90px;
+  text-align: right;
+}
+.gph-lbl {
+  font-size: 17px;
+  color: #8a6030;
+}
+
+/* 멀티 레인 트랙 — 자체가 탭 영역 (모바일/태블릿 대응, 누르는 버튼과 다음 화면 버튼의 위치 충돌 방지) */
+.multi-track {
+  flex: 1;
+  display: flex; flex-direction: column;
+  gap: 8px;
+  background: linear-gradient(180deg, #e0f5e0, #c8e6c9);
+  border-radius: 16px;
+  border: 4px solid #81c784;
+  padding: 10px 12px;
+  min-height: 0;
+  overflow: hidden;
+  position: relative;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  transition: filter .08s ease, border-color .08s ease;
+}
+.multi-track:hover { border-color: #5fc46b; }
+.multi-track:active, .multi-track.pressed {
+  filter: brightness(.94);
+  border-color: #2e8636;
+}
+.multi-track .lane { pointer-events: none; }  /* 레인 위 클릭도 트랙으로 흘러가게 */
+.mt-tap-hint {
   position: absolute;
-  top: -2px; right: 8px;
-  background: #4a9cff; color: white;
-  font-family: 'Do Hyeon', sans-serif;
+  bottom: 6px; left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Jua', sans-serif;
   font-size: 16px;
-  padding: 2px 10px; border-radius: 8px;
-  opacity: 0;
-  transition: opacity .3s;
+  color: #2e8636;
+  background: rgba(255,255,255,0.7);
+  padding: 4px 14px;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 1;
 }
-.race-timemark.show { opacity: 1; }
-.time-display {
+.lane {
+  flex: 1;
+  display: flex; align-items: center; gap: 12px;
+  background: rgba(255, 248, 230, 0.55);
+  border-radius: 12px;
+  padding: 4px 14px;
+  border: 2px solid rgba(255, 217, 134, 0.7);
+  min-height: 0;
+  position: relative;
+}
+.lane.lane-me {
+  background: linear-gradient(90deg, #fff5e1, white 50%, #fff5e1);
+  border-color: #ff8a3d;
+  box-shadow: 0 0 0 2px rgba(255, 138, 61, 0.15);
+}
+.lane.lane-cpu { background: rgba(232, 240, 255, 0.55); border-color: #b8d4ff; }
+.lane.finished { background: linear-gradient(90deg, #e8fdec, #c8f0c8); border-color: #5fc46b; }
+.lane.stale { opacity: 0.45; }
+.lane-name {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 19px;
+  color: #5a4020;
+  width: 120px;
+  flex-shrink: 0;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  display: flex; align-items: center; gap: 6px;
+}
+.lane-strip {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  min-width: 0;
+}
+.lane-line {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%; height: 8px;
+  background: repeating-linear-gradient(90deg, #8a6030 0 22px, #b89060 22px 44px);
+  border-radius: 4px;
+  transform: translateY(-50%);
+}
+.lane-finish {
+  position: absolute;
+  right: 0; top: 6px; bottom: 6px;
+  width: 5px;
+  background: repeating-linear-gradient(0deg, #222 0 8px, #fff 8px 16px);
+  border-radius: 2px;
+}
+.lane-runner {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  font-size: 36px;
+  z-index: 2;
+  transform: translate(-50%, -50%) scaleX(-1);
+  transition: left .15s linear;
+  pointer-events: none;
+}
+.lane-runner.pop { animation: lanePop .12s ease; }
+@keyframes lanePop {
+  0% { transform: translate(-50%, -50%) scaleX(-1) scale(1); }
+  50% { transform: translate(-50%, -50%) scaleX(-1) scale(1.15); }
+  100% { transform: translate(-50%, -50%) scaleX(-1) scale(1); }
+}
+.lane-value {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 20px;
+  color: #d35a17;
+  min-width: 76px;
+  text-align: right;
+  flex-shrink: 0;
+}
+.lane.finished .lane-value { color: #2e8636; }
+
+.gp-press {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px;
   background: #5a4020;
   color: #fff8d1;
+  border-radius: 12px;
+  padding: 10px 22px;
+  flex-shrink: 0;
+}
+/* 안내 전용 배너 (탭 대상 아님, 트랙이 진짜 탭 영역) */
+.gp-press.gp-press-info {
+  background: rgba(90, 64, 32, 0.85);
+  padding: 8px 18px;
+  pointer-events: none;
+}
+.gp-press.gp-press-info .gp-press-key {
+  font-size: 18px;
+  padding: 3px 12px;
+}
+.gp-press.gp-press-info .gp-press-text {
+  font-size: 17px;
+}
+.gp-press-key {
+  background: #fff8d1;
+  color: #5a4020;
   font-family: 'Do Hyeon', sans-serif;
-  padding: 6px 18px;
+  font-size: 20px;
+  padding: 4px 14px;
   border-radius: 10px;
+  box-shadow: 0 3px 0 #b89060;
+}
+.gp-press-or {
+  font-family: 'Jua', sans-serif;
+  font-size: 18px;
+  color: #ffd986;
+}
+.gp-press-text {
+  font-family: 'Jua', sans-serif;
+  font-size: 19px;
+}
+
+/* results */
+.game-results {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px;
+}
+.gr-trophy {
+  font-size: 76px;
+  animation: bounce 1.2s ease infinite;
+}
+.gr-winner {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 32px;
+  color: #5a4020;
+  background: linear-gradient(135deg, #fff5e1, #ffd986);
+  border: 3px solid #ff8a3d;
+  border-radius: 14px;
+  padding: 10px 28px;
+}
+.gr-winner b { color: #d35a17; }
+.gr-list {
+  display: flex; flex-direction: column;
+  gap: 8px;
+  min-width: 480px;
+  max-width: 720px;
+}
+.gr-row {
+  display: flex; align-items: center; gap: 14px;
+  background: white;
+  border: 2px solid #ffd986;
+  border-radius: 12px;
+  padding: 8px 18px;
+  font-family: 'Jua', sans-serif;
+  font-size: 22px;
+  color: #5a4020;
+}
+.gr-row.rank1 { border-color: #ff8a3d; background: linear-gradient(90deg, #fff5e1, white); }
+.gr-rank {
+  font-family: 'Do Hyeon', sans-serif;
   font-size: 24px;
-  display: inline-block;
+  color: white;
+  width: 36px; height: 36px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  background: #b89060;
+  flex-shrink: 0;
+}
+.gr-row.rank1 .gr-rank { background: #ff8a3d; }
+.gr-row.rank2 .gr-rank { background: #b8b8b8; }
+.gr-row.rank3 .gr-rank { background: #c08040; }
+.gr-name { flex: 1; }
+.gr-value {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 24px;
+  color: #d35a17;
+}
+.gr-actions {
+  display: flex; gap: 14px; margin-top: 8px;
+}
+
+/* summary (정리 페이지) */
+.game-summary {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: stretch;
+  gap: 14px;
+  padding: 0 4px;
+  min-height: 0;
+}
+.gs-body {
+  flex: 1;
+  display: flex;
+  gap: 20px;
+  min-height: 0;
+}
+.gs-records-col {
+  flex: 1.6;
+  display: flex; flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+}
+.gs-title {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 24px;
+  color: #5a4020;
+  background: linear-gradient(135deg, #fff5e1, #ffd986);
+  border: 3px solid #ff8a3d;
+  border-radius: 12px;
+  padding: 6px 22px;
+  text-align: center;
+  align-self: flex-start;
+  flex-shrink: 0;
+}
+.gs-records {
+  flex: 1;
+  display: flex; flex-direction: column;
+  gap: 8px;
+  min-height: 0;
+  overflow: hidden;
+}
+.gs-rec {
+  flex: 1;
+  display: flex; align-items: center; gap: 16px;
+  background: white;
+  border: 3px solid #ffd986;
+  border-radius: 14px;
+  padding: 8px 22px;
+  font-family: 'Jua', sans-serif;
+  font-size: 24px;
+  color: #5a4020;
+  min-height: 0;
+}
+.gs-rec.rank1 { border-color: #ff8a3d; background: linear-gradient(90deg, #fff5e1, white); }
+.gs-rec-rank {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 22px;
+  color: white;
+  width: 56px; height: 42px;
+  border-radius: 10px;
+  display: flex; align-items: center; justify-content: center;
+  background: #b89060;
+  flex-shrink: 0;
+}
+.gs-rec.rank1 .gs-rec-rank { background: #ff8a3d; }
+.gs-rec.rank2 .gs-rec-rank { background: #b8b8b8; }
+.gs-rec.rank3 .gs-rec-rank { background: #c08040; }
+.gs-rec-name { flex: 1; font-size: 24px; }
+.gs-rec-val {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 24px;
+  color: #d35a17;
+}
+.gs-thought {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 14px;
+  font-family: 'Jua', sans-serif;
+  font-size: 24px;
+  color: #5a4020;
+  background: #fff8d1;
+  border: 3px solid #ffba59;
+  padding: 18px 22px;
+  border-radius: 14px;
+  line-height: 1.5;
+  text-align: center;
+}
+.gs-thought-ico { font-size: 48px; }
+.gs-thought-text b { color: #d35a17; }
+.gs-thought .btn.small {
+  font-size: 17px;
+  padding: 8px 18px;
+}
+
+/* 핵심 개념 (인라인, 클릭 후 등장) */
+.gs-key {
+  display: none;
+  align-items: center; justify-content: center;
+  gap: 16px;
+  background: linear-gradient(135deg, #e8fdec, #c8f0d0);
+  border: 4px solid #5fc46b;
+  border-radius: 16px;
+  padding: 14px 28px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(46, 134, 54, 0.18);
+}
+.gs-key.show {
+  display: flex;
+  animation: keySlideIn .35s ease;
+}
+@keyframes keySlideIn {
+  0% { transform: translateY(20px) scale(.95); opacity: 0; }
+  60% { transform: translateY(-4px) scale(1.02); opacity: 1; }
+  100% { transform: translateY(0) scale(1); opacity: 1; }
+}
+.gs-key-ico {
+  font-size: 44px;
+  animation: bounce 1.2s ease infinite;
+}
+.gs-key-text {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 26px;
+  color: #1a6b22;
+  text-align: center;
+  line-height: 1.3;
+}
+.gs-key-text b { color: #d35a17; }
+
+.gs-actions {
+  display: flex; gap: 14px;
+  align-self: center;
+  flex-shrink: 0;
 }
 
 /* ===== 속력의 비밀 ===== */
@@ -709,6 +1146,94 @@ html, body {
   gap: 18px;
   margin-bottom: 14px;
 }
+.speed-calc-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 14px;
+}
+.scc-card {
+  background: #f6fbff;
+  border: 4px solid #cdeaff;
+  border-radius: 18px;
+  padding: 16px 14px 14px;
+  text-align: center;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 10px;
+  transition: border-color .15s ease, background .15s ease;
+}
+.scc-card.correct { border-color: #5fc46b; background: #e8fdec; }
+.scc-card.wrong { border-color: #ff5252; background: #ffe8e8; }
+.scc-card .scc-ico {
+  font-size: 50px; transform: scaleX(-1);
+}
+.scc-card .scc-name {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 24px;
+  color: #1a3b73;
+}
+.scc-card .scc-formula {
+  font-family: 'Jua', sans-serif;
+  font-size: 19px;
+  color: #5a4020;
+  display: flex; align-items: center; gap: 6px; flex-wrap: wrap;
+  justify-content: center;
+}
+.scc-card .scc-input {
+  width: 70px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 22px;
+  padding: 4px 10px;
+  border: 2px solid #ffba59;
+  border-radius: 8px;
+  text-align: center;
+  background: white;
+}
+.scc-card .scc-input:focus { outline: none; border-color: #ff8a3d; }
+.scc-card.correct .scc-input { border-color: #5fc46b; background: #fff; }
+.scc-card .scc-feedback {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 22px;
+  min-height: 28px;
+  font-weight: bold;
+}
+.scc-card.correct .scc-feedback { color: #2e8636; }
+.scc-card.wrong .scc-feedback { color: #d63838; }
+
+/* step 2 결론 팝업 (카드 위쪽에 위치하여 정답 표시를 가리지 않게) */
+.step2-popup {
+  display: none;
+  position: absolute;
+  top: 96px;
+  left: 36px; right: 36px;
+  z-index: 60;
+  justify-content: center;
+  animation: popupSlideDown .4s ease;
+  pointer-events: auto;
+}
+.step2-popup.show { display: flex; }
+.step2-popup-inner {
+  background: linear-gradient(180deg, #fff5e1, #ffe8b3);
+  border: 5px solid #ff8a3d;
+  border-radius: 20px;
+  padding: 22px 36px;
+  max-width: 760px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 14px;
+  text-align: center;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
+}
+@keyframes popupSlideDown {
+  0% { transform: translateY(-30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+.step2-popup-ico { font-size: 64px; animation: bounce 1.2s ease infinite; }
+.step2-popup-text {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 28px;
+  color: #5a4020;
+  line-height: 1.45;
+}
+.step2-popup-text b { color: #d35a17; }
 .speed-friend-card {
   background: #f6fbff;
   border: 4px solid #cdeaff;
@@ -760,38 +1285,79 @@ html, body {
   line-height: 1.5;
 }
 .speed-helper b { color: #d35a17; }
-.speed-think-options {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  max-width: 920px;
-  margin: 0 auto;
+.speed-think-write {
+  display: flex; flex-direction: column;
+  gap: 12px;
+  padding: 18px 22px;
+  background: #fff8d1;
+  border: 3px solid #ffba59;
+  border-radius: 14px;
+  max-width: 900px;
+  margin: 8px auto 0;
 }
-.speed-think-opt {
-  background: #f6fbff;
-  border: 4px solid #cdeaff;
-  border-radius: 18px;
-  padding: 22px 16px;
-  font-size: 22px;
-  text-align: center;
-  cursor: pointer;
-  color: #1a3b73;
+.stw-hint {
   font-family: 'Jua', sans-serif;
+  font-size: 20px;
+  color: #5a4020;
+  line-height: 1.5;
+}
+.stw-input {
+  width: 100%;
+  font-family: 'Jua', sans-serif;
+  font-size: 20px;
+  color: #5a4020;
+  padding: 12px 16px;
+  border: 2px solid #ffba59;
+  border-radius: 12px;
+  background: white;
+  resize: none;
   line-height: 1.4;
-  transition: all .15s ease;
+  box-sizing: border-box;
 }
-.speed-think-opt:hover { transform: translateY(-2px); }
-.speed-think-opt .sti-ico { font-size: 50px; display: block; margin-bottom: 6px; }
-.speed-think-opt.wrong { background: #ffe8e8; border-color: #ff5252; }
-.speed-think-opt.right { background: #e8fdec; border-color: #5fc46b; }
-.speed-think-feedback {
-  margin-top: 16px; min-height: 44px;
+.stw-input:focus { outline: none; border-color: #ff8a3d; }
+.stw-actions { display: flex; justify-content: center; }
+.speed-think-explanation {
+  display: flex; flex-direction: column;
+  gap: 12px;
+  max-width: 900px;
+  margin: 8px auto 0;
+}
+.ste-your {
+  background: #fff5e1;
+  border: 2px solid #ffd986;
+  border-radius: 12px;
+  padding: 10px 16px;
+}
+.ste-label {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 18px;
+  color: #b35a17;
+  margin-bottom: 4px;
+}
+.ste-text {
   font-family: 'Jua', sans-serif;
-  font-size: 22px;
-  text-align: center;
-  color: #1a3b73;
+  font-size: 19px;
+  color: #5a4020;
+  line-height: 1.4;
+  white-space: pre-wrap;
 }
-.speed-feedback-bad { color: #d63838; }
-.speed-feedback-good { color: #2e8636; }
+.ste-why {
+  display: flex; align-items: center;
+  gap: 20px;
+  background: linear-gradient(135deg, #e8fdec, #c8f0d0);
+  border: 4px solid #5fc46b;
+  border-radius: 18px;
+  padding: 26px 32px;
+  box-shadow: 0 4px 14px rgba(46, 134, 54, 0.18);
+}
+.ste-why-ico { font-size: 64px; flex-shrink: 0; }
+.ste-why-text {
+  font-family: 'Jua', sans-serif;
+  font-size: 24px;
+  color: #1a6b22;
+  line-height: 1.6;
+}
+.ste-why-text b { color: #d35a17; }
 .speed-conclusion {
   background: linear-gradient(135deg, #fff5e1, #ffe0b3);
   border: 5px solid #ff8a3d;
@@ -807,13 +1373,21 @@ html, body {
   color: #5a4020;
   margin: 6px 0 12px;
   line-height: 1.4;
+  white-space: nowrap;
 }
 .speed-conclusion .sc-line1 b { color: #d35a17; }
 .speed-conclusion .sc-line2 {
-  font-size: 22px;
+  font-size: 26px;
   color: #5a4020;
   margin-bottom: 16px;
-  font-family: 'Jua', sans-serif;
+  font-family: 'Do Hyeon', sans-serif;
+}
+.speed-conclusion .sc-speed {
+  color: #2e8636;
+  font-family: 'Do Hyeon', sans-serif;
+  background: #e8fdec;
+  padding: 0 8px;
+  border-radius: 8px;
 }
 .speed-formula-big {
   background: white;
@@ -839,133 +1413,384 @@ html, body {
 }
 
 /* ===== 속력 계산기 ===== */
-.calc-grid {
-  display: grid; grid-template-columns: 1.15fr 1fr;
-  gap: 24px;
-  margin-bottom: 16px;
+/* 속력 계산하기 탭/패널 */
+.calc-screen { display: flex; flex-direction: column; }
+.calc-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 14px;
 }
-.calc-input-group {
-  background: #f6fbff;
-  border-radius: 16px;
-  padding: 20px 26px;
-  border: 3px solid #cdeaff;
-}
-.calc-input-group h3 {
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 24px;
-  color: #1a3b73; margin-bottom: 14px;
-  text-align: center;
-}
-.calc-input-row {
-  display: flex; align-items: center; gap: 12px;
-  margin-bottom: 12px;
-}
-.calc-input-row label {
-  font-size: 22px;
-  color: #1a3b73; width: 120px;
-  font-family: 'Jua', sans-serif;
-}
-.calc-input-row input {
+.calc-tab {
   flex: 1;
-  padding: 10px 14px;
-  font-size: 26px;
-  border: 3px solid #cdeaff;
+  background: rgba(255, 248, 230, 0.7);
+  border: 3px solid rgba(255, 186, 89, 0.4);
   border-radius: 12px;
-  font-family: 'Jua', sans-serif;
-  text-align: center;
-  background: white;
-}
-.calc-input-row input:focus { outline: none; border-color: #ff8a3d; }
-.calc-input-row .unit {
-  font-size: 22px; color: #1a3b73; width: 50px;
-  font-family: 'Jua', sans-serif;
-}
-.calc-formula-hint {
-  text-align: center;
-  font-size: 19px;
-  color: #888;
-  font-family: 'Jua', sans-serif;
-  margin-top: 6px;
-}
-.calc-result-card {
-  background: linear-gradient(135deg, #fff5e1, #ffe0b3);
-  border-radius: 16px;
-  padding: 18px;
-  text-align: center;
-  border: 5px solid #ff8a3d;
-  display: flex; flex-direction: column;
-  justify-content: center;
-}
-.calc-result-card .label {
-  font-size: 22px; color: #5a4020;
-  font-family: 'Jua', sans-serif;
-}
-.calc-result-card .speed-num {
+  padding: 10px 14px;
   font-family: 'Do Hyeon', sans-serif;
-  font-size: 70px;
-  color: #d35a17;
-  line-height: 1.05;
-  margin: 4px 0;
-}
-.calc-result-card .unit {
-  font-size: 22px;
-  color: #5a4020;
-  font-family: 'Jua', sans-serif;
-}
-.examples-h3 {
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 22px;
-  color: #5a4020;
-  margin-bottom: 8px;
-}
-.examples-list {
-  display: grid; grid-template-columns: repeat(6, 1fr);
-  gap: 10px;
-}
-.example-item {
-  background: #e3f2fd;
-  border-radius: 14px;
-  padding: 10px 6px;
-  text-align: center;
+  font-size: 20px;
+  color: #8a6030;
   cursor: pointer;
-  border: 3px solid transparent;
   transition: all .15s ease;
 }
-.example-item:hover { transform: translateY(-2px); border-color: #4a9cff; }
-.example-item .ex-ico { font-size: 34px; }
-.example-item .ex-name {
-  font-size: 15px; color: #1a3b73; font-family: 'Jua', sans-serif;
-}
-.example-item .ex-speed {
-  color: #d35a17;
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 18px;
-}
-.example-item .ex-kmh {
-  font-size: 12px; color: #888;
-  font-family: 'Jua', sans-serif;
-}
-.calc-tip {
-  text-align: center;
-  margin-top: 12px;
-  font-size: 18px;
+.calc-tab:hover { background: rgba(255, 217, 134, 0.5); }
+.calc-tab.active {
+  background: linear-gradient(135deg, #ffd986, #ffba59);
   color: #5a4020;
-  font-family: 'Jua', sans-serif;
+  border-color: #ff8a3d;
+  box-shadow: 0 3px 0 #d96a1f;
 }
+.calc-panel {
+  display: none;
+  flex: 1;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 0;
+}
+.calc-panel.active { display: flex; animation: fadeIn .25s ease; }
+
+.calc-helper {
+  background: #fff8d1;
+  border-left: 6px solid #ffba59;
+  padding: 14px 22px;
+  border-radius: 12px;
+  font-family: 'Jua', sans-serif;
+  font-size: 20px;
+  color: #5a4020;
+  line-height: 1.5;
+}
+.calc-helper b { color: #d35a17; }
+
+.calc-explorer {
+  background: #f6fbff;
+  border: 3px solid #cdeaff;
+  border-radius: 16px;
+  padding: 22px 28px;
+  display: flex; flex-direction: row;
+  align-items: stretch;
+  gap: 18px;
+}
+.ce-left {
+  flex: 1.1;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+.ce-right {
+  flex: 1;
+  display: flex; flex-direction: column;
+  justify-content: center;
+  gap: 14px;
+}
+.ce-row {
+  display: flex; align-items: center; gap: 14px;
+  font-family: 'Jua', sans-serif;
+  font-size: 22px;
+  color: #1a3b73;
+}
+.ce-label { width: 100px; }
+.ce-fixed {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 26px;
+  color: #d35a17;
+  background: white;
+  padding: 6px 18px;
+  border-radius: 10px;
+  border: 2px solid #ffba59;
+}
+.ce-note { color: #888; font-size: 16px; }
+.ce-row input {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 26px;
+  padding: 6px 14px;
+  border: 3px solid #cdeaff;
+  border-radius: 10px;
+  text-align: center;
+  background: white;
+  width: 130px;
+}
+.ce-row input:focus { outline: none; border-color: #ff8a3d; }
+.ce-unit { font-size: 22px; }
+.ce-arrow {
+  display: flex; align-items: center; justify-content: center;
+  font-size: 42px;
+  color: #b89060;
+  flex-shrink: 0;
+  padding: 0 6px;
+}
+.ce-result {
+  background: linear-gradient(135deg, #fff5e1, #ffe0b3);
+  border: 3px solid #ff8a3d;
+  border-radius: 14px;
+  padding: 14px 22px;
+  display: flex; align-items: center; justify-content: center; gap: 14px;
+}
+.ce-result .ce-label { width: auto; color: #5a4020; }
+.ce-out-val { font-family: 'Do Hyeon', sans-serif; font-size: 38px; color: #d35a17; }
+.calc-quick {
+  display: flex; flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  background: white;
+  border: 2px dashed #ffba59;
+  border-radius: 12px;
+  padding: 10px 14px;
+}
+.cq-label {
+  font-family: 'Jua', sans-serif;
+  font-size: 17px;
+  color: #b35a17;
+}
+.cq-buttons {
+  display: flex; flex-wrap: wrap; gap: 6px; justify-content: center;
+}
+.cq-quick-btn {
+  background: #fff5e1;
+  border: 2px solid #ffba59;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-family: 'Jua', sans-serif;
+  font-size: 17px;
+  color: #5a4020;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+.cq-quick-btn:hover { background: #ffd986; transform: translateY(-1px); }
+.cq-quick-btn.used { background: #ffd986; border-color: #ff8a3d; color: #5a4020; }
+
+/* 빠른 입력 누적 식 표시 */
+.calc-acc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 4px;
+  min-height: 50px;
+}
+.calc-acc-line {
+  background: white;
+  border: 3px solid #ffba59;
+  border-radius: 14px;
+  padding: 12px 22px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 28px;
+  color: #5a4020;
+  display: inline-flex; align-items: center; gap: 8px;
+  animation: accPop .25s ease;
+  box-shadow: 0 3px 8px rgba(74, 40, 20, 0.08);
+}
+.calc-acc-line b { color: #2e8636; font-size: 32px; }
+@keyframes accPop {
+  0% { transform: scale(.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* 연습 문제 (Tab C) */
+.cq-setup {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 24px;
+}
+.cq-setup-title {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 32px;
+  color: #5a4020;
+}
+.cq-setup-options {
+  display: flex; gap: 16px;
+}
+.cq-setup-opt {
+  background: linear-gradient(135deg, #ffd986, #ffba59);
+  border: 4px solid #ff8a3d;
+  border-radius: 16px;
+  padding: 18px 36px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 28px;
+  color: #5a4020;
+  cursor: pointer;
+  transition: all .15s ease;
+  box-shadow: 0 4px 0 #d96a1f;
+}
+.cq-setup-opt:hover { transform: translateY(-2px); }
+.cq-setup-opt:active { transform: translateY(2px); box-shadow: 0 2px 0 #d96a1f; }
+.cq-setup-hint {
+  font-family: 'Jua', sans-serif;
+  font-size: 17px;
+  color: #8a6030;
+}
+
+.cq-play {
+  flex: 1;
+  display: flex; flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.cq-top {
+  display: flex; justify-content: space-between; align-items: center;
+  background: #fff8d1;
+  border-radius: 10px;
+  padding: 8px 18px;
+  font-family: 'Jua', sans-serif;
+  font-size: 19px;
+  color: #5a4020;
+}
+.cq-progress { font-family: 'Do Hyeon', sans-serif; font-size: 22px; }
+.cq-score b { color: #d35a17; font-size: 24px; font-family: 'Do Hyeon', sans-serif; }
+.cq-body {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1.8fr 1fr;
+  gap: 14px;
+  min-height: 0;
+}
+.cq-question-card {
+  background: #f6fbff;
+  border: 3px solid #cdeaff;
+  border-radius: 16px;
+  padding: 18px 22px;
+  display: flex; flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+.cq-q-text {
+  font-family: 'Jua', sans-serif;
+  font-size: 22px;
+  color: #1a3b73;
+  line-height: 1.5;
+}
+.cq-q-text b { color: #d35a17; }
+.cq-q-equation {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 28px;
+  color: #5a4020;
+  text-align: center;
+  background: white;
+  padding: 16px 10px;
+  border-radius: 12px;
+  border: 2px solid #ffd986;
+  flex: 1;
+  display: flex; align-items: center; justify-content: center;
+  line-height: 1.4;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.cq-eq-input {
+  width: 80px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 24px;
+  padding: 5px 8px;
+  border: 3px solid #ffba59;
+  border-radius: 8px;
+  text-align: center;
+  background: #fff5e1;
+  color: #d35a17;
+}
+.cq-eq-input:focus { outline: none; border-color: #ff8a3d; background: white; }
+.cq-eq-input.cq-eq-ans {
+  background: #e3f2fd;
+  color: #1a3b73;
+  border: 3px dashed #4a9cff;
+}
+.cq-eq-input.cq-eq-ans:focus { background: white; border-style: solid; }
+.cq-eq-unit {
+  color: #5a4020;
+  font-size: 22px;
+}
+.cq-feedback {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 26px;
+  min-height: 32px;
+  text-align: center;
+  font-weight: bold;
+}
+.cq-feedback.ok { color: #2e8636; }
+.cq-feedback.no { color: #d63838; }
+.cq-actions { display: flex; gap: 10px; justify-content: center; }
+
+.cq-calculator {
+  background: #5a4020;
+  border-radius: 14px;
+  padding: 8px;
+  display: flex; flex-direction: column;
+  gap: 6px;
+}
+.cq-calc-title {
+  text-align: center;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 15px;
+  color: #fff8d1;
+}
+.cq-calc-display {
+  background: #fff8d1;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 22px;
+  color: #5a4020;
+  text-align: right;
+  min-height: 28px;
+}
+.cq-calc-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 4px;
+  flex: 1;
+}
+.cq-calc-keys button {
+  background: #fff8d1;
+  border: none;
+  border-radius: 6px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 17px;
+  color: #5a4020;
+  cursor: pointer;
+  padding: 4px 0;
+  transition: background .08s;
+}
+.cq-calc-keys button:hover { background: #ffe8b3; }
+.cq-calc-keys button:active { background: #ffd986; }
+.cq-calc-keys .cq-k-op { background: #ffba59; color: white; }
+.cq-calc-keys .cq-k-op:hover { background: #ff8a3d; }
+.cq-calc-keys .cq-k-eq { background: #5fc46b; color: white; grid-row: span 2; }
+.cq-calc-keys .cq-k-eq:hover { background: #3ea34a; }
+.cq-calc-keys .cq-k-clear { background: #ff5252; color: white; }
+.cq-calc-keys .cq-k-back { background: #ffa07a; color: white; }
+.cq-calc-keys .cq-k-zero { grid-column: span 2; }
+
+.cq-done {
+  flex: 1;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 18px;
+}
+.cq-done-trophy { font-size: 80px; animation: bounce 1.2s ease infinite; }
+.cq-done-msg {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 32px;
+  color: #5a4020;
+}
+.cq-done-score {
+  font-family: 'Jua', sans-serif;
+  font-size: 24px;
+  color: #5a4020;
+}
+.cq-done-score b { color: #d35a17; font-size: 36px; font-family: 'Do Hyeon', sans-serif; }
+.cq-done-actions { display: flex; gap: 14px; }
 
 /* ===== 속력 비교 연습 ===== */
 .compare-instruction {
   background: #fff8d1;
   border-left: 6px solid #ffba59;
-  padding: 8px 18px;
-  border-radius: 10px;
-  font-size: 19px;
+  padding: 14px 26px;
+  border-radius: 12px;
+  font-size: 28px;
+  font-family: 'Jua', sans-serif;
   color: #5a4020;
   line-height: 1.4;
   text-align: center;
 }
 .compare-instruction b { color: #d35a17; }
-.compare-instruction .small { font-size: 16px; color: #888; display: block; margin-top: 2px; }
+.compare-instruction .small { font-size: 22px; color: #888; display: block; margin-top: 2px; }
 .compare-grid {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 14px;
@@ -979,13 +1804,43 @@ html, body {
   text-align: center;
   display: flex; flex-direction: column;
   gap: 5px;
+  position: relative;
 }
 .compare-card.correct {
   background: #e8fdec;
   border-color: #5fc46b;
 }
+.compare-card .cc-top {
+  position: relative;
+  display: flex; align-items: center; justify-content: center;
+  min-height: 60px;
+}
+.compare-card .cc-rank {
+  position: absolute;
+  top: -2px; left: -2px;
+  display: none;
+  align-items: center; justify-content: center;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 22px;
+  color: white;
+  background: #b89060;
+  box-shadow: 0 3px 8px rgba(0,0,0,.18);
+  z-index: 2;
+  animation: rankPop .4s ease;
+}
+.compare-card .cc-rank.show { display: flex; }
+.compare-card .cc-rank.rank1 { background: #ff8a3d; }
+.compare-card .cc-rank.rank2 { background: #b8b8b8; }
+.compare-card .cc-rank.rank3 { background: #c08040; }
+@keyframes rankPop {
+  0% { transform: scale(.2); opacity: 0; }
+  60% { transform: scale(1.15); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
 .compare-card .cc-ico {
-  font-size: 40px;
+  font-size: 50px;
   display: inline-block;
   transform: scaleX(-1);
   line-height: 1;
@@ -1031,37 +1886,50 @@ html, body {
   line-height: 1.3;
 }
 .cc-feedback b { color: #2e8636; font-family: 'Do Hyeon', sans-serif; font-size: 17px; }
+.cc-speed-big {
+  display: none;
+  background: linear-gradient(135deg, #fff5e1, #ffe0b3);
+  border: 3px solid #ff8a3d;
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 30px;
+  color: #d35a17;
+  text-align: center;
+  margin-top: 4px;
+  animation: accPop .25s ease;
+}
+.cc-speed-big.show { display: block; }
+.cc-speed-big .unit {
+  font-size: 18px;
+  color: #5a4020;
+  margin-left: 4px;
+}
 .compare-rank-area {
   text-align: center;
   margin-top: 4px;
 }
 .compare-rank-area .btn { padding: 10px 28px; font-size: 20px; }
 .compare-result {
-  margin-top: 8px;
-  background: #fff5e1;
-  border: 3px solid #ffba59;
-  border-radius: 12px;
-  padding: 8px 18px;
+  margin-top: 12px;
+  background: linear-gradient(135deg, #fff5e1, #ffd986);
+  border: 4px solid #ff8a3d;
+  border-radius: 16px;
+  padding: 18px 28px;
   display: none;
-  text-align: left;
-  max-width: 600px;
+  text-align: center;
+  max-width: 760px;
   margin-left: auto; margin-right: auto;
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 34px;
+  color: #5a4020;
+  box-shadow: 0 6px 16px rgba(255, 138, 61, 0.25);
 }
 .compare-result.show { display: block; animation: fadeIn .3s; }
-.compare-result .rank-title {
-  font-family: 'Do Hyeon', sans-serif;
-  font-size: 20px;
-  color: #5a4020;
-  text-align: center;
-  margin-bottom: 4px;
+.compare-result b {
+  color: #d35a17;
+  font-size: 38px;
 }
-.compare-result .rank-row {
-  font-size: 17px;
-  color: #5a4020;
-  margin-bottom: 2px;
-  font-family: 'Jua', sans-serif;
-}
-.compare-result .rank-row b { color: #d35a17; font-family: 'Do Hyeon', sans-serif; }
 
 /* ===== 안전 ===== */
 .safety-intro {
@@ -1091,24 +1959,26 @@ html, body {
 .safety-panel.active { display: block; animation: fadeIn .3s; }
 .safety-grid {
   display: grid; grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 10px;
 }
 .safety-item {
   background: #fff8d1;
   border: 3px solid #ffba59;
-  border-radius: 16px;
-  padding: 14px 20px;
-  display: flex; align-items: center; gap: 18px;
+  border-radius: 14px;
+  padding: 8px 16px;
+  display: flex; align-items: center; gap: 14px;
+  min-height: 70px;
 }
 .safety-item .s-ico {
-  font-size: 54px;
+  font-size: 42px;
   flex-shrink: 0;
-  width: 64px;
+  width: 52px;
   text-align: center;
+  display: flex; align-items: center; justify-content: center;
 }
-.safety-item .s-ico svg { display: block; margin: 0 auto; width: 56px; height: 56px; }
+.safety-item .s-ico svg { display: block; margin: 0 auto; width: 46px; height: 46px; }
 .safety-item .s-text {
-  font-size: 22px; color: #5a4020; line-height: 1.4;
+  font-size: 18px; color: #5a4020; line-height: 1.4;
   font-family: 'Jua', sans-serif;
 }
 .safety-item .s-text b { color: #d35a17; }
@@ -1151,6 +2021,64 @@ html, body {
 .quiz-opt:hover { border-color: #4a9cff; background: #e3f2fd; }
 .quiz-opt.correct { border-color: #5fc46b; background: #e8fdec; }
 .quiz-opt.wrong { border-color: #ff5252; background: #ffe8e8; }
+.quiz-opt.disabled { pointer-events: none; opacity: .55; }
+
+/* 퀴즈 정답 설명 팝업 */
+.quiz-popup {
+  display: none;
+  position: absolute;
+  inset: 0;
+  background: rgba(40, 25, 15, 0.6);
+  z-index: 50;
+  align-items: center; justify-content: center;
+  animation: fadeIn .25s ease;
+}
+.quiz-popup.show { display: flex; }
+.quiz-popup-inner {
+  background: linear-gradient(180deg, #fff8d1, #ffe8b3);
+  border: 5px solid #ff8a3d;
+  border-radius: 22px;
+  padding: 28px 36px;
+  max-width: 760px;
+  display: flex; flex-direction: column;
+  align-items: center; gap: 14px;
+  text-align: center;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+  animation: popupPop .35s ease;
+}
+.quiz-popup-ico {
+  font-size: 60px;
+  animation: bounce 1.2s ease infinite;
+}
+.quiz-popup-title {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 36px;
+  color: #d35a17;
+}
+.quiz-popup-q {
+  font-family: 'Jua', sans-serif;
+  font-size: 22px;
+  color: #5a4020;
+  background: white;
+  padding: 10px 18px;
+  border-radius: 10px;
+  border: 2px solid #ffd986;
+  line-height: 1.4;
+}
+.quiz-popup-correct {
+  font-family: 'Do Hyeon', sans-serif;
+  font-size: 24px;
+  color: #2e8636;
+}
+.quiz-popup-explain {
+  font-family: 'Jua', sans-serif;
+  font-size: 20px;
+  color: #5a4020;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 14px 22px;
+  border-radius: 12px;
+  line-height: 1.5;
+}
 .quiz-feedback {
   margin-top: 14px; text-align: center;
   font-size: 22px; color: #5a4020;
@@ -1253,58 +2181,30 @@ html, body {
           </div>
           <div class="lesson-row" data-lesson="motion" onclick="goto('motion')">
             <div class="num yellow">2</div>
-            <div class="ico">🏃</div>
-            <div class="row-title">운동이란?</div>
+            <div class="ico">🔍</div>
+            <div class="row-title">개념 확인</div>
             <div class="status-pill" data-status="motion">시작 전</div>
             <div class="row-arrow">→</div>
           </div>
-          <div class="lesson-row" data-lesson="sametime" onclick="goto('sametime')">
-            <div class="num yellow">3</div>
-            <div class="ico">⏱️</div>
-            <div class="row-title">같은 시간 동안 비교하기</div>
-            <div class="status-pill" data-status="sametime">시작 전</div>
-            <div class="row-arrow">→</div>
-          </div>
-          <div class="lesson-row" data-lesson="samedist" onclick="goto('samedist')">
-            <div class="num yellow">4</div>
-            <div class="ico">📏</div>
-            <div class="row-title">같은 거리에서 비교하기</div>
-            <div class="status-pill" data-status="samedist">시작 전</div>
-            <div class="row-arrow">→</div>
-          </div>
           <div class="lesson-row" data-lesson="speed" onclick="goto('speed')">
-            <div class="num orange">5</div>
+            <div class="num orange">3</div>
             <div class="ico">⚡</div>
             <div class="row-title">속력의 비밀</div>
             <div class="status-pill" data-status="speed">시작 전</div>
             <div class="row-arrow">→</div>
           </div>
-          <div class="lesson-row" data-lesson="calc" onclick="goto('calc')">
-            <div class="num green">6</div>
-            <div class="ico">🧮</div>
-            <div class="row-title">속력 계산하기</div>
-            <div class="status-pill" data-status="calc">시작 전</div>
-            <div class="row-arrow">→</div>
-          </div>
           <div class="lesson-row" data-lesson="compare" onclick="goto('compare')">
-            <div class="num orange">7</div>
+            <div class="num purple">4</div>
             <div class="ico">🎯</div>
-            <div class="row-title">속력 비교 연습</div>
+            <div class="row-title">연습하기</div>
             <div class="status-pill" data-status="compare">시작 전</div>
             <div class="row-arrow">→</div>
           </div>
           <div class="lesson-row" data-lesson="safety" onclick="goto('safety')">
-            <div class="num green">8</div>
+            <div class="num green">5</div>
             <div class="ico">🚦</div>
             <div class="row-title">속력과 안전</div>
             <div class="status-pill" data-status="safety">시작 전</div>
-            <div class="row-arrow">→</div>
-          </div>
-          <div class="lesson-row" data-lesson="quiz" onclick="goto('quiz')">
-            <div class="num purple">9</div>
-            <div class="ico">🏆</div>
-            <div class="row-title">마무리 퀴즈</div>
-            <div class="status-pill" data-status="quiz">시작 전</div>
             <div class="row-arrow">→</div>
           </div>
         </div>
@@ -1408,9 +2308,16 @@ html, body {
             </button>
           </div>
         </div>
-        <div class="motion-result" id="motion-result">
-          ✨ <b>운동이란?</b> 시간이 지남에 따라 물체의 <b>위치가 변하는 것</b>이에요.<br>
-          자동차와 새는 위치가 변했지만, 나무와 집은 그대로 있었어요!
+        <div class="motion-popup" id="motion-popup">
+          <div class="motion-popup-inner">
+            <div class="motion-popup-ico">✨</div>
+            <div class="motion-popup-title">운동이란?</div>
+            <div class="motion-popup-text">
+              시간이 지남에 따라 물체의 <b>위치가 변하는 것</b>이에요.<br>
+              자동차와 새는 위치가 변했지만 나무와 집은 그대로 있었어요!
+            </div>
+            <button class="btn green big" onclick="closeMotionPopup()">✓ 확인</button>
+          </div>
         </div>
       </div>
       <div class="lesson-bottom">
@@ -1419,44 +2326,91 @@ html, body {
       </div>
     </section>
 
-    <!-- ============ 같은 시간 비교 ============ -->
-    <section id="screen-sametime" class="screen">
+    <!-- ============ 같은 시간 동안 누가 더 멀리 갈까요? ============ -->
+    <section id="screen-sametime" class="screen" data-game="sametime">
       <div class="topbar">
         <button class="tb-home" onclick="goto('menu')">🏠</button>
-        <div class="tb-title">⏱️ 같은 시간 동안 누가 더 멀리?</div>
+        <div class="tb-title">⏱️ 같은 시간 동안 누가 더 멀리 갈까요?</div>
         <button class="tb-toc" onclick="goto('menu')">목차</button>
       </div>
-      <div class="lesson-content">
-        <div class="race-instr">
-          <b>같은 5초 동안</b> 학생들이 출발했어요. <b>더 멀리 간 학생</b>이 더 빨라요!
+      <div class="lesson-content game-screen">
+        <div class="game-state state-intro active">
+          <div class="game-intro">
+            <div class="gi-rules">
+              <div class="gi-rule">🎯 <b>10초 동안</b> 동시에 달려요</div>
+              <div class="gi-rule">⌨️ <b>스페이스바</b> 또는 🏃 <b>트랙</b>을 빠르게 눌러요</div>
+              <div class="gi-rule">🏆 <b>가장 멀리 간 친구</b>가 1등!</div>
+            </div>
+            <div class="gi-parts">
+              <div class="gi-parts-title" data-role="parts-title">참가자</div>
+              <div class="gi-parts-list" data-role="parts"></div>
+              <div class="gi-parts-hint" data-role="parts-hint"></div>
+            </div>
+            <button class="btn green big" onclick="gameStart('sametime')" data-role="start-btn">▶ 시작</button>
+          </div>
         </div>
-        <div class="race-track" id="t1-track">
-          <div class="track-label">민준</div>
-          <div class="track-line"></div>
-          <div class="track-flag">🏁</div>
-          <div class="track-runner" id="t1-r1" style="left: 130px;">🏃</div>
-          <div class="race-distmark" id="t1-mark1">15m</div>
+        <div class="game-state state-prep">
+          <div class="game-prep">
+            <div class="gp-emoji">🏃</div>
+            <div class="gp-instr">스페이스바를 빠르게 두드릴 준비!</div>
+            <div class="gp-count" data-role="count">3</div>
+          </div>
         </div>
-        <div class="race-track">
-          <div class="track-label">서연</div>
-          <div class="track-line"></div>
-          <div class="track-flag">🏁</div>
-          <div class="track-runner" id="t1-r2" style="left: 130px;">🏃</div>
-          <div class="race-distmark" id="t1-mark2">20m</div>
+        <div class="game-state state-play">
+          <div class="game-play">
+            <div class="gph">
+              <div class="gph-title">⏱️ 같은 시간 동안 누가 더 멀리 갈까요?</div>
+              <div class="gph-time"><span class="gph-lbl">남은 시간</span> <b data-role="time">10.0초</b></div>
+            </div>
+            <div class="multi-track" data-role="multi-track">
+              <div class="mt-tap-hint">🏃 트랙을 빠르게 눌러서 달려요!</div>
+            </div>
+            <div class="gp-press gp-press-info">
+              <span class="gp-press-key">SPACE</span>
+              <span class="gp-press-or">또는</span>
+              <span class="gp-press-key">🏃 트랙을 탭</span>
+              <span class="gp-press-text">하면 달려요!</span>
+            </div>
+          </div>
         </div>
-        <div class="race-track">
-          <div class="track-label">도윤</div>
-          <div class="track-line"></div>
-          <div class="track-flag">🏁</div>
-          <div class="track-runner" id="t1-r3" style="left: 130px;">🏃</div>
-          <div class="race-distmark" id="t1-mark3">25m</div>
+        <div class="game-state state-results">
+          <div class="game-results">
+            <div class="gr-trophy">🏆</div>
+            <div class="gr-winner" data-role="winner"></div>
+            <div class="gr-list" data-role="results"></div>
+            <div class="gr-actions">
+              <button class="btn blue" onclick="gameRestart()">↻ 다시 하기</button>
+              <button class="btn green" onclick="gameToSummary()">📝 정리하기 ▶</button>
+            </div>
+          </div>
         </div>
-        <div class="race-controls">
-          <button class="btn small green" id="t1-start-btn" onclick="startSametime()">▶ 동시 출발 (5초)</button>
-          <span class="time-display" id="t1-timer">0.0초</span>
-          <button class="btn small ghost" onclick="resetSametime()">↻ 다시</button>
+        <div class="game-state state-summary">
+          <div class="game-summary">
+            <div class="gs-body">
+              <div class="gs-records-col">
+                <div class="gs-title">📝 기록 보기</div>
+                <div class="gs-records" data-role="summary-records"></div>
+              </div>
+              <div class="gs-thought">
+                <div class="gs-thought-ico">💭</div>
+                <div class="gs-thought-text">
+                  우리 모두 <b>10초</b> 동안 달렸어요.<br>
+                  그런데 <b>달린 거리</b>는 모두 다르네요.
+                </div>
+                <button class="btn green small" onclick="gameShowConcept()" data-role="concept-btn">✨ 핵심 개념 보기 ▶</button>
+              </div>
+            </div>
+            <div class="gs-key" data-role="key">
+              <div class="gs-key-ico">✨</div>
+              <div class="gs-key-text">
+                같은 <b>시간</b> 동안 <b>더 멀리</b> 간 친구가 <b>더 빨라요!</b>
+              </div>
+            </div>
+            <div class="gs-actions">
+              <button class="btn green big" disabled data-role="next-btn" onclick="goto('samedist')">📏 다음 게임 ▶</button>
+            </div>
+          </div>
         </div>
-        <div class="race-result" id="t1-result"></div>
       </div>
       <div class="lesson-bottom">
         <button class="btn small ghost" onclick="goto('motion')">◀ 이전</button>
@@ -1464,44 +2418,91 @@ html, body {
       </div>
     </section>
 
-    <!-- ============ 같은 거리 비교 ============ -->
-    <section id="screen-samedist" class="screen">
+    <!-- ============ 같은 거리(50m)를 누가 더 빨리 갈까요? ============ -->
+    <section id="screen-samedist" class="screen" data-game="samedist">
       <div class="topbar">
         <button class="tb-home" onclick="goto('menu')">🏠</button>
-        <div class="tb-title">📏 같은 거리를 누가 더 빨리?</div>
+        <div class="tb-title">📏 같은 거리(50m)를 누가 더 빨리 갈까요?</div>
         <button class="tb-toc" onclick="goto('menu')">목차</button>
       </div>
-      <div class="lesson-content">
-        <div class="race-instr">
-          모두 <b>50m</b>를 달려요. <b>적은 시간</b>이 걸린 학생이 더 빨라요!
+      <div class="lesson-content game-screen">
+        <div class="game-state state-intro active">
+          <div class="game-intro">
+            <div class="gi-rules">
+              <div class="gi-rule">🎯 <b>50m</b>를 동시에 달려요</div>
+              <div class="gi-rule">⌨️ <b>스페이스바</b> 또는 🏃 <b>트랙</b>을 빠르게 눌러요</div>
+              <div class="gi-rule">🏆 <b>가장 빨리 도착한 친구</b>가 1등!</div>
+            </div>
+            <div class="gi-parts">
+              <div class="gi-parts-title" data-role="parts-title">참가자</div>
+              <div class="gi-parts-list" data-role="parts"></div>
+              <div class="gi-parts-hint" data-role="parts-hint"></div>
+            </div>
+            <button class="btn green big" onclick="gameStart('samedist')" data-role="start-btn">▶ 시작</button>
+          </div>
         </div>
-        <div class="race-track" id="d1-track">
-          <div class="track-label">민준</div>
-          <div class="track-line"></div>
-          <div class="track-flag">🏁</div>
-          <div class="track-runner" id="d1-r1" style="left: 130px;">🏃</div>
-          <div class="race-timemark" id="d1-mark1">14초</div>
+        <div class="game-state state-prep">
+          <div class="game-prep">
+            <div class="gp-emoji">🏃</div>
+            <div class="gp-instr">스페이스바를 빠르게 두드릴 준비!</div>
+            <div class="gp-count" data-role="count">3</div>
+          </div>
         </div>
-        <div class="race-track">
-          <div class="track-label">서연</div>
-          <div class="track-line"></div>
-          <div class="track-flag">🏁</div>
-          <div class="track-runner" id="d1-r2" style="left: 130px;">🏃</div>
-          <div class="race-timemark" id="d1-mark2">12초</div>
+        <div class="game-state state-play">
+          <div class="game-play">
+            <div class="gph">
+              <div class="gph-title">📏 같은 거리(50m)를 누가 더 빨리 갈까요?</div>
+              <div class="gph-time"><span class="gph-lbl">걸린 시간</span> <b data-role="time">0.0초</b></div>
+            </div>
+            <div class="multi-track" data-role="multi-track">
+              <div class="mt-tap-hint">🏃 트랙을 빠르게 눌러서 달려요!</div>
+            </div>
+            <div class="gp-press gp-press-info">
+              <span class="gp-press-key">SPACE</span>
+              <span class="gp-press-or">또는</span>
+              <span class="gp-press-key">🏃 트랙을 탭</span>
+              <span class="gp-press-text">하면 달려요!</span>
+            </div>
+          </div>
         </div>
-        <div class="race-track">
-          <div class="track-label">도윤</div>
-          <div class="track-line"></div>
-          <div class="track-flag">🏁</div>
-          <div class="track-runner" id="d1-r3" style="left: 130px;">🏃</div>
-          <div class="race-timemark" id="d1-mark3">10초</div>
+        <div class="game-state state-results">
+          <div class="game-results">
+            <div class="gr-trophy">🏆</div>
+            <div class="gr-winner" data-role="winner"></div>
+            <div class="gr-list" data-role="results"></div>
+            <div class="gr-actions">
+              <button class="btn blue" onclick="gameRestart()">↻ 다시 하기</button>
+              <button class="btn green" onclick="gameToSummary()">📝 정리하기 ▶</button>
+            </div>
+          </div>
         </div>
-        <div class="race-controls">
-          <button class="btn small green" id="d1-start-btn" onclick="startSamedist()">▶ 동시 출발 (50m)</button>
-          <span class="time-display" id="d1-timer">0.0초</span>
-          <button class="btn small ghost" onclick="resetSamedist()">↻ 다시</button>
+        <div class="game-state state-summary">
+          <div class="game-summary">
+            <div class="gs-body">
+              <div class="gs-records-col">
+                <div class="gs-title">📝 기록 보기</div>
+                <div class="gs-records" data-role="summary-records"></div>
+              </div>
+              <div class="gs-thought">
+                <div class="gs-thought-ico">💭</div>
+                <div class="gs-thought-text">
+                  우리 모두 <b>50m</b>를 달렸어요.<br>
+                  그런데 <b>걸린 시간</b>은 모두 다르네요.
+                </div>
+                <button class="btn green small" onclick="gameShowConcept()" data-role="concept-btn">✨ 핵심 개념 보기 ▶</button>
+              </div>
+            </div>
+            <div class="gs-key" data-role="key">
+              <div class="gs-key-ico">✨</div>
+              <div class="gs-key-text">
+                같은 <b>거리</b>를 <b>더 짧은 시간</b>에 간 친구가 <b>더 빨라요!</b>
+              </div>
+            </div>
+            <div class="gs-actions">
+              <button class="btn green big" disabled data-role="next-btn" onclick="goto('speed')">⚡ 속력의 비밀 ▶</button>
+            </div>
+          </div>
         </div>
-        <div class="race-result" id="d1-result"></div>
       </div>
       <div class="lesson-bottom">
         <button class="btn small ghost" onclick="goto('sametime')">◀ 이전</button>
@@ -1523,7 +2524,7 @@ html, body {
           <div class="speed-progress">
             <span class="dot active"></span><span class="dot"></span><span class="dot"></span><span class="dot"></span>
           </div>
-          <div class="speed-h2">🤔 거리도 시간도 다 다른데, 누가 가장 빠를까?</div>
+          <div class="speed-h2">🤔 그러면 거리도 시간도 다른 경우는 누가 가장 빠를까요?</div>
           <div class="speed-data-grid">
             <div class="speed-friend-card">
               <div class="sf-ico">🏃</div>
@@ -1555,22 +2556,26 @@ html, body {
           <div class="speed-progress">
             <span class="dot"></span><span class="dot active"></span><span class="dot"></span><span class="dot"></span>
           </div>
-          <div class="speed-h2">어떻게 비교하면 좋을까요?</div>
-          <div class="speed-think-options" id="speed-think-options">
-            <div class="speed-think-opt" onclick="speedThink(this, 0)">
-              <span class="sti-ico">📏</span>
-              거리만 비교하기
-            </div>
-            <div class="speed-think-opt" onclick="speedThink(this, 1)">
-              <span class="sti-ico">⏱️</span>
-              시간만 비교하기
-            </div>
-            <div class="speed-think-opt" onclick="speedThink(this, 2)">
-              <span class="sti-ico">💡</span>
-              <b>1초 동안</b> 간 거리<br>비교하기
+          <div class="speed-h2">💭 어떻게 비교하면 좋을까요?</div>
+          <div class="speed-think-write" id="speed-think-write">
+            <div class="stw-hint">친구들의 거리도 시간도 모두 달라요. 어떤 방법으로 빠르기를 비교할 수 있을지 자유롭게 적어 보세요.</div>
+            <textarea id="speed-think-input" class="stw-input" placeholder="여기에 내 생각을 적어 보세요..." rows="3" oninput="speedThinkInputChanged()"></textarea>
+            <div class="stw-actions">
+              <button class="btn green" id="speed-think-submit-btn" onclick="speedSubmitThink()" disabled>제출하기 ▶</button>
             </div>
           </div>
-          <div class="speed-think-feedback" id="speed-think-feedback"></div>
+          <div class="speed-think-explanation" id="speed-think-explanation" style="display:none;">
+            <div class="ste-your">
+              <div class="ste-label">📝 내가 적은 생각</div>
+              <div class="ste-text" id="speed-think-my-text"></div>
+            </div>
+            <div class="ste-why">
+              <div class="ste-why-ico">💡</div>
+              <div class="ste-why-text">
+                빠르기를 비교하려면 <b>모두에게 똑같은 기준</b>이 필요해요. 거리도 시간도 다르면 그냥은 비교할 수 없어요. <b>한 가지 기준</b>을 정해서 비교해야 누가 더 빠른지 알 수 있어요.
+              </div>
+            </div>
+          </div>
           <div class="speed-step-nav" id="speed-step1-nav" style="visibility:hidden;">
             <button class="btn green" onclick="speedNextStep()">계산해 보기 ▶</button>
           </div>
@@ -1581,33 +2586,42 @@ html, body {
           <div class="speed-progress">
             <span class="dot"></span><span class="dot"></span><span class="dot active"></span><span class="dot"></span>
           </div>
-          <div class="speed-h2">💡 <b>1초 동안</b> 얼마나 갔는지 계산해 봐요!</div>
-          <div class="speed-data-grid">
-            <div class="speed-friend-card">
-              <div class="sf-ico">🏃</div>
-              <div class="sf-name">민준</div>
-              <div class="sf-data">80m ÷ 20초</div>
-              <div class="sf-calc">1초당 <b>4m</b></div>
+          <div class="speed-h2">💡 친구들의 <b>1초 동안 간 거리</b>를 직접 계산해 봐요!</div>
+          <div class="speed-calc-grid">
+            <div class="scc-card" data-friend="민준" data-correct="4">
+              <div class="scc-ico">🏃</div>
+              <div class="scc-name">민준</div>
+              <div class="scc-formula">80m ÷ 20초 = <input type="number" class="scc-input" placeholder="?" min="0" step="0.1"> m</div>
+              <button class="btn small green" onclick="checkSpeedCalc(this)">확인</button>
+              <div class="scc-feedback"></div>
             </div>
-            <div class="speed-friend-card winner">
-              <div class="sf-ico">🏃</div>
-              <div class="sf-name">서연 🏆</div>
-              <div class="sf-data">50m ÷ 10초</div>
-              <div class="sf-calc">1초당 <b>5m</b></div>
+            <div class="scc-card" data-friend="서연" data-correct="5">
+              <div class="scc-ico">🏃</div>
+              <div class="scc-name">서연</div>
+              <div class="scc-formula">50m ÷ 10초 = <input type="number" class="scc-input" placeholder="?" min="0" step="0.1"> m</div>
+              <button class="btn small green" onclick="checkSpeedCalc(this)">확인</button>
+              <div class="scc-feedback"></div>
             </div>
-            <div class="speed-friend-card">
-              <div class="sf-ico">🏃</div>
-              <div class="sf-name">도윤</div>
-              <div class="sf-data">90m ÷ 30초</div>
-              <div class="sf-calc">1초당 <b>3m</b></div>
+            <div class="scc-card" data-friend="도윤" data-correct="3">
+              <div class="scc-ico">🏃</div>
+              <div class="scc-name">도윤</div>
+              <div class="scc-formula">90m ÷ 30초 = <input type="number" class="scc-input" placeholder="?" min="0" step="0.1"> m</div>
+              <button class="btn small green" onclick="checkSpeedCalc(this)">확인</button>
+              <div class="scc-feedback"></div>
             </div>
           </div>
-          <div class="speed-helper">
-            이제 <b>하나의 숫자</b>로 비교할 수 있어요!<br>
-            🏆 <b>서연 &gt; 민준 &gt; 도윤</b> 순서로 빨라요.
-          </div>
-          <div class="speed-step-nav">
+          <div class="speed-step-nav" id="speed-step2-nav" style="visibility:hidden;">
             <button class="btn green" onclick="speedNextStep()">속력이란? ▶</button>
+          </div>
+          <div class="step2-popup" id="speed-step2-popup">
+            <div class="step2-popup-inner">
+              <div class="step2-popup-ico">🏆</div>
+              <div class="step2-popup-text">
+                모두 <b>같은 기준</b>(1초 동안 간 거리)으로 비교했더니<br>
+                <b>서연 &gt; 민준 &gt; 도윤</b> 순서로 빨라요!
+              </div>
+              <button class="btn green" onclick="closeStep2Popup()">✓ 확인</button>
+            </div>
           </div>
         </div>
 
@@ -1618,8 +2632,8 @@ html, body {
           </div>
           <div class="speed-conclusion">
             <div class="sc-trophy">🏆</div>
-            <div class="sc-line1"><b>1초 동안 이동한 거리</b>를<br><b>속력</b>이라고 해요!</div>
-            <div class="sc-line2">속력이 클수록 더 빠른 물체예요.</div>
+            <div class="sc-line1"><b>1초 동안 이동한 거리</b>를 <span class="sc-speed">속력</span>이라고 해요!</div>
+            <div class="sc-line2"><span class="sc-speed">속력</span>이 클수록 더 빠른 물체예요.</div>
             <div class="speed-formula-big">
               속력 =
               <span class="frac">
@@ -1648,68 +2662,135 @@ html, body {
         <div class="tb-title">🧮 속력 계산하기</div>
         <button class="tb-toc" onclick="goto('menu')">목차</button>
       </div>
-      <div class="lesson-content">
-        <div class="calc-grid">
-          <div class="calc-input-group">
-            <h3>거리와 시간을 입력해요</h3>
-            <div class="calc-input-row">
-              <label>이동 거리</label>
-              <input type="number" id="calc-dist" value="50" min="0" />
-              <span class="unit">m</span>
+      <div class="lesson-content calc-screen">
+        <div class="calc-tabs">
+          <button class="calc-tab active" data-tab="A" onclick="setCalcTab('A')">📏 거리가 같을 때</button>
+          <button class="calc-tab" data-tab="B" onclick="setCalcTab('B')">⏱️ 시간이 같을 때</button>
+          <button class="calc-tab" data-tab="C" onclick="setCalcTab('C')">🎯 연습 문제</button>
+        </div>
+
+        <!-- Tab A: 거리가 같을 때 -->
+        <div class="calc-panel active" data-panel="A">
+          <div class="calc-helper">📏 <b>거리는 모두 50m</b>로 같아요. <b>걸린 시간</b>을 입력해서 속력을 구해 봐요. 시간이 짧을수록 어떻게 되는지 살펴봐요.</div>
+          <div class="calc-explorer">
+            <div class="ce-left">
+              <div class="ce-row"><span class="ce-label">이동 거리</span><span class="ce-fixed">50 m</span><span class="ce-note">(고정)</span></div>
+              <div class="ce-row"><span class="ce-label">걸린 시간</span><input id="calcA-time" type="number" value="10" min="0.1" step="0.5" oninput="updateCalcA()"><span class="ce-unit">초</span></div>
             </div>
-            <div class="calc-input-row">
-              <label>걸린 시간</label>
-              <input type="number" id="calc-time" value="10" min="1" />
-              <span class="unit">초</span>
+            <div class="ce-arrow">→</div>
+            <div class="ce-right">
+              <div class="calc-quick">
+                <span class="cq-label">빠르게 입력</span>
+                <div class="cq-buttons">
+                  <button class="cq-quick-btn" onclick="setCalcATime(5)">5초</button>
+                  <button class="cq-quick-btn" onclick="setCalcATime(10)">10초</button>
+                  <button class="cq-quick-btn" onclick="setCalcATime(20)">20초</button>
+                  <button class="cq-quick-btn" onclick="setCalcATime(25)">25초</button>
+                </div>
+              </div>
+              <div class="ce-result"><span class="ce-label">속력</span><span class="ce-out-val"><b id="calcA-out">5</b> m/초</span></div>
             </div>
-            <div class="calc-formula-hint">속력 = 이동 거리 ÷ 걸린 시간</div>
           </div>
-          <div class="calc-result-card">
-            <span class="label">속력</span>
-            <span class="speed-num" id="calc-out">5</span>
-            <span class="unit">m/초</span>
+          <div class="calc-acc" id="calcA-acc"></div>
+        </div>
+
+        <!-- Tab B: 시간이 같을 때 -->
+        <div class="calc-panel" data-panel="B">
+          <div class="calc-helper">⏱️ <b>시간은 모두 10초</b>로 같아요. <b>이동 거리</b>를 입력해서 속력을 구해 봐요. 거리가 멀수록 어떻게 되는지 살펴봐요.</div>
+          <div class="calc-explorer">
+            <div class="ce-left">
+              <div class="ce-row"><span class="ce-label">이동 거리</span><input id="calcB-dist" type="number" value="50" min="0" step="1" oninput="updateCalcB()"><span class="ce-unit">m</span></div>
+              <div class="ce-row"><span class="ce-label">걸린 시간</span><span class="ce-fixed">10 초</span><span class="ce-note">(고정)</span></div>
+            </div>
+            <div class="ce-arrow">→</div>
+            <div class="ce-right">
+              <div class="calc-quick">
+                <span class="cq-label">빠르게 입력</span>
+                <div class="cq-buttons">
+                  <button class="cq-quick-btn" onclick="setCalcBDist(20)">20m</button>
+                  <button class="cq-quick-btn" onclick="setCalcBDist(40)">40m</button>
+                  <button class="cq-quick-btn" onclick="setCalcBDist(60)">60m</button>
+                  <button class="cq-quick-btn" onclick="setCalcBDist(100)">100m</button>
+                </div>
+              </div>
+              <div class="ce-result"><span class="ce-label">속력</span><span class="ce-out-val"><b id="calcB-out">5</b> m/초</span></div>
+            </div>
+          </div>
+          <div class="calc-acc" id="calcB-acc"></div>
+        </div>
+
+        <!-- Tab C: 연습 문제 -->
+        <div class="calc-panel" data-panel="C">
+          <div class="cq-setup" id="cq-setup">
+            <div class="cq-setup-title">🎯 풀고 싶은 문제 수를 골라요</div>
+            <div class="cq-setup-options">
+              <button class="cq-setup-opt" onclick="startCalcQuiz(5)">5문제</button>
+              <button class="cq-setup-opt" onclick="startCalcQuiz(10)">10문제</button>
+              <button class="cq-setup-opt" onclick="startCalcQuiz(15)">15문제</button>
+            </div>
+            <div class="cq-setup-hint">총 20개의 문제 중에서 무작위로 골라 풀어요.</div>
+          </div>
+          <div class="cq-play" id="cq-play" style="display:none;">
+            <div class="cq-top">
+              <div class="cq-progress" id="cq-progress">1 / 5</div>
+              <div class="cq-score">맞춘 개수 <b id="cq-score-num">0</b></div>
+            </div>
+            <div class="cq-body">
+              <div class="cq-question-card">
+                <div class="cq-q-text" id="cq-q-text"></div>
+                <div class="cq-q-equation">
+                  속력 =
+                  <input type="number" class="cq-eq-input" id="cq-eq-d-input" placeholder="?" step="0.1">
+                  <span class="cq-eq-unit">m</span>
+                  ÷
+                  <input type="number" class="cq-eq-input" id="cq-eq-t-input" placeholder="?" step="0.1">
+                  <span class="cq-eq-unit">초</span>
+                  =
+                  <input type="number" class="cq-eq-input cq-eq-ans" id="cq-answer" placeholder="?" step="0.1">
+                  <span class="cq-eq-unit">m/초</span>
+                </div>
+                <div class="cq-feedback" id="cq-feedback"></div>
+                <div class="cq-actions">
+                  <button class="btn small green" id="cq-submit-btn" onclick="submitCalcQuiz()">제출 확인</button>
+                  <button class="btn small green" id="cq-next-btn" onclick="nextCalcQuiz()" style="display:none;">다음 ▶</button>
+                </div>
+              </div>
+              <div class="cq-calculator">
+                <div class="cq-calc-title">🧮 계산기</div>
+                <div class="cq-calc-display" id="cq-calc-display">0</div>
+                <div class="cq-calc-keys">
+                  <button onclick="cqKey('C')" class="cq-k-clear">C</button>
+                  <button onclick="cqKey('←')" class="cq-k-back">←</button>
+                  <button onclick="cqKey('÷')" class="cq-k-op">÷</button>
+                  <button onclick="cqKey('×')" class="cq-k-op">×</button>
+                  <button onclick="cqKey('7')">7</button>
+                  <button onclick="cqKey('8')">8</button>
+                  <button onclick="cqKey('9')">9</button>
+                  <button onclick="cqKey('-')" class="cq-k-op">−</button>
+                  <button onclick="cqKey('4')">4</button>
+                  <button onclick="cqKey('5')">5</button>
+                  <button onclick="cqKey('6')">6</button>
+                  <button onclick="cqKey('+')" class="cq-k-op">+</button>
+                  <button onclick="cqKey('1')">1</button>
+                  <button onclick="cqKey('2')">2</button>
+                  <button onclick="cqKey('3')">3</button>
+                  <button onclick="cqKey('=')" class="cq-k-eq" rowspan="2">=</button>
+                  <button onclick="cqKey('0')" class="cq-k-zero">0</button>
+                  <button onclick="cqKey('.')">.</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="cq-done" id="cq-done" style="display:none;">
+            <div class="cq-done-trophy">🏆</div>
+            <div class="cq-done-msg">다 풀었어요!</div>
+            <div class="cq-done-score">정답 <b id="cq-final-score">0</b> / <b id="cq-final-total">0</b></div>
+            <div class="cq-done-actions">
+              <button class="btn blue" onclick="resetCalcQuiz()">↻ 다시 풀기</button>
+              <button class="btn green" onclick="goto('compare')">다음 ▶</button>
+            </div>
           </div>
         </div>
-        <div class="examples-h3">🌍 우리 주변의 빠르기 (실제 속력)</div>
-        <div class="examples-list">
-          <div class="example-item" onclick="setCalc(14, 10)">
-            <div class="ex-ico">🚶</div>
-            <div class="ex-name">사람 걷기</div>
-            <div class="ex-speed">1.4m/초</div>
-            <div class="ex-kmh">시속 5km</div>
-          </div>
-          <div class="example-item" onclick="setCalc(50, 10)">
-            <div class="ex-ico">🏃</div>
-            <div class="ex-name">학생 달리기</div>
-            <div class="ex-speed">5m/초</div>
-            <div class="ex-kmh">시속 18km</div>
-          </div>
-          <div class="example-item" onclick="setCalc(40, 10)">
-            <div class="ex-ico">🚲</div>
-            <div class="ex-name">자전거</div>
-            <div class="ex-speed">4m/초</div>
-            <div class="ex-kmh">시속 15km</div>
-          </div>
-          <div class="example-item" onclick="setCalc(170, 10)">
-            <div class="ex-ico">🚗</div>
-            <div class="ex-name">자동차(시내)</div>
-            <div class="ex-speed">17m/초</div>
-            <div class="ex-kmh">시속 60km</div>
-          </div>
-          <div class="example-item" onclick="setCalc(833, 10)">
-            <div class="ex-ico">🚄</div>
-            <div class="ex-name">KTX</div>
-            <div class="ex-speed">83m/초</div>
-            <div class="ex-kmh">시속 300km</div>
-          </div>
-          <div class="example-item" onclick="setCalc(2500, 10)">
-            <div class="ex-ico">✈️</div>
-            <div class="ex-name">여객기</div>
-            <div class="ex-speed">250m/초</div>
-            <div class="ex-kmh">시속 900km</div>
-          </div>
-        </div>
-        <div class="calc-tip">💡 카드를 누르면 그 빠르기로 입력돼요. 직접 숫자를 바꿔서 계산해 보세요!</div>
       </div>
       <div class="lesson-bottom">
         <button class="btn small ghost" onclick="goto('speed')">◀ 이전</button>
@@ -1726,12 +2807,15 @@ html, body {
       </div>
       <div class="lesson-content">
         <div class="compare-instruction">
-          세 가지 빠르기를 직접 계산해서 <b>누가 가장 빠른지</b> 알아봐요!
+          세 가지 빠르기를 직접 계산해서 <b>누가 가장 빠른지</b> 알아봐요.
           <span class="small">속력 = 이동 거리 ÷ 걸린 시간</span>
         </div>
         <div class="compare-grid">
-          <div class="compare-card">
-            <div class="cc-ico">🚶</div>
+          <div class="compare-card" data-key="walk">
+            <div class="cc-top">
+              <div class="cc-rank" data-role="rank"></div>
+              <div class="cc-ico">🚶</div>
+            </div>
             <div class="cc-name">걷기</div>
             <div class="cc-data">
               거리 <b>4m</b><br>
@@ -1742,9 +2826,13 @@ html, body {
             </div>
             <button class="btn small green" onclick="checkCompare('walk')">확인</button>
             <div class="cc-feedback" id="cc-walk-fb"></div>
+            <div class="cc-speed-big" id="cc-walk-big"></div>
           </div>
-          <div class="compare-card">
-            <div class="cc-ico">🚲</div>
+          <div class="compare-card" data-key="bike">
+            <div class="cc-top">
+              <div class="cc-rank" data-role="rank"></div>
+              <div class="cc-ico">🚲</div>
+            </div>
             <div class="cc-name">자전거</div>
             <div class="cc-data">
               거리 <b>30m</b><br>
@@ -1755,9 +2843,13 @@ html, body {
             </div>
             <button class="btn small green" onclick="checkCompare('bike')">확인</button>
             <div class="cc-feedback" id="cc-bike-fb"></div>
+            <div class="cc-speed-big" id="cc-bike-big"></div>
           </div>
-          <div class="compare-card">
-            <div class="cc-ico">🚗</div>
+          <div class="compare-card" data-key="car">
+            <div class="cc-top">
+              <div class="cc-rank" data-role="rank"></div>
+              <div class="cc-ico">🚗</div>
+            </div>
             <div class="cc-name">자동차</div>
             <div class="cc-data">
               거리 <b>100m</b><br>
@@ -1768,6 +2860,7 @@ html, body {
             </div>
             <button class="btn small green" onclick="checkCompare('car')">확인</button>
             <div class="cc-feedback" id="cc-car-fb"></div>
+            <div class="cc-speed-big" id="cc-car-big"></div>
           </div>
         </div>
         <div class="compare-rank-area">
@@ -1777,7 +2870,7 @@ html, body {
       </div>
       <div class="lesson-bottom">
         <button class="btn small ghost" onclick="goto('calc')">◀ 이전</button>
-        <button class="btn small green" onclick="goto('safety')">다음 ▶</button>
+        <button class="btn small purple" onclick="goto('quiz')">🏆 마무리 퀴즈 ▶</button>
       </div>
     </section>
 
@@ -1799,10 +2892,29 @@ html, body {
         </div>
         <div class="safety-panel active" data-panel="rules">
           <div class="safety-grid">
-            <div class="safety-item"><div class="s-ico">🚸</div><div class="s-text"><b>횡단보도</b>에서는 일단 멈춰 좌우를 살피고<br>손을 들고 건너요.</div></div>
+            <div class="safety-item"><div class="s-ico">🚸</div><div class="s-text"><b>횡단보도</b>에서는 일단 멈춰 좌우를 살피고 손을 들고 건너요.</div></div>
             <div class="safety-item"><div class="s-ico">🚦</div><div class="s-text"><b>녹색 신호</b>가 켜져도 차가 멈췄는지 확인해요.</div></div>
             <div class="safety-item"><div class="s-ico">📱</div><div class="s-text">길을 건널 때는 <b>스마트폰을 보지 않아요</b>.</div></div>
-            <div class="safety-item"><div class="s-ico">🛑</div><div class="s-text"><b>차도 가까이</b>에서 뛰거나 장난치지 않아요.</div></div>
+            <div class="safety-item">
+              <div class="s-ico">
+                <svg width="56" height="56" viewBox="0 0 64 64">
+                  <rect x="0" y="46" width="64" height="18" fill="#666"/>
+                  <line x1="4" y1="55" x2="14" y2="55" stroke="#fff" stroke-width="2.5"/>
+                  <line x1="22" y1="55" x2="32" y2="55" stroke="#fff" stroke-width="2.5"/>
+                  <line x1="40" y1="55" x2="50" y2="55" stroke="#fff" stroke-width="2.5"/>
+                  <line x1="58" y1="55" x2="64" y2="55" stroke="#fff" stroke-width="2.5"/>
+                  <circle cx="32" cy="14" r="4.5" fill="#5a4020"/>
+                  <rect x="29" y="19" width="6" height="14" rx="2" fill="#d35a17"/>
+                  <line x1="29" y1="22" x2="22" y2="28" stroke="#5a4020" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="35" y1="22" x2="42" y2="16" stroke="#5a4020" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="30" y1="32" x2="26" y2="44" stroke="#5a4020" stroke-width="3" stroke-linecap="round"/>
+                  <line x1="34" y1="32" x2="40" y2="44" stroke="#5a4020" stroke-width="3" stroke-linecap="round"/>
+                  <circle cx="32" cy="28" r="22" fill="none" stroke="#e63946" stroke-width="5" opacity="0.9"/>
+                  <line x1="17" y1="13" x2="47" y2="43" stroke="#e63946" stroke-width="5" opacity="0.9" stroke-linecap="round"/>
+                </svg>
+              </div>
+              <div class="s-text"><b>차도 가까이</b>에서 뛰거나 장난치지 않아요.</div>
+            </div>
             <div class="safety-item"><div class="s-ico">🚗</div><div class="s-text">차 안에서는 <b>안전벨트</b>를 꼭 매요.</div></div>
             <div class="safety-item"><div class="s-ico">🚴</div><div class="s-text">자전거·킥보드 탈 때는 <b>헬멧</b>을 써요.</div></div>
           </div>
@@ -1880,8 +2992,8 @@ html, body {
         </div>
       </div>
       <div class="lesson-bottom">
-        <button class="btn small ghost" onclick="goto('compare')">◀ 이전</button>
-        <button class="btn small purple" onclick="goto('quiz')">🏆 마무리 퀴즈 ▶</button>
+        <button class="btn small ghost" onclick="goto('quiz')">◀ 이전</button>
+        <button class="btn small blue" onclick="goto('menu')">🎉 목차로 가기</button>
       </div>
     </section>
 
@@ -1903,9 +3015,20 @@ html, body {
           <div class="qe-trophy">🏆</div>
           <div class="qe-msg">참 잘했어요!</div>
           <div class="qe-score">점수: <b id="quiz-score">0</b> / 5</div>
-          <div style="display:flex; gap:14px; justify-content:center;">
+          <div style="display:flex; gap:14px; justify-content:center; flex-wrap: wrap;">
             <button class="btn green" onclick="startQuiz()">↻ 다시 풀기</button>
+            <button class="btn purple" onclick="goto('safety')">🚦 속력과 안전 ▶</button>
             <button class="btn blue" onclick="goto('menu')">목차로 가기</button>
+          </div>
+        </div>
+        <div class="quiz-popup" id="quiz-popup">
+          <div class="quiz-popup-inner">
+            <div class="quiz-popup-ico">💡</div>
+            <div class="quiz-popup-title">정답 설명</div>
+            <div class="quiz-popup-q" id="quiz-popup-q"></div>
+            <div class="quiz-popup-correct" id="quiz-popup-correct"></div>
+            <div class="quiz-popup-explain" id="quiz-popup-explain"></div>
+            <button class="btn green big" onclick="closeQuizPopup()">✓ 알겠어요</button>
           </div>
         </div>
       </div>
@@ -1960,10 +3083,16 @@ function goto(name) {
 }
 
 // =============== 운동이란? ===============
+const MOTION_ANIM_MS = 3000;
 let motionPlayed = false;
+let motionAnimDone = false;
+let motionPopupPending = false;
+let motionAnimTimerId = null;
 function playMotion() {
   if (motionPlayed) return;
   motionPlayed = true;
+  motionAnimDone = false;
+  motionPopupPending = false;
   document.getElementById('motion-go-btn').disabled = true;
   const car = document.getElementById('m-car');
   const bird = document.getElementById('m-bird');
@@ -1973,9 +3102,21 @@ function playMotion() {
   bird.style.top = '30px';
   cloud.style.transition = 'left 3s linear';
   cloud.style.left = '340px';
+  if (motionAnimTimerId) clearTimeout(motionAnimTimerId);
+  motionAnimTimerId = setTimeout(() => {
+    motionAnimDone = true;
+    motionAnimTimerId = null;
+    if (motionPopupPending) {
+      motionPopupPending = false;
+      document.getElementById('motion-popup').classList.add('show');
+    }
+  }, MOTION_ANIM_MS);
 }
 function resetMotion() {
   motionPlayed = false;
+  motionAnimDone = false;
+  motionPopupPending = false;
+  if (motionAnimTimerId) { clearTimeout(motionAnimTimerId); motionAnimTimerId = null; }
   document.getElementById('motion-go-btn').disabled = false;
   const car = document.getElementById('m-car');
   const bird = document.getElementById('m-bird');
@@ -1993,7 +3134,12 @@ function resetMotion() {
   document.querySelectorAll('#motion-options .m-opt').forEach(b => {
     b.classList.remove('correct', 'wrong');
   });
-  document.getElementById('motion-result').classList.remove('show');
+  const popup = document.getElementById('motion-popup');
+  if (popup) popup.classList.remove('show');
+}
+function closeMotionPopup() {
+  const popup = document.getElementById('motion-popup');
+  if (popup) popup.classList.remove('show');
 }
 function motionAnswer(btn) {
   const correct = btn.dataset.correct === '1';
@@ -2001,129 +3147,640 @@ function motionAnswer(btn) {
   btn.classList.add(correct ? 'correct' : 'wrong');
   const correctPicked = document.querySelectorAll('#motion-options .m-opt[data-correct="1"].correct').length;
   if (correctPicked >= 2) {
-    document.getElementById('motion-result').classList.add('show');
+    // 자동차·새 이동 애니메이션이 끝난 후에만 팝업 노출
+    if (motionAnimDone) {
+      document.getElementById('motion-popup').classList.add('show');
+    } else {
+      motionPopupPending = true;
+    }
   }
 }
 
-// =============== 같은 시간 비교 ===============
-let t1Active = false;
-const TRACK_RUNNER_LEFT = 130;
-function getTrackInnerWidth(trackEl) {
-  return trackEl.offsetWidth - TRACK_RUNNER_LEFT - 70;
-}
-function startSametime() {
-  if (t1Active) return;
-  t1Active = true;
-  document.getElementById('t1-start-btn').disabled = true;
-  document.getElementById('t1-result').classList.remove('show');
-  // 5초 동안: 학생1 15m, 학생2 20m, 학생3 25m (3, 4, 5 m/s)
-  const trackEl = document.getElementById('t1-track');
-  const trackW = getTrackInnerWidth(trackEl);
-  const racers = [
-    { id: 't1-r1', dist: 0.60, name: '민준', meter: 15, mark: 't1-mark1' },
-    { id: 't1-r2', dist: 0.80, name: '서연', meter: 20, mark: 't1-mark2' },
-    { id: 't1-r3', dist: 1.00, name: '도윤', meter: 25, mark: 't1-mark3' },
-  ];
-  racers.forEach(r => {
-    const el = document.getElementById(r.id);
-    void el.offsetWidth;
-    el.style.transition = 'left 5s linear';
-    el.style.left = (TRACK_RUNNER_LEFT + trackW * r.dist - 24) + 'px';
-    document.getElementById(r.mark).style.left = (TRACK_RUNNER_LEFT + trackW * r.dist) + 'px';
-  });
-  let t = 0;
-  const timerEl = document.getElementById('t1-timer');
-  const intv = setInterval(() => {
-    t += 0.1;
-    timerEl.textContent = t.toFixed(1) + '초';
-    if (t >= 5.0) {
-      clearInterval(intv);
-      timerEl.textContent = '5.0초';
-      racers.forEach(r => document.getElementById(r.mark).classList.add('show'));
-      const sorted = [...racers].sort((a, b) => b.meter - a.meter);
-      document.getElementById('t1-result').innerHTML =
-        `🏆 <b>${sorted[0].name}</b>이(가) 5초 동안 <b>${sorted[0].meter}m</b>로 가장 멀리 갔어요!<br>` +
-        `같은 시간 동안 <b>더 멀리 간 학생</b>이 더 빨라요.`;
-      document.getElementById('t1-result').classList.add('show');
-      t1Active = false;
-    }
-  }, 100);
-}
-function resetSametime() {
-  t1Active = false;
-  document.getElementById('t1-start-btn').disabled = false;
-  ['t1-r1', 't1-r2', 't1-r3'].forEach(id => {
-    const el = document.getElementById(id);
-    el.style.transition = 'none';
-    el.style.left = TRACK_RUNNER_LEFT + 'px';
-  });
-  ['t1-mark1', 't1-mark2', 't1-mark3'].forEach(id => {
-    document.getElementById(id).classList.remove('show');
-  });
-  document.getElementById('t1-timer').textContent = '0.0초';
-  document.getElementById('t1-result').classList.remove('show');
+// =============== 달리기 게임 (실시간 동시 경주) ===============
+// 게임 규칙
+//  - sametime: 10초 동안 스페이스바를 두드려 더 멀리 가는 사람이 1등
+//  - samedist: 50m 까지 스페이스바를 두드려 더 빨리 도착하는 사람이 1등
+// 1 press = 0.8m. 5 presses/sec ≒ 4 m/s ≒ 50m를 ~12초 (5학년 50m 달리기 수준)
+//
+// 두 가지 모드:
+//  - 온라인 모드: myName이 시트의 group에 속해 있으면, 같은 group의 다른 학생들이
+//    각자 자기 기기에서 접속할 때 한 화면에 동시에 표시. Apps Script의 race
+//    엔드포인트(/exec?api=race)에 폴링으로 동기화.
+//  - 로컬 모드: group이 비어 있으면 나 + 컴퓨터(2인). 네트워크 호출 없음.
+
+const GAME_CONFIG = {
+  sametime: { durationMs: 10000, maxDistanceM: 50, metric: 'distance' },
+  samedist: { targetM: 50, maxDistanceM: 50, metric: 'time' }
+};
+const PRESS_METERS = 0.8;          // 스페이스바 한 번 = 0.8m
+const CPU_INTERVAL_BASE_MS = 170;  // 컴퓨터 평균 간격 (밀리초)
+const CPU_INTERVAL_RANGE_MS = 60;  // ±변동폭 → 170~230ms (≒ 5 presses/sec, 4 m/s 부근, 학생과 막상막하)
+
+// 폴링 간격
+const SYNC_LOBBY_MS  = 900;
+const SYNC_LIVE_MS   = 350;
+
+let gameState = null;            // 현재 진행 중인 게임 상태
+let gameKeyHandler = null;
+let gameTapHandler = null;
+const gameTimers = { loop: null, prep: null, cpu: null, sync: null };
+
+// ─────────── 백엔드 URL 결정 ───────────
+function getApiBase() {
+  // 1) URL에 ?api=… 가 있으면 그 URL을 backend로 사용 (다른 선생님의 배포 URL)
+  const urlApi = new URLSearchParams(window.location.search).get('api');
+  if (urlApi) return urlApi;
+  // 2) Apps Script HtmlService로 서빙된 경우 동일 출처
+  if (window.location.host.includes('script.google')) {
+    return window.location.origin + window.location.pathname;
+  }
+  // 3) 로컬 테스트 fallback (학생 명단을 가져오던 URL의 /exec)
+  return 'https://script.google.com/macros/s/AKfycby1475N2ksv-Ef5-iJHRICCm357KNYvyekGZdYDDb-YoJrybSwh3G74qsqce6jl1Q4g/exec';
 }
 
-// =============== 같은 거리 비교 ===============
-let d1Active = false;
-function startSamedist() {
-  if (d1Active) return;
-  d1Active = true;
-  document.getElementById('d1-start-btn').disabled = true;
-  document.getElementById('d1-result').classList.remove('show');
-  const trackEl = document.getElementById('d1-track');
-  const trackW = getTrackInnerWidth(trackEl);
-  // 50m: 학생1 14초, 학생2 12초, 학생3 10초
-  // 애니메이션 시간 압축: 1/2 배속 → 7s, 6s, 5s 표시는 실제 시간
-  const racers = [
-    { id: 'd1-r1', time: 14.0, animTime: 7.0, name: '민준', mark: 'd1-mark1' },
-    { id: 'd1-r2', time: 12.0, animTime: 6.0, name: '서연', mark: 'd1-mark2' },
-    { id: 'd1-r3', time: 10.0, animTime: 5.0, name: '도윤', mark: 'd1-mark3' },
-  ];
-  racers.forEach(r => {
-    const el = document.getElementById(r.id);
-    void el.offsetWidth;
-    el.style.transition = `left ${r.animTime}s linear`;
-    el.style.left = (TRACK_RUNNER_LEFT + trackW - 24) + 'px';
-  });
-  // 표시 시간은 2배속으로 흐르되 라벨은 실제 시간
-  let t = 0; // 가상 시간(실제 50m 달리기 시간)
-  const timerEl = document.getElementById('d1-timer');
-  const arrived = new Set();
-  const intv = setInterval(() => {
-    t += 0.2; // 0.2초씩 (실제는 0.1초마다 호출되지만 가상 시간은 2배)
-    timerEl.textContent = t.toFixed(1) + '초';
-    racers.forEach(r => {
-      if (!arrived.has(r.id) && t >= r.time - 0.1) {
-        arrived.add(r.id);
-        document.getElementById(r.mark).classList.add('show');
-      }
-    });
-    if (t >= 14.0) {
-      clearInterval(intv);
-      timerEl.textContent = '14.0초';
-      const sorted = [...racers].sort((a, b) => a.time - b.time);
-      document.getElementById('d1-result').innerHTML =
-        `🏆 <b>${sorted[0].name}</b>이(가) <b>${sorted[0].time}초</b>로 가장 빨리 도착했어요!<br>` +
-        `같은 거리를 <b>적은 시간</b>에 가는 학생이 더 빨라요.`;
-      document.getElementById('d1-result').classList.add('show');
-      d1Active = false;
-    }
-  }, 100);
+// ─────────── 모드/모둠 판정 ───────────
+function getMyGroup() {
+  if (!myName || !window.__STUDENTS_BY_NAME) return '';
+  const me = window.__STUDENTS_BY_NAME[myName];
+  if (!me || me.group == null) return '';
+  return String(me.group).trim();
 }
-function resetSamedist() {
-  d1Active = false;
-  document.getElementById('d1-start-btn').disabled = false;
-  ['d1-r1', 'd1-r2', 'd1-r3'].forEach(id => {
-    const el = document.getElementById(id);
-    el.style.transition = 'none';
-    el.style.left = TRACK_RUNNER_LEFT + 'px';
+function isOnlineMode() {
+  // 모둠이 지정되어 있으면 온라인 모드(혼자라도 우선 대기 가능)
+  return Boolean(getMyGroup());
+}
+
+// ─────────── 진입점 ───────────
+function resetSametime() { setupGameScreen('sametime'); }
+function resetSamedist() { setupGameScreen('samedist'); }
+
+function setupGameScreen(type) {
+  stopAllGameTimers();
+  gameState = {
+    type,
+    mode: isOnlineMode() ? 'online' : 'local',
+    room: isOnlineMode() ? (getMyGroup() + ':' + type) : null,
+    localDistance: 0,
+    localFinishedAt: null,
+    status: 'lobby',
+    startedAt: null,
+    countdownEndsAt: null,
+    serverOffsetMs: 0,
+    players: {}
+  };
+  setGameStateUI(type, 'intro');
+  if (gameState.mode === 'online') {
+    // 첫 sync로 입장 + 폴링 시작
+    syncOnce().finally(() => startSyncLoop());
+  } else {
+    renderLocalParts();
+  }
+}
+
+// ─────────── 로컬 모드 (혼자 = 컴퓨터와 경주) ───────────
+function renderLocalParts() {
+  const type = gameState.type;
+  const list = $role(type, 'parts');
+  const title = $role(type, 'parts-title');
+  const hint = $role(type, 'parts-hint');
+  const startBtn = $role(type, 'start-btn');
+  if (title) title.textContent = '참가자';
+  if (hint) hint.innerHTML = '시트에 <b>모둠</b>이 지정되면 같은 모둠 친구들과 같이 경주해요. 혼자일 때는 <b>컴퓨터</b>와 경주합니다.';
+  if (startBtn) { startBtn.disabled = false; startBtn.textContent = '▶ 시작'; }
+  if (!list) return;
+  list.innerHTML = '';
+  list.appendChild(makePartChip(myName || '나', { isMe: true }));
+  list.appendChild(makePartChip('컴퓨터', { isComputer: true }));
+}
+
+function startLocalGame(type) {
+  stopAllGameTimers();
+  const now = Date.now();
+  gameState = {
+    type,
+    mode: 'local',
+    room: null,
+    localDistance: 0,
+    localFinishedAt: null,
+    status: 'countdown',
+    startedAt: now + 3000,
+    countdownEndsAt: now + 3000,
+    serverOffsetMs: 0,
+    players: {
+      [myName || '나']: { name: myName || '나', distance: 0, finishedAt: null, isFresh: true, isMe: true, isComputer: false },
+      '컴퓨터':         { name: '컴퓨터',       distance: 0, finishedAt: null, isFresh: true, isMe: false, isComputer: true }
+    }
+  };
+  setGameStateUI(type, 'prep');
+  runCountdownLocally();
+  setTimeout(() => {
+    if (!gameState || gameState.mode !== 'local') return;
+    gameState.status = 'running';
+    setGameStateUI(type, 'play');
+    startLocalPlay();
+  }, 3000);
+}
+
+function startLocalPlay() {
+  installKeyHandler();
+  renderMultiLanes();
+  renderHud();
+  // 컴퓨터 자동 누름 (5학년 학생과 비슷한 속도: 50m를 약 12초)
+  const tickCpu = () => {
+    if (!gameState || gameState.mode !== 'local' || gameState.status !== 'running') return;
+    const cpu = gameState.players['컴퓨터'];
+    if (!cpu) return;
+    cpu.distance += PRESS_METERS;
+    if (gameState.type === 'samedist' && cpu.finishedAt == null && cpu.distance >= GAME_CONFIG.samedist.targetM) {
+      cpu.finishedAt = Math.max(0, Date.now() - gameState.startedAt);
+    }
+    renderMultiLanes('컴퓨터');
+    gameTimers.cpu = setTimeout(tickCpu, CPU_INTERVAL_BASE_MS + Math.random() * CPU_INTERVAL_RANGE_MS);
+  };
+  gameTimers.cpu = setTimeout(tickCpu, CPU_INTERVAL_BASE_MS);
+  // 시간 갱신 + 종료 검사
+  gameTimers.loop = setInterval(() => {
+    if (!gameState) return;
+    renderHud();
+    if (gameState.status !== 'running') return;
+    const elapsed = Date.now() - gameState.startedAt;
+    let ended = false;
+    if (gameState.type === 'sametime' && elapsed >= GAME_CONFIG.sametime.durationMs) ended = true;
+    if (gameState.type === 'samedist') {
+      const all = Object.values(gameState.players);
+      const allFinished = all.length > 0 && all.every(p => p.finishedAt != null);
+      if (allFinished || elapsed >= 30000) ended = true;
+    }
+    if (ended) {
+      gameState.status = 'done';
+      uninstallKeyHandler();
+      clearTimeout(gameTimers.cpu); gameTimers.cpu = null;
+      clearInterval(gameTimers.loop); gameTimers.loop = null;
+      setGameStateUI(gameState.type, 'results');
+      showResultsFromState();
+    }
+  }, 80);
+}
+
+// ─────────── 온라인 모드 ───────────
+async function syncOnce() {
+  if (!gameState || gameState.mode !== 'online') return;
+  try {
+    const resp = await raceCall('sync', {
+      name: myName,
+      distance: gameState.localDistance,
+      finishedAt: gameState.localFinishedAt || 0
+    });
+    if (resp && resp.ok && resp.state) applyServerState(resp.state);
+  } catch (e) { /* 무시: 다음 폴링에서 재시도 */ }
+}
+
+function startSyncLoop() {
+  stopSyncLoop();
+  const tick = async () => {
+    if (!gameState || gameState.mode !== 'online') return;
+    await syncOnce();
+    if (!gameState || gameState.mode !== 'online') return;
+    const live = gameState.status === 'running' || gameState.status === 'countdown';
+    gameTimers.sync = setTimeout(tick, live ? SYNC_LIVE_MS : SYNC_LOBBY_MS);
+  };
+  gameTimers.sync = setTimeout(tick, 0);
+}
+function stopSyncLoop() {
+  if (gameTimers.sync) { clearTimeout(gameTimers.sync); gameTimers.sync = null; }
+}
+
+async function raceCall(action, params) {
+  const base = getApiBase();
+  const url = new URL(base);
+  url.searchParams.set('api', 'race');
+  url.searchParams.set('action', action);
+  url.searchParams.set('room', gameState.room);
+  if (params) {
+    Object.keys(params).forEach(k => {
+      if (params[k] != null && params[k] !== '') url.searchParams.set(k, String(params[k]));
+    });
+  }
+  const res = await fetch(url.toString(), { method: 'GET' });
+  return await res.json();
+}
+
+function applyServerState(state) {
+  if (!gameState) return;
+  const now = Date.now();
+  gameState.serverOffsetMs = (state.serverTime || now) - now;
+  const toLocal = (srv) => srv == null ? null : (srv - gameState.serverOffsetMs);
+
+  const prev = gameState.status;
+  gameState.status = state.status;
+  gameState.startedAt = toLocal(state.startedAt);
+  gameState.countdownEndsAt = toLocal(state.countdownEndsAt);
+
+  // 서버 플레이어 목록과 병합 (내 distance는 로컬을 우선 표시)
+  const merged = {};
+  Object.keys(state.players || {}).forEach(nm => {
+    const sp = state.players[nm];
+    const isMe = (nm === myName);
+    merged[nm] = {
+      name: nm,
+      distance: isMe ? Math.max(sp.distance, gameState.localDistance) : sp.distance,
+      finishedAt: isMe ? (gameState.localFinishedAt != null ? gameState.localFinishedAt : sp.finishedAt) : sp.finishedAt,
+      isFresh: sp.isFresh,
+      isMe,
+      isComputer: false
+    };
   });
-  ['d1-mark1', 'd1-mark2', 'd1-mark3'].forEach(id => {
-    document.getElementById(id).classList.remove('show');
+  // myName이 서버에 아직 등록 안 됐어도 화면엔 보이게
+  if (myName && !merged[myName]) {
+    merged[myName] = {
+      name: myName, distance: gameState.localDistance,
+      finishedAt: gameState.localFinishedAt, isFresh: true, isMe: true, isComputer: false
+    };
+  }
+  gameState.players = merged;
+
+  if (prev !== state.status) onStatusChange(prev, state.status);
+  // 화면 상태에 따라 갱신
+  if (state.status === 'running' || state.status === 'countdown') {
+    renderMultiLanes();
+    renderHud();
+  } else if (state.status === 'lobby') {
+    renderOnlineParts();
+  } else if (state.status === 'done') {
+    showResultsFromState();
+  }
+}
+
+function onStatusChange(prev, next) {
+  if (next === 'countdown') {
+    setGameStateUI(gameState.type, 'prep');
+    runCountdownLocally();
+  } else if (next === 'running') {
+    setGameStateUI(gameState.type, 'play');
+    startOnlinePlay();
+  } else if (next === 'done') {
+    uninstallKeyHandler();
+    if (gameTimers.loop) { clearInterval(gameTimers.loop); gameTimers.loop = null; }
+    setGameStateUI(gameState.type, 'results');
+    showResultsFromState();
+  } else if (next === 'lobby') {
+    uninstallKeyHandler();
+    if (gameTimers.loop) { clearInterval(gameTimers.loop); gameTimers.loop = null; }
+    if (gameTimers.prep) { clearInterval(gameTimers.prep); gameTimers.prep = null; }
+    // 다시 하기 시 거리 초기화
+    gameState.localDistance = 0;
+    gameState.localFinishedAt = null;
+    setGameStateUI(gameState.type, 'intro');
+    renderOnlineParts();
+  }
+}
+
+function renderOnlineParts() {
+  const type = gameState.type;
+  const list = $role(type, 'parts');
+  const title = $role(type, 'parts-title');
+  const hint = $role(type, 'parts-hint');
+  const startBtn = $role(type, 'start-btn');
+  const names = Object.keys(gameState.players);
+  const liveCount = names.filter(n => gameState.players[n].isFresh).length;
+  if (title) title.textContent = `참가자 (${liveCount}명 입장)`;
+  if (hint) hint.innerHTML = '같은 <b>모둠</b> 친구가 입장하면 자동으로 표시돼요. <b>아무나 ▶ 시작</b>을 누르면 모두 같이 출발!';
+  if (startBtn) { startBtn.disabled = false; startBtn.textContent = '▶ 시작 (모두 같이)'; }
+  if (!list) return;
+  list.innerHTML = '';
+  const order = [];
+  if (gameState.players[myName]) order.push(gameState.players[myName]);
+  names.filter(n => n !== myName).forEach(n => order.push(gameState.players[n]));
+  if (myName && !gameState.players[myName]) order.unshift({ name: myName, isMe: true, isFresh: true });
+  order.forEach(p => list.appendChild(makePartChip(p.name, { isMe: p.isMe || p.name === myName, isStale: !p.isFresh })));
+}
+
+function startOnlinePlay() {
+  installKeyHandler();
+  renderMultiLanes();
+  renderHud();
+  // 화면 시간/거리 갱신 루프
+  gameTimers.loop = setInterval(() => {
+    if (!gameState) return;
+    renderHud();
+    if (gameState.status !== 'running' || !gameState.startedAt) return;
+    const elapsed = Date.now() - gameState.startedAt;
+    if (gameState.type === 'sametime' && elapsed >= GAME_CONFIG.sametime.durationMs) {
+      // 입력 차단 (실제 done 전환은 서버 sync에서)
+      uninstallKeyHandler();
+    }
+  }, 80);
+}
+
+// ─────────── 공용: 카운트다운/키 입력/렌더 ───────────
+function runCountdownLocally() {
+  const countEl = $role(gameState.type, 'count');
+  if (!countEl) return;
+  const ends = gameState.countdownEndsAt;
+  if (gameTimers.prep) { clearInterval(gameTimers.prep); gameTimers.prep = null; }
+  const tick = () => {
+    if (!gameState || !ends) { clearInterval(gameTimers.prep); gameTimers.prep = null; return; }
+    const remainMs = ends - Date.now();
+    if (remainMs <= 0) {
+      countEl.textContent = '시작!';
+      countEl.classList.add('go');
+      clearInterval(gameTimers.prep); gameTimers.prep = null;
+      return;
+    }
+    const n = Math.ceil(remainMs / 1000);
+    if (countEl.textContent !== String(n)) {
+      countEl.textContent = String(n);
+      countEl.classList.remove('go');
+      countEl.style.animation = 'none';
+      void countEl.offsetWidth;
+      countEl.style.animation = '';
+    }
+  };
+  tick();
+  gameTimers.prep = setInterval(tick, 100);
+}
+
+function handlePlayerPress() {
+  if (!gameState || gameState.status !== 'running') return;
+  gameState.localDistance += PRESS_METERS;
+  const me = gameState.players[myName] || gameState.players['나'];
+  if (me) me.distance = gameState.localDistance;
+  // samedist 도착 처리
+  if (gameState.type === 'samedist' &&
+      gameState.localFinishedAt == null &&
+      gameState.localDistance >= GAME_CONFIG.samedist.targetM) {
+    gameState.localFinishedAt = Math.max(0, Date.now() - (gameState.startedAt || Date.now()));
+    if (me) me.finishedAt = gameState.localFinishedAt;
+  }
+  renderMultiLanes(myName || '나');
+}
+
+function installKeyHandler() {
+  uninstallKeyHandler();
+  // 키보드 (스페이스바)
+  gameKeyHandler = (e) => {
+    if (e.code !== 'Space' && e.key !== ' ') return;
+    e.preventDefault();
+    if (e.repeat) return;  // 누른 채로 두기 방지
+    handlePlayerPress();
+  };
+  window.addEventListener('keydown', gameKeyHandler);
+  // 터치/마우스 (태블릿·스마트폰·노트북 트랙패드 등): 트랙 자체를 탭 영역으로
+  gameTapHandler = (e) => {
+    e.preventDefault();
+    const el = e.currentTarget;
+    el.classList.add('pressed');
+    setTimeout(() => el.classList.remove('pressed'), 90);
+    handlePlayerPress();
+  };
+  const tapEls = document.querySelectorAll('#screen-' + gameState.type + ' [data-role="multi-track"]');
+  tapEls.forEach(el => el.addEventListener('pointerdown', gameTapHandler));
+}
+function uninstallKeyHandler() {
+  if (gameKeyHandler) { window.removeEventListener('keydown', gameKeyHandler); gameKeyHandler = null; }
+  if (gameTapHandler) {
+    document.querySelectorAll('[data-role="multi-track"]').forEach(el => el.removeEventListener('pointerdown', gameTapHandler));
+    gameTapHandler = null;
+  }
+}
+
+function renderHud() {
+  if (!gameState) return;
+  const timeEl = $role(gameState.type, 'time');
+  if (!timeEl) return;
+  if (gameState.status === 'running' && gameState.startedAt) {
+    const elapsed = Date.now() - gameState.startedAt;
+    if (gameState.type === 'sametime') {
+      const remain = Math.max(0, (GAME_CONFIG.sametime.durationMs - elapsed) / 1000);
+      timeEl.textContent = remain.toFixed(1) + '초';
+    } else {
+      timeEl.textContent = (elapsed / 1000).toFixed(1) + '초';
+    }
+  } else if (gameState.type === 'sametime') {
+    timeEl.textContent = '10.0초';
+  } else {
+    timeEl.textContent = '0.0초';
+  }
+}
+
+function renderMultiLanes(popName) {
+  if (!gameState) return;
+  const type = gameState.type;
+  const container = $role(type, 'multi-track');
+  if (!container) return;
+  const cfg = GAME_CONFIG[type];
+
+  // 정렬: 나 먼저, 그 다음 이름순
+  const names = Object.keys(gameState.players);
+  names.sort((a, b) => (a === myName ? -1 : b === myName ? 1 : a.localeCompare(b)));
+
+  // 기존 레인 재사용
+  const existing = {};
+  Array.from(container.querySelectorAll('.lane')).forEach(l => { existing[l.dataset.name] = l; });
+
+  names.forEach(nm => {
+    const p = gameState.players[nm];
+    let lane = existing[nm];
+    if (!lane) {
+      lane = document.createElement('div');
+      lane.className = 'lane';
+      lane.dataset.name = nm;
+      lane.innerHTML = `
+        <div class="lane-name"></div>
+        <div class="lane-strip">
+          <div class="lane-line"></div>
+          ${type === 'samedist' ? '<div class="lane-finish"></div>' : ''}
+          <div class="lane-runner">🏃</div>
+        </div>
+        <div class="lane-value"></div>
+      `;
+      container.appendChild(lane);
+    }
+    lane.classList.toggle('lane-me', !!p.isMe);
+    lane.classList.toggle('lane-cpu', !!p.isComputer);
+    lane.classList.toggle('finished', p.finishedAt != null);
+    lane.classList.toggle('stale', !p.isFresh);
+
+    const nameEl = lane.querySelector('.lane-name');
+    const valEl  = lane.querySelector('.lane-value');
+    const runner = lane.querySelector('.lane-runner');
+
+    const tag = p.isComputer ? '🤖' : (p.isMe ? '⭐' : '🏃');
+    nameEl.innerHTML = `<span>${tag}</span><span>${nm}</span>`;
+
+    const pct = Math.min(100, (p.distance / cfg.maxDistanceM) * 100);
+    runner.style.left = pct + '%';
+
+    if (type === 'sametime') {
+      valEl.textContent = Math.floor(p.distance) + ' m';
+    } else {
+      if (p.finishedAt != null) {
+        valEl.textContent = '🏁 ' + (p.finishedAt / 1000).toFixed(1) + '초';
+      } else {
+        valEl.textContent = Math.max(0, cfg.targetM - Math.floor(p.distance)) + ' m 남음';
+      }
+    }
+
+    if (popName && nm === popName) {
+      runner.classList.remove('pop');
+      void runner.offsetWidth;
+      runner.classList.add('pop');
+    }
   });
-  document.getElementById('d1-timer').textContent = '0.0초';
-  document.getElementById('d1-result').classList.remove('show');
+
+  // 이전 레인 중 사라진 것 제거
+  Object.keys(existing).forEach(nm => { if (!names.includes(nm)) existing[nm].remove(); });
+}
+
+function showResultsFromState() {
+  const type = gameState.type;
+  const players = Object.values(gameState.players).map(p => ({
+    name: p.name,
+    isMe: p.isMe,
+    isComputer: p.isComputer,
+    isStale: !p.isFresh,
+    value: type === 'sametime' ? p.distance : (p.finishedAt != null ? p.finishedAt / 1000 : null)
+  }));
+  const sorted = [...players].sort((a, b) => {
+    if (type === 'sametime') return (b.value || 0) - (a.value || 0);
+    if (a.value == null) return 1;
+    if (b.value == null) return -1;
+    return a.value - b.value;
+  });
+  const winner = sorted[0];
+  const winEl = $role(type, 'winner');
+  if (winEl) {
+    if (winner && winner.value != null) {
+      const valStr = type === 'sametime' ? Math.floor(winner.value) + 'm' : winner.value.toFixed(1) + '초';
+      const msg = type === 'sametime' ? '같은 10초 동안 가장 멀리 간 친구!' : '같은 50m를 가장 빨리 달린 친구!';
+      winEl.innerHTML = `🥇 <b>${winner.name}</b> (${valStr})<br><span style="font-size:18px; color:#8a6030;">${msg}</span>`;
+    } else {
+      winEl.innerHTML = '결과가 없어요';
+    }
+  }
+  const list = $role(type, 'results');
+  if (list) {
+    list.innerHTML = '';
+    sorted.forEach((r, i) => {
+      const row = document.createElement('div');
+      row.className = 'gr-row rank' + (i + 1);
+      const tag = r.isComputer ? '🤖' : (r.isMe ? '⭐' : '🏃');
+      let valStr = '—';
+      if (r.value != null) valStr = type === 'sametime' ? Math.floor(r.value) + 'm' : r.value.toFixed(1) + '초';
+      row.innerHTML = `<div class="gr-rank">${i + 1}</div><div class="gr-name">${tag} ${r.name}${r.isStale ? ' (이탈)' : ''}</div><div class="gr-value">${valStr}</div>`;
+      list.appendChild(row);
+    });
+  }
+}
+
+// ─────────── 버튼 액션 ───────────
+async function gameStart(type) {
+  if (!gameState) setupGameScreen(type);
+  if (gameState.mode === 'online') {
+    // 서버에 start 요청 → 다음 sync에서 모두에게 카운트다운 전파
+    try { await raceCall('start', { name: myName }); } catch (e) { /* 무시 */ }
+    syncOnce();
+  } else {
+    startLocalGame(type);
+  }
+}
+
+async function gameToSummary() {
+  if (!gameState) return;
+  setGameStateUI(gameState.type, 'summary');
+  // 진입 시 초기 상태: 핵심 개념 미공개, 다음 버튼 비활성
+  const key = $role(gameState.type, 'key');
+  if (key) key.classList.remove('show');
+  const conceptBtn = $role(gameState.type, 'concept-btn');
+  if (conceptBtn) conceptBtn.style.display = '';
+  const nextBtn = $role(gameState.type, 'next-btn');
+  if (nextBtn) nextBtn.disabled = true;
+  renderSummaryRecords();
+}
+
+function gameShowConcept() {
+  if (!gameState) return;
+  const key = $role(gameState.type, 'key');
+  if (key) key.classList.add('show');
+  const conceptBtn = $role(gameState.type, 'concept-btn');
+  if (conceptBtn) conceptBtn.style.display = 'none';
+  const nextBtn = $role(gameState.type, 'next-btn');
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+function renderSummaryRecords() {
+  const type = gameState.type;
+  const container = $role(type, 'summary-records');
+  if (!container) return;
+  const players = Object.values(gameState.players).map(p => ({
+    name: p.name,
+    isMe: p.isMe,
+    isComputer: p.isComputer,
+    isStale: !p.isFresh,
+    value: type === 'sametime' ? p.distance : (p.finishedAt != null ? p.finishedAt / 1000 : null)
+  }));
+  const sorted = [...players].sort((a, b) => {
+    if (type === 'sametime') return (b.value || 0) - (a.value || 0);
+    if (a.value == null) return 1;
+    if (b.value == null) return -1;
+    return a.value - b.value;
+  });
+  container.innerHTML = '';
+  sorted.forEach((r, i) => {
+    const row = document.createElement('div');
+    row.className = 'gs-rec rank' + (i + 1);
+    const tag = r.isComputer ? '🤖' : (r.isMe ? '⭐' : '🏃');
+    let valStr;
+    if (r.value == null) {
+      valStr = '기록 없음';
+    } else if (type === 'sametime') {
+      valStr = '10초 동안 ' + Math.floor(r.value) + 'm';
+    } else {
+      valStr = '50m를 ' + r.value.toFixed(1) + '초에';
+    }
+    row.innerHTML = `<div class="gs-rec-rank">${i + 1}등</div><div class="gs-rec-name">${tag} ${r.name}${r.isStale ? ' (이탈)' : ''}</div><div class="gs-rec-val">${valStr}</div>`;
+    container.appendChild(row);
+  });
+}
+
+async function gameRestart() {
+  if (!gameState) return;
+  const type = gameState.type;
+  if (gameState.mode === 'online') {
+    try { await raceCall('reset', { name: myName }); } catch (e) { /* 무시 */ }
+    setupGameScreen(type);
+  } else {
+    setupGameScreen(type);
+  }
+}
+
+// ─────────── 헬퍼 ───────────
+function makePartChip(name, opt) {
+  const div = document.createElement('div');
+  const cls = opt && opt.isComputer ? 'cpu' : (opt && opt.isMe ? 'me' : '');
+  div.className = 'gi-part ' + cls + (opt && opt.isStale ? ' stale' : '');
+  const ico = opt && opt.isComputer ? '🤖' : (opt && opt.isMe ? '⭐' : '🏃');
+  div.innerHTML = `<span class="gi-part-ico">${ico}</span>${name}${opt && opt.isStale ? ' (이탈)' : ''}`;
+  return div;
+}
+function $role(type, role) {
+  const s = document.getElementById('screen-' + type);
+  return s ? s.querySelector(`[data-role="${role}"]`) : null;
+}
+function setGameStateUI(type, stateName) {
+  const screen = document.getElementById('screen-' + type);
+  if (!screen) return;
+  screen.querySelectorAll('.game-state').forEach(s => s.classList.remove('active'));
+  const t = screen.querySelector('.state-' + stateName);
+  if (t) t.classList.add('active');
+}
+function stopAllGameTimers() {
+  uninstallKeyHandler();
+  stopSyncLoop();
+  ['loop', 'prep'].forEach(k => {
+    if (gameTimers[k]) { clearInterval(gameTimers[k]); gameTimers[k] = null; }
+  });
+  if (gameTimers.cpu) { clearTimeout(gameTimers.cpu); gameTimers.cpu = null; }
 }
 
 // =============== 속력의 비밀 ===============
@@ -2131,11 +3788,70 @@ let speedStep = 0;
 function resetSpeed() {
   speedStep = 0;
   updateSpeedStep();
-  document.querySelectorAll('#speed-think-options .speed-think-opt').forEach(o => {
-    o.classList.remove('wrong', 'right');
+  // 생각해 보기 영역 초기화
+  const input = document.getElementById('speed-think-input');
+  if (input) input.value = '';
+  const submitBtn = document.getElementById('speed-think-submit-btn');
+  if (submitBtn) submitBtn.disabled = true;
+  const writeEl = document.getElementById('speed-think-write');
+  if (writeEl) writeEl.style.display = '';
+  const explEl = document.getElementById('speed-think-explanation');
+  if (explEl) explEl.style.display = 'none';
+  const nav1 = document.getElementById('speed-step1-nav');
+  if (nav1) nav1.style.visibility = 'hidden';
+  // step 2 친구 속력 계산 초기화
+  document.querySelectorAll('.scc-card').forEach(card => {
+    card.classList.remove('correct', 'wrong');
+    const inp = card.querySelector('.scc-input');
+    if (inp) inp.value = '';
+    const fb = card.querySelector('.scc-feedback');
+    if (fb) fb.textContent = '';
   });
-  document.getElementById('speed-think-feedback').textContent = '';
-  document.getElementById('speed-step1-nav').style.visibility = 'hidden';
+  const s2pop = document.getElementById('speed-step2-popup');
+  if (s2pop) s2pop.classList.remove('show');
+  const s2nav = document.getElementById('speed-step2-nav');
+  if (s2nav) s2nav.style.visibility = 'hidden';
+}
+function closeStep2Popup() {
+  const p = document.getElementById('speed-step2-popup');
+  if (p) p.classList.remove('show');
+}
+
+function checkSpeedCalc(btn) {
+  const card = btn.closest('.scc-card');
+  if (!card) return;
+  if (card.classList.contains('correct')) return;
+  const input = card.querySelector('.scc-input');
+  const fb = card.querySelector('.scc-feedback');
+  const target = Number(card.dataset.correct);
+  const val = Number(input.value);
+  if (!Number.isFinite(val) || input.value === '') {
+    card.classList.remove('correct');
+    card.classList.add('wrong');
+    fb.textContent = '숫자를 입력해 주세요.';
+    return;
+  }
+  if (Math.abs(val - target) < 0.01) {
+    card.classList.remove('wrong');
+    card.classList.add('correct');
+    fb.textContent = '✓ 정답이에요! 1초당 ' + target + 'm';
+    // 모두 맞췄으면 요약 + 다음 버튼 표시
+    const all = document.querySelectorAll('.scc-card');
+    const ok = document.querySelectorAll('.scc-card.correct');
+    if (all.length > 0 && ok.length === all.length) {
+      const s2pop = document.getElementById('speed-step2-popup');
+      if (s2pop) {
+        s2pop.classList.remove('show');
+        void s2pop.offsetWidth;
+        s2pop.classList.add('show');
+      }
+      const s2nav = document.getElementById('speed-step2-nav');
+      if (s2nav) s2nav.style.visibility = 'visible';
+    }
+  } else {
+    card.classList.add('wrong');
+    fb.textContent = '✗ 다시 계산해 보세요.';
+  }
 }
 function updateSpeedStep() {
   document.querySelectorAll('.speed-step').forEach((s, i) => {
@@ -2144,37 +3860,243 @@ function updateSpeedStep() {
 }
 function speedNextStep() { if (speedStep < 3) { speedStep++; updateSpeedStep(); } }
 function speedPrevStep() { if (speedStep > 0) { speedStep--; updateSpeedStep(); } }
-function speedThink(el, idx) {
-  if (el.classList.contains('right')) return;
-  const fb = document.getElementById('speed-think-feedback');
-  if (idx === 0) {
-    el.classList.add('wrong');
-    fb.innerHTML = '<span class="speed-feedback-bad">❌ 시간이 다 다른데 거리만 비교할 수는 없어요.</span>';
-  } else if (idx === 1) {
-    el.classList.add('wrong');
-    fb.innerHTML = '<span class="speed-feedback-bad">❌ 거리가 다 다른데 시간만 비교할 수는 없어요.</span>';
-  } else {
-    document.querySelectorAll('#speed-think-options .speed-think-opt').forEach(o => o.classList.remove('wrong'));
-    el.classList.add('right');
-    fb.innerHTML = '<span class="speed-feedback-good">✨ 좋아요! 1초 동안 간 거리로 비교하면 한눈에 알 수 있어요.</span>';
-    document.getElementById('speed-step1-nav').style.visibility = 'visible';
+
+function speedThinkInputChanged() {
+  const input = document.getElementById('speed-think-input');
+  const submitBtn = document.getElementById('speed-think-submit-btn');
+  if (input && submitBtn) {
+    submitBtn.disabled = input.value.trim().length === 0;
   }
 }
 
-// =============== 속력 계산기 ===============
+function speedSubmitThink() {
+  const input = document.getElementById('speed-think-input');
+  if (!input || !input.value.trim()) return;
+  document.getElementById('speed-think-write').style.display = 'none';
+  document.getElementById('speed-think-my-text').textContent = input.value.trim();
+  document.getElementById('speed-think-explanation').style.display = '';
+  document.getElementById('speed-step1-nav').style.visibility = 'visible';
+}
+
+// =============== 속력 계산하기 (3 탭) ===============
 function calcSpeed() {
-  const d = parseFloat(document.getElementById('calc-dist').value) || 0;
-  const t = parseFloat(document.getElementById('calc-time').value) || 1;
-  const v = d / t;
-  document.getElementById('calc-out').textContent = (Math.round(v * 100) / 100);
+  // 진입 시 초기화 (resetSpeed 비슷한 역할)
+  setCalcTab('A');
+  updateCalcA();
+  updateCalcB();
+  const accA = document.getElementById('calcA-acc');
+  if (accA) accA.innerHTML = '';
+  const accB = document.getElementById('calcB-acc');
+  if (accB) accB.innerHTML = '';
+  resetCalcQuiz();
 }
-function setCalc(d, t) {
-  document.getElementById('calc-dist').value = d;
-  document.getElementById('calc-time').value = t;
-  calcSpeed();
+function setCalcTab(tab) {
+  document.querySelectorAll('#screen-calc .calc-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.tab === tab);
+  });
+  document.querySelectorAll('#screen-calc .calc-panel').forEach(p => {
+    p.classList.toggle('active', p.dataset.panel === tab);
+  });
 }
-document.getElementById('calc-dist').addEventListener('input', calcSpeed);
-document.getElementById('calc-time').addEventListener('input', calcSpeed);
+
+// 탭 A: 거리 50m 고정, 시간 입력 → 속력
+function updateCalcA() {
+  const t = parseFloat(document.getElementById('calcA-time').value);
+  const out = document.getElementById('calcA-out');
+  if (!Number.isFinite(t) || t <= 0) { out.textContent = '?'; return; }
+  const v = 50 / t;
+  out.textContent = Math.round(v * 100) / 100;
+}
+function setCalcATime(v) {
+  document.getElementById('calcA-time').value = v;
+  updateCalcA();
+  addCalcAccLine('A', '50m ÷ ' + v + '초 = ' + (Math.round((50 / v) * 100) / 100) + ' m/초', v);
+}
+
+// 탭 B: 시간 10초 고정, 거리 입력 → 속력
+function updateCalcB() {
+  const d = parseFloat(document.getElementById('calcB-dist').value);
+  const out = document.getElementById('calcB-out');
+  if (!Number.isFinite(d) || d < 0) { out.textContent = '?'; return; }
+  const v = d / 10;
+  out.textContent = Math.round(v * 100) / 100;
+}
+function setCalcBDist(v) {
+  document.getElementById('calcB-dist').value = v;
+  updateCalcB();
+  addCalcAccLine('B', v + 'm ÷ 10초 = ' + (Math.round((v / 10) * 100) / 100) + ' m/초', v);
+}
+
+function addCalcAccLine(tab, text, key) {
+  const container = document.getElementById('calc' + tab + '-acc');
+  if (!container) return;
+  // 같은 값(같은 버튼 클릭)이 이미 있으면 중복 추가하지 않음
+  const existing = container.querySelectorAll('[data-key]');
+  for (const el of existing) {
+    if (el.dataset.key === String(key)) return;
+  }
+  const line = document.createElement('div');
+  line.className = 'calc-acc-line';
+  line.dataset.key = String(key);
+  // 마지막 결과 부분을 <b>로 강조
+  const parts = text.split(' = ');
+  line.innerHTML = parts[0] + ' = <b>' + parts[1] + '</b>';
+  container.appendChild(line);
+}
+
+// 탭 C: 연습 문제 (20문제 풀, 5/10/15 선택해서 무작위)
+const CALC_QUIZ_POOL = [
+  { name: '민준', dist: 100, time: 20 },
+  { name: '서연', dist: 60,  time: 10 },
+  { name: '도윤', dist: 80,  time: 20 },
+  { name: '지우', dist: 30,  time: 5 },
+  { name: '하준', dist: 90,  time: 15 },
+  { name: '은우', dist: 120, time: 24 },
+  { name: '유나', dist: 200, time: 25 },
+  { name: '시우', dist: 70,  time: 10 },
+  { name: '예린', dist: 60,  time: 12 },
+  { name: '민서', dist: 80,  time: 8 },
+  { name: '윤서', dist: 45,  time: 9 },
+  { name: '소율', dist: 140, time: 20 },
+  { name: '채원', dist: 100, time: 25 },
+  { name: '다은', dist: 120, time: 30 },
+  { name: '가람', dist: 90,  time: 30 },
+  { name: '라온', dist: 50,  time: 25 },
+  { name: '시안', dist: 100, time: 10 },
+  { name: '한결', dist: 240, time: 30 },
+  { name: '보검', dist: 60,  time: 20 },
+  { name: '다영', dist: 80,  time: 10 }
+];
+
+let calcQuiz = null;  // { questions: [], idx, score, total }
+
+function startCalcQuiz(total) {
+  // 풀에서 total개 무작위 추출
+  const pool = [...CALC_QUIZ_POOL];
+  // shuffle
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  calcQuiz = {
+    questions: pool.slice(0, total),
+    idx: 0,
+    score: 0,
+    total
+  };
+  document.getElementById('cq-setup').style.display = 'none';
+  document.getElementById('cq-done').style.display = 'none';
+  document.getElementById('cq-play').style.display = '';
+  document.getElementById('cq-score-num').textContent = '0';
+  cqClearCalcDisplay();
+  renderCalcQuiz();
+}
+
+function renderCalcQuiz() {
+  if (!calcQuiz) return;
+  const q = calcQuiz.questions[calcQuiz.idx];
+  document.getElementById('cq-progress').textContent = (calcQuiz.idx + 1) + ' / ' + calcQuiz.total;
+  document.getElementById('cq-q-text').innerHTML =
+    `<b>${q.name}</b>이(가) <b>${q.dist}m</b>를 <b>${q.time}초</b>에 달렸어요. 속력은 몇 m/초일까요?`;
+  // 식의 세 칸을 모두 비워서 학생이 직접 입력하게
+  document.getElementById('cq-eq-d-input').value = '';
+  document.getElementById('cq-eq-t-input').value = '';
+  document.getElementById('cq-answer').value = '';
+  document.getElementById('cq-feedback').textContent = '';
+  document.getElementById('cq-feedback').className = 'cq-feedback';
+  document.getElementById('cq-submit-btn').style.display = '';
+  document.getElementById('cq-next-btn').style.display = 'none';
+  cqClearCalcDisplay();
+  document.getElementById('cq-eq-d-input').focus();
+}
+
+function submitCalcQuiz() {
+  if (!calcQuiz) return;
+  const q = calcQuiz.questions[calcQuiz.idx];
+  const dIn = parseFloat(document.getElementById('cq-eq-d-input').value);
+  const tIn = parseFloat(document.getElementById('cq-eq-t-input').value);
+  const ans = parseFloat(document.getElementById('cq-answer').value);
+  const fb = document.getElementById('cq-feedback');
+  // 세 칸을 모두 채웠는지 확인
+  if (!Number.isFinite(dIn) || !Number.isFinite(tIn) || !Number.isFinite(ans)) {
+    fb.textContent = '세 칸을 모두 채워 주세요.';
+    fb.className = 'cq-feedback no';
+    return;
+  }
+  // 거리·시간이 문제와 다르면 안내
+  if (Math.abs(dIn - q.dist) > 0.01 || Math.abs(tIn - q.time) > 0.01) {
+    fb.textContent = '문제를 다시 읽어 봐요. 거리와 시간이 달라요.';
+    fb.className = 'cq-feedback no';
+    return;
+  }
+  const correct = q.dist / q.time;
+  if (Math.abs(ans - correct) < 0.05) {
+    fb.textContent = '✓ 정답이에요! ' + (Math.round(correct * 100) / 100) + ' m/초';
+    fb.className = 'cq-feedback ok';
+    calcQuiz.score += 1;
+    document.getElementById('cq-score-num').textContent = calcQuiz.score;
+  } else {
+    fb.textContent = '✗ 정답은 ' + (Math.round(correct * 100) / 100) + ' m/초예요.';
+    fb.className = 'cq-feedback no';
+  }
+  document.getElementById('cq-submit-btn').style.display = 'none';
+  document.getElementById('cq-next-btn').style.display = '';
+}
+
+function nextCalcQuiz() {
+  if (!calcQuiz) return;
+  calcQuiz.idx += 1;
+  if (calcQuiz.idx >= calcQuiz.total) {
+    finishCalcQuiz();
+  } else {
+    renderCalcQuiz();
+  }
+}
+
+function finishCalcQuiz() {
+  document.getElementById('cq-play').style.display = 'none';
+  document.getElementById('cq-done').style.display = '';
+  document.getElementById('cq-final-score').textContent = calcQuiz.score;
+  document.getElementById('cq-final-total').textContent = calcQuiz.total;
+}
+
+function resetCalcQuiz() {
+  calcQuiz = null;
+  document.getElementById('cq-setup').style.display = '';
+  document.getElementById('cq-play').style.display = 'none';
+  document.getElementById('cq-done').style.display = 'none';
+}
+
+// 간단한 계산기 (= 누를 때만 평가)
+let cqCalcExpr = '';
+function cqKey(k) {
+  const display = document.getElementById('cq-calc-display');
+  if (!display) return;
+  if (k === 'C') {
+    cqCalcExpr = '';
+  } else if (k === '←') {
+    cqCalcExpr = cqCalcExpr.slice(0, -1);
+  } else if (k === '=') {
+    if (cqCalcExpr) {
+      const val = cqEval(cqCalcExpr);
+      cqCalcExpr = val == null ? '' : String(Math.round(val * 1000) / 1000);
+    }
+  } else {
+    cqCalcExpr += k;
+  }
+  display.textContent = cqCalcExpr || '0';
+}
+function cqClearCalcDisplay() {
+  cqCalcExpr = '';
+  const display = document.getElementById('cq-calc-display');
+  if (display) display.textContent = '0';
+}
+function cqEval(expr) {
+  const e = expr.replace(/×/g, '*').replace(/÷/g, '/');
+  if (!/^[0-9+\-*/.\s]+$/.test(e)) return null;
+  try { return Function('"use strict"; return (' + e + ')')(); }
+  catch (err) { return null; }
+}
 
 // =============== 속력 비교 연습 ===============
 const compareData = {
@@ -2194,6 +4116,13 @@ function resetCompare() {
     }
     const fb = document.getElementById('cc-' + id + '-fb');
     if (fb) fb.innerHTML = '';
+    const big = document.getElementById('cc-' + id + '-big');
+    if (big) { big.classList.remove('show'); big.innerHTML = ''; }
+    const card = document.querySelector('.compare-card[data-key="' + id + '"]');
+    if (card) {
+      const rank = card.querySelector('[data-role="rank"]');
+      if (rank) { rank.classList.remove('show', 'rank1', 'rank2', 'rank3'); rank.textContent = ''; }
+    }
   });
   const rb = document.getElementById('compare-rank-btn');
   if (rb) rb.disabled = true;
@@ -2217,7 +4146,13 @@ function checkCompare(id) {
   if (Math.abs(val - data.speed) < 0.01) {
     compareCorrect[id] = true;
     card.classList.add('correct');
-    fb.innerHTML = '✅ 정답! <b>' + data.speed + ' m/초</b>';
+    fb.innerHTML = '✅ 정답!';
+    // 아래쪽에 큰 글씨로 속력 표시
+    const big = document.getElementById('cc-' + id + '-big');
+    if (big) {
+      big.innerHTML = data.speed + '<span class="unit">m/초</span>';
+      big.classList.add('show');
+    }
     if (compareCorrect.walk && compareCorrect.bike && compareCorrect.car) {
       document.getElementById('compare-rank-btn').disabled = false;
     }
@@ -2228,12 +4163,27 @@ function checkCompare(id) {
 
 function showCompareRank() {
   const sorted = Object.entries(compareData).sort((a, b) => b[1].speed - a[1].speed);
-  let html = '<div class="rank-title">🏆 빠른 순서</div>';
-  sorted.forEach(([id, d], idx) => {
-    html += `<div class="rank-row">${idx + 1}위. ${d.icon} ${d.name} — <b>${d.speed} m/초</b></div>`;
+  // 위쪽 그림 영역(.cc-top)의 cc-rank에 순위 배지 표시
+  sorted.forEach(([id], idx) => {
+    const card = document.querySelector('.compare-card[data-key="' + id + '"]');
+    if (!card) return;
+    const rank = card.querySelector('[data-role="rank"]');
+    if (rank) {
+      rank.classList.remove('rank1', 'rank2', 'rank3');
+      rank.classList.add('rank' + (idx + 1));
+      rank.textContent = (idx + 1) + '등';
+      // 재트리거 애니메이션
+      rank.classList.remove('show');
+      void rank.offsetWidth;
+      rank.classList.add('show');
+    }
   });
-  document.getElementById('compare-result').innerHTML = html;
-  document.getElementById('compare-result').classList.add('show');
+  // 아래 결과 영역에는 간단한 요약 (가장 빠른 항목 표시)
+  const top = sorted[0];
+  const html = '🏆 가장 빠른 것: <b>' + top[1].icon + ' ' + top[1].name + '</b> (' + top[1].speed + ' m/초)';
+  const res = document.getElementById('compare-result');
+  res.innerHTML = html;
+  res.classList.add('show');
 }
 
 // =============== 안전 탭 ===============
@@ -2247,37 +4197,46 @@ const quizData = [
   {
     q: '운동하는 물체의 공통점은 무엇일까요?',
     opts: ['크기가 변한다', '시간이 지나면 위치가 변한다', '색깔이 변한다', '소리가 커진다'],
-    ans: 1
+    ans: 1,
+    explanation: '운동이란 시간이 지나면서 물체의 위치가 변하는 것이에요. 크기·색깔·소리가 변하는 것은 운동이 아니에요.'
   },
   {
     q: '같은 시간 동안 달렸을 때 가장 빠른 학생은?',
     opts: ['더 적게 간 학생', '더 멀리 간 학생', '더 천천히 간 학생', '제자리에 있는 학생'],
-    ans: 1
+    ans: 1,
+    explanation: '같은 시간 동안 달렸다면 더 멀리 간 친구가 더 빨라요. 짧은 시간에 더 많이 이동했기 때문이에요.'
   },
   {
     q: '같은 거리를 갈 때 가장 빠른 학생은?',
     opts: ['시간이 가장 오래 걸린 학생', '시간이 가장 적게 걸린 학생', '키가 큰 학생', '나이 많은 학생'],
-    ans: 1
+    ans: 1,
+    explanation: '같은 거리라면 시간이 적게 걸린 친구가 더 빨라요. 같은 길을 더 빨리 갔다는 뜻이에요.'
   },
   {
     q: '거리도 시간도 다른 두 학생의 빠르기는 어떻게 비교할까요?',
     opts: ['거리만 비교한다', '시간만 비교한다', '1초 동안 간 거리(속력)로 비교한다', '비교할 수 없다'],
-    ans: 2
+    ans: 2,
+    explanation: '거리도 시간도 다를 때는 똑같은 기준이 필요해요. 1초 동안 간 거리, 즉 속력으로 바꾸면 누가 더 빠른지 한눈에 알 수 있어요.'
   },
   {
     q: '속력과 관련된 안전장치가 아닌 것은?',
     opts: ['안전벨트', '에어백', '과속 방지턱', '냉장고'],
-    ans: 3
+    ans: 3,
+    explanation: '안전벨트, 에어백, 과속 방지턱은 모두 빠른 속력으로 일어날 수 있는 사고를 막아 줘요. 냉장고는 음식을 차게 보관하는 도구로 속력과 관련이 없어요.'
   },
 ];
-let qIdx = 0, qScore = 0;
+let qIdx = 0, qScore = 0, qWrongCount = 0;
+
 function startQuiz() {
-  qIdx = 0; qScore = 0;
+  qIdx = 0; qScore = 0; qWrongCount = 0;
   document.getElementById('quiz-area').style.display = 'block';
   document.getElementById('quiz-end').style.display = 'none';
+  const popup = document.getElementById('quiz-popup');
+  if (popup) popup.classList.remove('show');
   showQuestion();
 }
 function showQuestion() {
+  qWrongCount = 0;
   const q = quizData[qIdx];
   document.getElementById('quiz-q').textContent = `${qIdx + 1}. ${q.q}`;
   const opts = document.getElementById('quiz-opts');
@@ -2294,36 +4253,65 @@ function showQuestion() {
 }
 function answerQuiz(i, el) {
   const q = quizData[qIdx];
-  const opts = document.querySelectorAll('.quiz-opt');
-  opts.forEach((o, idx) => {
-    o.onclick = null;
-    if (idx === q.ans) o.classList.add('correct');
-    if (idx === i && i !== q.ans) o.classList.add('wrong');
-  });
   if (i === q.ans) {
-    qScore++;
+    // 정답: 처음 시도에 맞췄을 때만 점수 +1
+    el.classList.add('correct');
+    document.querySelectorAll('.quiz-opt').forEach(o => {
+      o.onclick = null;
+      o.classList.add('disabled');
+    });
+    el.classList.remove('disabled');
+    if (qWrongCount === 0) qScore++;
     document.getElementById('quiz-fb').innerHTML = '✅ <b style="color:#5fc46b">정답이에요!</b>';
-  } else {
-    document.getElementById('quiz-fb').innerHTML = '❌ <b style="color:#ff5252">아쉬워요!</b> 정답을 확인해 보세요.';
+    setTimeout(advanceQuiz, 1200);
+    return;
   }
-  setTimeout(() => {
-    qIdx++;
-    if (qIdx >= quizData.length) {
-      document.getElementById('quiz-bar').style.width = '100%';
-      document.getElementById('quiz-area').style.display = 'none';
-      document.getElementById('quiz-end').style.display = 'block';
-      document.getElementById('quiz-score').textContent = qScore;
-    } else {
-      showQuestion();
-    }
-  }, 1500);
+  // 오답
+  qWrongCount++;
+  el.classList.add('wrong');
+  el.onclick = null;
+  el.classList.add('disabled');
+  if (qWrongCount >= 2) {
+    // 두 번 틀림 → 정답 강조 + 설명 팝업
+    document.querySelectorAll('.quiz-opt').forEach((o, idx) => {
+      o.onclick = null;
+      o.classList.add('disabled');
+      if (idx === q.ans) o.classList.add('correct');
+    });
+    document.getElementById('quiz-fb').innerHTML = '❌ <b style="color:#ff5252">아쉬워요.</b> 정답 설명을 확인해 봐요.';
+    showQuizExplanation(q);
+  } else {
+    // 한 번 틀림 → 다시 풀어 보도록
+    document.getElementById('quiz-fb').innerHTML = '❌ <b style="color:#ff5252">다시 한 번 풀어 봐요!</b>';
+  }
+}
+function advanceQuiz() {
+  qIdx++;
+  if (qIdx >= quizData.length) {
+    document.getElementById('quiz-bar').style.width = '100%';
+    document.getElementById('quiz-area').style.display = 'none';
+    document.getElementById('quiz-end').style.display = 'block';
+    document.getElementById('quiz-score').textContent = qScore;
+  } else {
+    showQuestion();
+  }
+}
+function showQuizExplanation(q) {
+  document.getElementById('quiz-popup-q').textContent = q.q;
+  document.getElementById('quiz-popup-correct').textContent = '✓ 정답: ' + q.opts[q.ans];
+  document.getElementById('quiz-popup-explain').textContent = q.explanation;
+  document.getElementById('quiz-popup').classList.add('show');
+}
+function closeQuizPopup() {
+  document.getElementById('quiz-popup').classList.remove('show');
+  advanceQuiz();
 }
 
 // =============== Google Sheets 연동 (Apps Script) ===============
 // 시트의 학생 명단을 받아 타이틀 화면의 입장 드롭다운에 채웁니다.
 // 학생이 자기 이름을 선택하면 환영 인사가 나타납니다.
 // (학습 내용에 등장하는 인물 이름은 별도로 고정되어 있어요.)
-const SHEETS_API_URL = 'https://script.google.com/macros/s/AKfycby1475N2ksv-Ef5-iJHRICCm357KNYvyekGZdYDDb-YoJrybSwh3G74qsqce6jl1Q4g/exec?api=students';
+// 백엔드 URL은 getApiBase()가 결정 (URL의 ?api=…, Apps Script 동일 출처, 또는 fallback).
 
 let myName = '';
 
@@ -2333,19 +4321,16 @@ function setSelectorState(text) {
 }
 
 async function loadStudentList() {
-  // ① 서버에서 미리 주입된 데이터가 있으면 즉시 사용 (Apps Script 배포 환경)
+  // ① 서버에서 미리 주입된 데이터가 있으면 즉시 사용 (Apps Script HtmlService 배포)
   const pre = window.__PRELOADED_STUDENTS;
   if (pre && pre.ok && Array.isArray(pre.students) && pre.students.length > 0) {
     populateNameDropdown(pre.students);
     return;
   }
-  // ② 프리로드가 없으면 기존 방식대로 fetch (로컬 테스트 등)
-  if (!SHEETS_API_URL) {
-    setSelectorState('URL이 설정되지 않았어요');
-    return;
-  }
+  // ② 프리로드가 없으면 fetch (로컬 테스트 / GitHub Pages 호스팅 등)
+  const url = getApiBase() + '?api=students';
   try {
-    const res = await fetch(SHEETS_API_URL);
+    const res = await fetch(url);
     const text = await res.text();
     let data;
     try {
@@ -2371,6 +4356,14 @@ function populateNameDropdown(list) {
   const sel = document.getElementById('student-name-select');
   const greeting = document.getElementById('title-greeting');
   if (!sel) return;
+
+  // 게임에서 모둠을 참조할 수 있도록 전체 명단을 보관
+  window.__STUDENTS_LIST = list;
+  window.__STUDENTS_BY_NAME = {};
+  list.forEach(s => {
+    const nm = s.name ? String(s.name).trim() : '';
+    if (nm) window.__STUDENTS_BY_NAME[nm] = s;
+  });
 
   sel.innerHTML = '<option value="">이름을 선택해 주세요</option>';
   list.forEach(s => {
