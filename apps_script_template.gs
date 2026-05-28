@@ -1,5 +1,5 @@
 /**
- * 속력의 숲 — Apps Script 백엔드 템플릿
+ * 누가 가장 빠를까? — Apps Script 백엔드 템플릿
  *
  * 역할:
  *  1) 학생 명단(이름·번호·모둠) 시트를 읽어 JSON으로 제공
@@ -42,7 +42,7 @@ function doGet(e) {
   const tmpl = HtmlService.createTemplateFromFile('index');
   tmpl.preloadedJson = JSON.stringify({ ok: true, students: loadStudents_() });
   return tmpl.evaluate()
-    .setTitle('속력의 숲')
+    .setTitle('누가 가장 빠를까?')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1.0');
 }
 
@@ -145,7 +145,8 @@ function handleRace_(p) {
             state = makeFreshState_(state);
           }
           state.status = 'countdown';
-          state.countdownEndsAt = now + 3000;
+          // 1초 "준비!" 표시 + 3초 카운트다운 = 총 4초
+          state.countdownEndsAt = now + 4000;
           state.startedAt = state.countdownEndsAt;   // 진짜 시작은 카운트다운 끝
         }
         break;
